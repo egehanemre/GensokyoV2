@@ -1,10 +1,5 @@
 using UnityEngine;
 
-public class Spearman : Enemy
+public class Spearman
 {
-    protected override void Awake()
-    {
-        Debug.Log("Spearman Awake Called");
-        base.Awake();
-    }
 }

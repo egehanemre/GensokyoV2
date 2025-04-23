@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class WeaponHitbox : MonoBehaviour
 {
-    [SerializeField] private float damageAmount = 10f; 
+    [SerializeField] private float damageAmount = 10f;
 
-    private bool isActive = false; 
+    private bool isActive = false;
 
     public void ActivateHitbox()
     {
@@ -19,18 +19,13 @@ public class WeaponHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isActive) return; 
+        if (!isActive) return;
 
-        if (other.TryGetComponent<Enemy>(out Enemy enemy))
+        if (other.TryGetComponent<HealthComponent>(out HealthComponent healthComponent))
         {
-            Vector3 hitDirection = (enemy.transform.position - transform.position).normalized;
+            healthComponent.TakeDamage(damageAmount);
 
-            enemy.TakeDamage(damageAmount);
-
-            Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
-
-            Debug.Log($"{gameObject.name} hit {enemy.gameObject.name} for {damageAmount} damage.");
+            Debug.Log($"{gameObject.name} hit {other.gameObject.name} for {damageAmount} damage.");
         }
     }
 }
-

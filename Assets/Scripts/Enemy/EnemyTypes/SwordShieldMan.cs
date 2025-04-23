@@ -1,10 +1,6 @@
 using UnityEngine;
 
-public class SwordShieldMan : Enemy
+public class SwordShieldMan
 {
-    protected override void Awake()
-    {
-        Debug.Log("SwordShieldMan Awake Called");
-        base.Awake();
-    }
+
 }
