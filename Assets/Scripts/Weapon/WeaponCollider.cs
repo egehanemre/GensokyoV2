@@ -16,7 +16,6 @@ public class WeaponCollider : MonoBehaviour
             if (targetFairy != null && targetFairy != ownerFairy)
             {
                 float damage = ownerFairy.fairyCurrentStats.attackDamage;
-                targetFairy.fairyCurrentStats.currentHealth -= damage;
 
                 targetFairy.GetComponent<CombatManager>().DisableWeaponCollider();
 

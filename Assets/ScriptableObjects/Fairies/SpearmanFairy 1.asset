@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd6d1b6ed8521242a1f88b7377edb30, type: 3}
   m_Name: SpearmanFairy 1
   m_EditorClassIdentifier: 
-  maxHealth: 75
+  maxHealth: 150
   moveSpeed: 0.9
   defense: 15
