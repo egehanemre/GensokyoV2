@@ -5,8 +5,9 @@
 
     public class Fairy : MonoBehaviour
     {
-        public FairyType fairyType; // For melee or ranged
-        public Transform bowPosition; // For ranged weapons
+        public FairyType fairyType; 
+        public FairyBehavior fairyBehavior;
+        public Transform bowPosition; 
         public TextMeshProUGUI fairyHP;
         public FairyStatsSO fairyStatsBase;
         public WeaponDataSO weaponDataSO;
@@ -17,7 +18,8 @@
         private Animator animator;
         private Rigidbody rb;
         private bool isDead = false;
-        private void Awake()
+        private bool isBlocking = false; 
+    private void Awake()
         {
             InitializeFairy();
             animator = GetComponent<Animator>();
@@ -47,7 +49,6 @@
                 weaponMeshFilter.mesh = weaponData.weaponMesh;
             }
         }
-
         public float stunEndTime = 0f;
         public bool IsStunned => Time.time < stunEndTime;
         public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce)
@@ -66,7 +67,6 @@
                 knockbackDirection.y = 0; 
                 rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
             }
-
             stunEndTime = Time.time + 1f;
         }
     private void Die()
@@ -82,7 +82,84 @@
         animator?.SetTrigger("Die");
         if (rb != null) rb.isKinematic = true;
         if (currentWeaponVisual != null) currentWeaponVisual.SetActive(false);
-
         Destroy(gameObject, 2f); 
     }
+    public void ReactToAttackStart(Vector3 attackDirection)
+    {
+        if (isDead || isBlocking) return;
+
+        float randomChance = Random.value * 100; // Random value between 0 and 100
+
+        if (fairyBehavior == FairyBehavior.Evasive && (fairyType != FairyType.Ranged))
+        {
+            if (randomChance <= 25) // Dodge
+            {
+                Dodge(attackDirection);
+                return;
+            }
+            //else if (randomChance <= 40) // Block
+            //{
+            //    Block(attackDirection);
+            //    return;
+            //}
+        }
+        else if (fairyBehavior == FairyBehavior.Turtle)
+        {
+            if (randomChance <= 20) // Dodge
+            {
+                Dodge(attackDirection);
+                return;
+            }
+            //else if (randomChance <= 80) // Block
+            //{
+            //    Block(attackDirection);
+            //    return;
+            //}
+        }
+    }
+    private void Dodge(Vector3 attackDirection)
+    {
+        Vector3 dodgeDirection = attackDirection.normalized;
+        dodgeDirection.y = 0; 
+
+        if (rb != null)
+        {
+            StartCoroutine(SmoothDodge(dodgeDirection, 0.2f, 3f)); 
+        }
+
+        animator?.SetTrigger("Dodge");
+    }
+
+    private IEnumerator SmoothDodge(Vector3 direction, float duration, float distance)
+    {
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = startPosition + direction * distance;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+
+            yield return null;
+        }
+        transform.position = targetPosition;
+    }
+    //private void Block(Vector3 attackDirection)
+    //{
+    //    Quaternion blockRotation = Quaternion.LookRotation(attackDirection);
+    //    transform.rotation = blockRotation;
+
+    //    StartCoroutine(HoldBlock());
+    //}
+
+    //private IEnumerator HoldBlock()
+    //{
+    //    isBlocking = true;
+    //    animator?.SetTrigger("Block");
+    //    yield return new WaitForSeconds(2f); // Block duration
+    //    isBlocking = false;
+    //}
 }

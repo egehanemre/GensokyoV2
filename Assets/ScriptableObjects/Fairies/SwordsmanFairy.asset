@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd6d1b6ed8521242a1f88b7377edb30, type: 3}
   m_Name: SwordsmanFairy
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  maxHealth: 65
   moveSpeed: 1.2
   defense: 10
+  fairyType: 0

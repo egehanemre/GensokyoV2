@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class CombatManager : MonoBehaviour
 {
     private Fairy fairy;
@@ -21,6 +22,12 @@ public class CombatManager : MonoBehaviour
     private void Update()
     {
         HandleMovementAndCombat();
+
+        if (trackSystem.Target != null)
+        {
+            Vector3 direction = (trackSystem.Target.transform.position - fairy.transform.position).normalized;
+            RotateFairyTowardsTarget(direction);
+        }
     }
     private void HandleMovementAndCombat()
     {
@@ -38,7 +45,6 @@ public class CombatManager : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             animator.SetFloat("moveSpeed", 0);
-            RotateTowardsTarget(); 
             return;
         }
 
@@ -77,8 +83,16 @@ public class CombatManager : MonoBehaviour
     {
         if (Time.time < fairy.fairyCurrentStats.attackCooldown) return;
 
-        // Rotate towards the target before attacking
-        RotateTowardsTarget();
+        if (trackSystem.Match != null) // Check if the fairy has a match
+        {
+            Fairy matchedFairy = trackSystem.Match.GetComponent<Fairy>();
+            if (matchedFairy != null)
+            {
+                // Notify the matched fairy to react to the attack
+                Vector3 attackDirection = (matchedFairy.transform.position - fairy.transform.position).normalized;
+                matchedFairy.ReactToAttackStart(attackDirection);
+            }
+        }
 
         if (fairy.weaponDataSO.projectilePrefab == null) // Melee attack
         {
@@ -91,13 +105,6 @@ public class CombatManager : MonoBehaviour
             animator.SetTrigger("Attack");
             fairy.fairyCurrentStats.attackCooldown = Time.time + fairy.weaponDataSO.attackCooldown;
         }
-    }
-    private void RotateTowardsTarget()
-    {
-        if (targetFairy == null) return;
-
-        Vector3 direction = (targetFairy.transform.position - fairy.transform.position).normalized;
-        RotateFairyTowardsTarget(direction);
     }
     private void ShootProjectile()
     {
@@ -129,7 +136,7 @@ public class CombatManager : MonoBehaviour
             weaponCollider.enabled = false;
         }
     }
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected() // for displaying attack range
     {
         if (fairy == null || fairy.fairyCurrentStats == null) return;
 

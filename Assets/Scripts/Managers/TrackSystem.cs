@@ -1,55 +1,31 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class TrackSystem : MonoBehaviour
 {
-    public GameObject Match; // Used for reactions
-    public GameObject Target; // Used for combat and movement logic
-
+    public GameObject Match;
+    public GameObject Target;
     private Fairy fairy;
-
     private void Awake()
     {
         fairy = GetComponent<Fairy>();
     }
-
     private void Update()
     {
-        // Always prioritize Match as the Target
         if (Match != null)
         {
             Target = Match;
         }
         else if (Target == null)
         {
-            // If no Match exists, find the closest unit as the fallback Target
             FindNewTarget();
         }
-    }
 
-    public void FindMatch(List<Fairy> potentialMatches)
-    {
-        if (potentialMatches == null || potentialMatches.Count == 0) return;
-
-        var closestFairy = potentialMatches
-            .OrderBy(enemy => Vector3.Distance(fairy.transform.position, enemy.transform.position))
-            .FirstOrDefault();
-
-        if (closestFairy != null)
+        if (Match == null)
         {
-            Match = closestFairy.gameObject;
-
-            var enemyTrackSystem = closestFairy.GetComponent<TrackSystem>();
-            if (enemyTrackSystem != null)
-            {
-                enemyTrackSystem.Match = this.gameObject;
-            }
-
-            potentialMatches.Remove(closestFairy);
+            MatchingManager.Instance?.AttemptInstantMatch(fairy);
         }
     }
-
     public void ClearMatch()
     {
         if (Match != null)
@@ -63,7 +39,6 @@ public class TrackSystem : MonoBehaviour
             Match = null;
         }
     }
-
     public void OnUnitDeath()
     {
         ClearMatch();
@@ -76,7 +51,6 @@ public class TrackSystem : MonoBehaviour
 
         NotifyTargetersToFindNewTarget();
     }
-
     private void NotifyTargetersToFindNewTarget()
     {
         var allFairies = MatchingManager.Instance.playerFairy.Concat(MatchingManager.Instance.enemyFairy).ToList();
@@ -89,7 +63,6 @@ public class TrackSystem : MonoBehaviour
             }
         }
     }
-
     public void FindNewTarget()
     {
         var potentialTargets = MatchingManager.Instance.enemyFairy.Contains(fairy)
@@ -104,4 +77,3 @@ public class TrackSystem : MonoBehaviour
         Target = closestFairy?.gameObject;
     }
 }
-
