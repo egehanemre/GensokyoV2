@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class WeaponCollider : MonoBehaviour
 {
-    private Fairy ownerFairy; 
+    private Fairy ownerFairy;
+
     private void Awake()
     {
         ownerFairy = GetComponentInParent<Fairy>();
@@ -15,13 +16,18 @@ public class WeaponCollider : MonoBehaviour
             Fairy targetFairy = other.GetComponent<Fairy>();
             if (targetFairy != null && targetFairy != ownerFairy)
             {
+                CombatManager combatManager = targetFairy.GetComponent<CombatManager>();
+                if (combatManager != null)
+                {
+                    combatManager.DisableWeaponCollider();
+                }
+
+                Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
+
                 float damage = ownerFairy.fairyCurrentStats.attackDamage;
+                float knockbackForce = damage * 2f; // Optional: Replace with a configurable multiplier
 
-                targetFairy.GetComponent<CombatManager>().DisableWeaponCollider();
-
-                Vector3 knockbackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
-
-                targetFairy.ReactToHit(damage, knockbackDirection, ownerFairy.fairyCurrentStats.attackDamage * 2f);
+                targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection);
             }
         }
     }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RangedFairy
   m_EditorClassIdentifier: 
   maxHealth: 25
-  moveSpeed: 3
+  moveSpeed: 1
   defense: 10
   fairyType: 1

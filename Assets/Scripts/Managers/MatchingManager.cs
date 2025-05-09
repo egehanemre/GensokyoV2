@@ -17,6 +17,16 @@ public class MatchingManager : MonoBehaviour
     }
     private void Start()
     {
+        foreach (var fairy in playerFairy)
+        {
+            fairy.Team = 0; // Player team
+        }
+
+        foreach (var fairy in enemyFairy)
+        {
+            fairy.Team = 1; // Enemy team
+        }
+
         MatchFairies();
     }
     public void MatchFairies()

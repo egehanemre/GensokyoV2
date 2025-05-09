@@ -6,11 +6,14 @@ public class Projectile : MonoBehaviour
     private Transform target;
     private float speed;
 
-    public void Initialize(Transform target, float speed, float damage)
+    private int shooterTeam;
+
+    public void Initialize(Transform target, float speed, float damage, int team)
     {
         this.target = target;
         this.speed = speed;
         this.damage = damage;
+        this.shooterTeam = team;
     }
 
     private void Update()
@@ -27,12 +30,18 @@ public class Projectile : MonoBehaviour
 
         transform.rotation = Quaternion.LookRotation(direction);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         Fairy targetFairy = other.GetComponent<Fairy>();
         if (targetFairy != null)
         {
-            targetFairy.ReactToHit(damage, Vector3.zero, 0); 
+            if (targetFairy.Team == shooterTeam) return;
+
+            Vector3 attackDirection = (targetFairy.transform.position - transform.position).normalized;
+
+            targetFairy.ReactToHit(damage, Vector3.zero, 0, attackDirection);
+
             Destroy(gameObject);
         }
     }

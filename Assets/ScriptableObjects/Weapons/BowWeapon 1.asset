@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 933f89d285a1e064184ae0a67c27176e, type: 3}
-  m_Name: BowWeapon
+  m_Name: BowWeapon 1
   m_EditorClassIdentifier: 
-  attackDamage: 4
-  attackCooldown: 4
-  attackRange: 12
+  attackDamage: 3
+  attackCooldown: 3
+  attackRange: 10
   weaponMesh: {fileID: 4300000, guid: e3270f62143ddae42b1d21ab68b16aa6, type: 3}
-  projectilePrefab: {fileID: 8211539421422320215, guid: 34b79d5593a626546bfa1f2de606430b, type: 3}
-  projectileSpeed: 15
+  projectilePrefab: {fileID: 8211539421422320215, guid: 790d5ea66bd730243bcf567921f6a121, type: 3}
+  projectileSpeed: 20
