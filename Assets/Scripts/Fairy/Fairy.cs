@@ -14,6 +14,7 @@ public class Fairy : MonoBehaviour
     public TextMeshProUGUI fairyHP;
     public GameObject currentWeaponVisual;
     public MeshFilter weaponMeshFilter;
+    public GameObject floatingTextPrefab;
 
     // Scriptable Data
     public FairyStatsSO fairyStatsBase;
@@ -56,15 +57,12 @@ public class Fairy : MonoBehaviour
     {
         if (isDead) return;
 
-        UpdateHealthUI();
-
         if (fairyCurrentStats.currentHealth <= 0)
         {
             Die();
             return;
         }
     }
-
     #endregion
 
     #region Initialization
@@ -90,12 +88,18 @@ public class Fairy : MonoBehaviour
 
     public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection)
     {
-        if (isDead || IsAttackBlocked(attackDirection)) return;
+        if (isDead) return;
+        if (IsAttackBlocked(attackDirection))
+        {
+            UpdateHealthUI();
+            return;
+        }
 
         TriggerAnim("Hit");
         animator?.SetFloat("moveSpeed", 0);
 
         fairyCurrentStats.currentHealth -= damage;
+        UpdateHealthUI(damage);
 
         ApplyKnockback(knockbackDirection, knockbackForce);
         stunEndTime = Time.time + STUN_DURATION;
@@ -225,10 +229,22 @@ public class Fairy : MonoBehaviour
 
     #region Health UI
 
-    private void UpdateHealthUI()
+    private void UpdateHealthUI(float damage)
     {
         fairyHP.text = $"HP: {fairyCurrentStats.currentHealth:F0}/{fairyCurrentStats.maxHealth:F0}";
+        ShowFloatingText("-" + damage.ToString());
     }
+    private void UpdateHealthUI()
+    {
+        ShowFloatingText("Blocked");
+    }
+    public void ShowFloatingText(string text)
+    {
+        Vector3 offset = new Vector3(0, 2f, 0);
+        var go = Instantiate(floatingTextPrefab, transform.position + offset, Quaternion.identity);
+        go.GetComponent<FloatingText>().text.text = text;
+    }
+
 
     #endregion
 
