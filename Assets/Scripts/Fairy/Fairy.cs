@@ -4,60 +4,79 @@ using System.Collections;
 
 public class Fairy : MonoBehaviour
 {
-    public int Team; // 0 for player team, 1 for enemy team
-
-    private Coroutine movementRoutine = null;
-    public bool IsMoving => movementRoutine != null; // Expose isMoving as a public property
-
+    // Public Info
+    public Team Team;
     public FairyType fairyType;
     public FairyBehavior fairyBehavior;
+
+    // Visuals & UI
     public Transform bowPosition;
     public TextMeshProUGUI fairyHP;
-    public FairyStatsSO fairyStatsBase;
-    public WeaponDataSO weaponDataSO;
-    public FairyStats fairyCurrentStats;
-    private WeaponData weaponData;
     public GameObject currentWeaponVisual;
     public MeshFilter weaponMeshFilter;
+
+    // Scriptable Data
+    public FairyStatsSO fairyStatsBase;
+    public WeaponDataSO weaponDataSO;
+
+    // Runtime Stats
+    public FairyStats fairyCurrentStats;
+    private WeaponData weaponData;
+
+    // Components
     private Animator animator;
     private Rigidbody rb;
+
+    // State
+    private Coroutine movementRoutine = null;
     private bool isDead = false;
     private bool isBlocking = false;
+    private float stunEndTime = 0f;
+
+    // Constants
+    private const float BLOCK_ANGLE = 45f;
+    private const float STUN_DURATION = 1f;
+    private const float BLOCK_DURATION = 2f;
+    private const float DODGE_DISTANCE = 3f;
+    private const float DODGE_DURATION = 0.2f;
+
+    public bool IsMoving => movementRoutine != null;
+    public bool IsStunned => Time.time < stunEndTime;
+
+    #region Unity Methods
 
     private void Awake()
     {
-        InitializeFairy();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-    }
-
-    private void InitializeFairy()
-    {
-        weaponData = new WeaponData(weaponDataSO);
-        fairyCurrentStats = new FairyStats(fairyStatsBase, weaponData);
-        SetMesh();
+        InitializeFairy();
     }
 
     private void Update()
     {
         if (isDead) return;
 
-        fairyHP.text = "HP: " + fairyCurrentStats.currentHealth.ToString("F0") + "/" + fairyCurrentStats.maxHealth.ToString("F0");
+        UpdateHealthUI();
 
         if (fairyCurrentStats.currentHealth <= 0)
         {
             Die();
-        }
-
-        if (isBlocking)
-        {
-            Debug.DrawLine(transform.position, transform.position + transform.forward * 2, Color.green);
-            Debug.DrawLine(transform.position, transform.position + Quaternion.Euler(0, 45, 0) * transform.forward * 2, Color.blue);
-            Debug.DrawLine(transform.position, transform.position + Quaternion.Euler(0, -45, 0) * transform.forward * 2, Color.blue);
+            return;
         }
     }
 
-    private void SetMesh()
+    #endregion
+
+    #region Initialization
+
+    private void InitializeFairy()
+    {
+        weaponData = new WeaponData(weaponDataSO);
+        fairyCurrentStats = new FairyStats(fairyStatsBase, weaponData);
+        SetWeaponMesh();
+    }
+
+    private void SetWeaponMesh()
     {
         if (weaponMeshFilter != null && weaponData.weaponMesh != null)
         {
@@ -65,137 +84,159 @@ public class Fairy : MonoBehaviour
         }
     }
 
-    public float stunEndTime = 0f;
-    public bool IsStunned => Time.time < stunEndTime;
+    #endregion
+
+    #region Combat Reactions
 
     public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection)
     {
-        if (isDead) return;
+        if (isDead || IsAttackBlocked(attackDirection)) return;
 
-        if (isBlocking)
-        {
-            float angle = Vector3.Angle(transform.forward, -attackDirection.normalized);
-            if (angle <= 45f)
-            {
-                return;
-            }
-        }
-
-        animator?.SetTrigger("Hit");
+        TriggerAnim("Hit");
         animator?.SetFloat("moveSpeed", 0);
 
         fairyCurrentStats.currentHealth -= damage;
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
 
-            knockbackDirection.y = 0;
-            rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
-        }
-        stunEndTime = Time.time + 1f;
-    }
-
-    private void Die()
-    {
-        isDead = true;
-
-        var trackSystem = GetComponent<TrackSystem>();
-        if (trackSystem != null)
-        {
-            trackSystem.OnUnitDeath();
-        }
-
-        animator?.SetTrigger("Die");
-        if (rb != null) rb.isKinematic = true;
-        if (currentWeaponVisual != null) currentWeaponVisual.SetActive(false);
-        Destroy(gameObject, 1f);
+        ApplyKnockback(knockbackDirection, knockbackForce);
+        stunEndTime = Time.time + STUN_DURATION;
     }
 
     public void ReactToAttackStart(Vector3 attackDirection)
     {
         if (isDead || isBlocking) return;
 
-        float randomChance = Random.value * 100;
+        float chance = Random.value * 100;
 
-        if (fairyBehavior == FairyBehavior.Evasive && fairyType != FairyType.Ranged)
+        switch (fairyBehavior)
         {
-            if (randomChance <= 25)
-            {
-                Dodge(attackDirection);
-                return;
-            }
-            else if (randomChance <= 40 && fairyType != FairyType.Ranged)
-            {
-                Block(attackDirection);
-                return;
-            }
-        }
-        else if (fairyBehavior == FairyBehavior.Turtle)
-        {
-            if (randomChance <= 20)
-            {
-                Dodge(attackDirection);
-                return;
-            }
-            else if (randomChance <= 80)
-            {
-                Block(attackDirection);
-                return;
-            }
+            case FairyBehavior.Evasive when fairyType != FairyType.Ranged:
+                TryDodgeOrBlock(chance, attackDirection, 25f, 40f);
+                break;
+
+            case FairyBehavior.Turtle:
+                TryDodgeOrBlock(chance, attackDirection, 20f, 80f);
+                break;
         }
     }
 
-    private void Dodge(Vector3 attackDirection)
+    private void TryDodgeOrBlock(float chance, Vector3 attackDirection, float dodgeChance, float blockChance)
     {
-        StopMovementRoutine();
-
-        Vector3 dodgeDirection = attackDirection.normalized;
-        dodgeDirection.y = 0;
-        float randomAngle = Random.Range(-90f, 90f);
-        dodgeDirection = Quaternion.Euler(0, randomAngle, 0) * dodgeDirection;
-
-        animator?.SetTrigger("Dodge");
-        StartMovementRoutine(SmoothDodge(dodgeDirection, 0.2f, 3f));
+        if (chance <= dodgeChance)
+        {
+            Dodge(attackDirection);
+            return;
+        }
+        else if (chance <= blockChance)
+        {
+            Block(attackDirection);
+        }
     }
 
-    private IEnumerator SmoothDodge(Vector3 direction, float duration, float distance)
+    #endregion
+
+    #region Blocking & Dodging
+
+    private bool IsAttackBlocked(Vector3 attackDirection)
     {
-        float elapsedTime = 0f;
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = startPosition + direction * distance;
+        if (!isBlocking) return false;
 
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
-            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
-            yield return null;
-        }
-
-        transform.position = targetPosition;
-        movementRoutine = null;
+        float angle = Vector3.Angle(transform.forward, -attackDirection.normalized);
+        return angle <= BLOCK_ANGLE;
     }
 
     private void Block(Vector3 attackDirection)
     {
-        Quaternion blockRotation = Quaternion.LookRotation(attackDirection);
-        transform.rotation = blockRotation;
-
+        StopMovementRoutine(); 
+        attackDirection.y = 0;
+        //transform.rotation = Quaternion.LookRotation(attackDirection);
         StartCoroutine(HoldBlock());
     }
 
     private IEnumerator HoldBlock()
     {
         isBlocking = true;
-        animator?.SetTrigger("Block");
-        yield return new WaitForSeconds(2f);
+        TriggerAnim("Block");
+        yield return new WaitForSeconds(BLOCK_DURATION);
         isBlocking = false;
+
     }
 
-    // PUBLIC METHODS FOR MOVEMENT CONTROL
+    private void Dodge(Vector3 attackDirection)
+    {
+        if (isBlocking) return; 
+
+        StopMovementRoutine();
+
+        Vector3 dodgeDirection = Quaternion.Euler(0, Random.Range(-90f, 90f), 0) * attackDirection.normalized;
+        dodgeDirection.y = 0;
+
+        TriggerAnim("Dodge");
+        StartMovementRoutine(SmoothDodge(dodgeDirection, DODGE_DURATION, DODGE_DISTANCE));
+    }
+
+    private IEnumerator SmoothDodge(Vector3 direction, float duration, float distance)
+    {
+        float elapsed = 0f;
+        Vector3 start = transform.position;
+        Vector3 target = start + direction * distance;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(start, target, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = target;
+        movementRoutine = null;
+    }
+
+    #endregion
+
+    #region Death & Knockback
+
+    private void Die()
+    {
+        isDead = true;
+
+        GetComponent<TrackSystem>()?.OnUnitDeath();
+        TriggerAnim("Die");
+
+        if (rb != null) rb.isKinematic = true;
+        if (currentWeaponVisual != null) currentWeaponVisual.SetActive(false);
+
+        Destroy(gameObject, 1f);
+    }
+
+    private void ApplyKnockback(Vector3 direction, float force)
+    {
+        if (isBlocking) return; 
+
+        if (rb == null) return;
+
+        rb.linearVelocity = Vector3.zero; 
+        rb.angularVelocity = Vector3.zero;
+
+        direction.y = 0; 
+        rb.AddForce(direction.normalized * force, ForceMode.Impulse);
+    }
+
+    #endregion
+
+    #region Health UI
+
+    private void UpdateHealthUI()
+    {
+        fairyHP.text = $"HP: {fairyCurrentStats.currentHealth:F0}/{fairyCurrentStats.maxHealth:F0}";
+    }
+
+    #endregion
+
+    #region Movement Helpers
+
     public void StartMovementRoutine(IEnumerator routine)
     {
+        if (isBlocking) return; 
         StopMovementRoutine();
         movementRoutine = StartCoroutine(routine);
     }
@@ -208,4 +249,20 @@ public class Fairy : MonoBehaviour
             movementRoutine = null;
         }
     }
+
+    #endregion
+
+    #region Debug
+
+    #endregion
+
+    #region Utility
+
+    private void TriggerAnim(string triggerName)
+    {
+        if (animator != null)
+            animator.SetTrigger(triggerName);
+    }
+
+    #endregion
 }

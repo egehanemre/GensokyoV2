@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class MatchingManager : MonoBehaviour
 {
     public static MatchingManager Instance;
-    
+
     public List<Fairy> playerFairy;
     public List<Fairy> enemyFairy;
 
@@ -18,58 +18,46 @@ public class MatchingManager : MonoBehaviour
     private void Start()
     {
         foreach (var fairy in playerFairy)
-        {
-            fairy.Team = 0; // Player team
-        }
+            fairy.Team = Team.Ally;
 
         foreach (var fairy in enemyFairy)
-        {
-            fairy.Team = 1; // Enemy team
-        }
+            fairy.Team = Team.Enemy;
 
         MatchFairies();
     }
     public void MatchFairies()
     {
-        var playerMeleeFairies = playerFairy.Where(f => f.fairyType == FairyType.Melee).ToList();
-        var playerRangedFairies = playerFairy.Where(f => f.fairyType == FairyType.Ranged).ToList();
-        var enemyMeleeFairies = enemyFairy.Where(f => f.fairyType == FairyType.Melee).ToList();
-        var enemyRangedFairies = enemyFairy.Where(f => f.fairyType == FairyType.Ranged).ToList();
+        var playerMelee = playerFairy.Where(f => f.fairyType == FairyType.Melee).ToList();
+        var playerRanged = playerFairy.Where(f => f.fairyType == FairyType.Ranged).ToList();
+        var enemyMelee = enemyFairy.Where(f => f.fairyType == FairyType.Melee).ToList();
+        var enemyRanged = enemyFairy.Where(f => f.fairyType == FairyType.Ranged).ToList();
 
-        MatchFairiesByType(playerMeleeFairies, enemyMeleeFairies);
-        MatchFairiesByType(playerRangedFairies, enemyRangedFairies);
-        MatchFairiesByType(playerMeleeFairies, enemyRangedFairies);
+        MatchFairiesByType(playerMelee, enemyMelee);
+        MatchFairiesByType(playerRanged, enemyRanged);
+        MatchFairiesByType(playerMelee, enemyRanged);
 
-        var remainingPlayerFairies = playerMeleeFairies.Concat(playerRangedFairies).ToList();
-        var remainingEnemyFairies = enemyMeleeFairies.Concat(enemyRangedFairies).ToList();
-        MatchFairiesByType(remainingPlayerFairies, remainingEnemyFairies);
+        var remainingPlayers = playerMelee.Concat(playerRanged).ToList();
+        var remainingEnemies = enemyMelee.Concat(enemyRanged).ToList();
+        MatchFairiesByType(remainingPlayers, remainingEnemies);
 
-        unmatchedPlayerFairies.AddRange(remainingPlayerFairies);
-        unmatchedEnemyFairies.AddRange(remainingEnemyFairies);
+        unmatchedPlayerFairies.AddRange(remainingPlayers);
+        unmatchedEnemyFairies.AddRange(remainingEnemies);
     }
     public void AttemptInstantMatch(Fairy fairy)
     {
-        List<Fairy> opposingUnmatchedList = playerFairy.Contains(fairy) ? unmatchedEnemyFairies : unmatchedPlayerFairies;
+        var opposingList = playerFairy.Contains(fairy) ? unmatchedEnemyFairies : unmatchedPlayerFairies;
 
-        if (opposingUnmatchedList.Count > 0)
+        if (opposingList.Count > 0)
         {
-            var closestFairy = opposingUnmatchedList
-                .OrderBy(enemy => Vector3.Distance(fairy.transform.position, enemy.transform.position))
-                .FirstOrDefault();
+            var closest = opposingList.OrderBy(e => Vector3.Distance(fairy.transform.position, e.transform.position)).FirstOrDefault();
 
-            if (closestFairy != null)
+            if (closest != null)
             {
-                var fairyTrackSystem = fairy.GetComponent<TrackSystem>();
-                var enemyTrackSystem = closestFairy.GetComponent<TrackSystem>();
+                fairy.GetComponent<TrackSystem>().Match = closest.gameObject;
+                closest.GetComponent<TrackSystem>().Match = fairy.gameObject;
 
-                if (fairyTrackSystem != null && enemyTrackSystem != null)
-                {
-                    fairyTrackSystem.Match = closestFairy.gameObject;
-                    enemyTrackSystem.Match = fairy.gameObject;
-
-                    opposingUnmatchedList.Remove(closestFairy);
-                    RemoveFromUnmatchedList(fairy);
-                }
+                opposingList.Remove(closest);
+                RemoveFromUnmatchedList(fairy);
             }
         }
         else
@@ -80,53 +68,43 @@ public class MatchingManager : MonoBehaviour
     private void AddToUnmatchedList(Fairy fairy)
     {
         if (playerFairy.Contains(fairy) && !unmatchedPlayerFairies.Contains(fairy))
-        {
             unmatchedPlayerFairies.Add(fairy);
-        }
         else if (enemyFairy.Contains(fairy) && !unmatchedEnemyFairies.Contains(fairy))
-        {
             unmatchedEnemyFairies.Add(fairy);
-        }
     }
     private void RemoveFromUnmatchedList(Fairy fairy)
     {
         unmatchedPlayerFairies.Remove(fairy);
         unmatchedEnemyFairies.Remove(fairy);
     }
-
-    private void MatchFairiesByType(List<Fairy> playerFairies, List<Fairy> enemyFairies)
+    private void MatchFairiesByType(List<Fairy> playerList, List<Fairy> enemyList)
     {
-        while (playerFairies.Count > 0 && enemyFairies.Count > 0)
+        while (playerList.Count > 0 && enemyList.Count > 0)
         {
-            Fairy closestPlayer = null;
-            Fairy closestEnemy = null;
-            float closestDistance = float.MaxValue;
+            Fairy bestPlayer = null, bestEnemy = null;
+            float bestDist = float.MaxValue;
 
-            foreach (var player in playerFairies)
+            foreach (var p in playerList)
             {
-                foreach (var enemy in enemyFairies)
+                foreach (var e in enemyList)
                 {
-                    float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
-                    if (distance < closestDistance)
+                    float dist = Vector3.Distance(p.transform.position, e.transform.position);
+                    if (dist < bestDist)
                     {
-                        closestDistance = distance;
-                        closestPlayer = player;
-                        closestEnemy = enemy;
+                        bestDist = dist;
+                        bestPlayer = p;
+                        bestEnemy = e;
                     }
                 }
             }
-            if (closestPlayer != null && closestEnemy != null)
-            {
-                var playerTrackSystem = closestPlayer.GetComponent<TrackSystem>();
-                var enemyTrackSystem = closestEnemy.GetComponent<TrackSystem>();
 
-                if (playerTrackSystem != null && enemyTrackSystem != null)
-                {
-                    playerTrackSystem.Match = closestEnemy.gameObject;
-                    enemyTrackSystem.Match = closestPlayer.gameObject;
-                }
-                playerFairies.Remove(closestPlayer);
-                enemyFairies.Remove(closestEnemy);
+            if (bestPlayer != null && bestEnemy != null)
+            {
+                bestPlayer.GetComponent<TrackSystem>().Match = bestEnemy.gameObject;
+                bestEnemy.GetComponent<TrackSystem>().Match = bestPlayer.gameObject;
+
+                playerList.Remove(bestPlayer);
+                enemyList.Remove(bestEnemy);
             }
         }
     }

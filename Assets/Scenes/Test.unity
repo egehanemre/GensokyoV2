@@ -4964,7 +4964,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472481630}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4997,14 +4997,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   fairyType: 0
-  fairyBehavior: 0
+  fairyBehavior: 2
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 1684433804}
-  fairyStatsBase: {fileID: 11400000, guid: 213aafe1fd996a943bcb4eabc634288f, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
   currentWeaponVisual: {fileID: 591905366}
   weaponMeshFilter: {fileID: 591905377}
-  stunEndTime: 0
+  fairyStatsBase: {fileID: 11400000, guid: 213aafe1fd996a943bcb4eabc634288f, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
 --- !u!136 &472481641
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6668,11 +6667,10 @@ MonoBehaviour:
   fairyBehavior: 0
   bowPosition: {fileID: 1778752622}
   fairyHP: {fileID: 98343717}
-  fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 4c72bc00940894b4e9cd73969c49f9cf, type: 2}
   currentWeaponVisual: {fileID: 1185727430}
   weaponMeshFilter: {fileID: 0}
-  stunEndTime: 0
+  fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 4c72bc00940894b4e9cd73969c49f9cf, type: 2}
 --- !u!54 &1185727435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6681,7 +6679,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185727429}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -8974,11 +8972,10 @@ MonoBehaviour:
   fairyBehavior: 0
   bowPosition: {fileID: 722874875}
   fairyHP: {fileID: 1690103110}
-  fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 0d6a01692399a3345a438ff227623a16, type: 2}
   currentWeaponVisual: {fileID: 1619886785}
   weaponMeshFilter: {fileID: 0}
-  stunEndTime: 0
+  fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 0d6a01692399a3345a438ff227623a16, type: 2}
 --- !u!54 &1527497526
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8987,7 +8984,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1527497521}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -9578,14 +9575,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   fairyType: 0
-  fairyBehavior: 0
+  fairyBehavior: 2
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 1935544051}
-  fairyStatsBase: {fileID: 11400000, guid: 99487949eb87803418398341fcc0cf3d, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
   currentWeaponVisual: {fileID: 243514077}
   weaponMeshFilter: {fileID: 243514078}
-  stunEndTime: 0
+  fairyStatsBase: {fileID: 11400000, guid: 99487949eb87803418398341fcc0cf3d, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
 --- !u!54 &1740496827
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9594,7 +9590,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740496822}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -9703,11 +9699,10 @@ MonoBehaviour:
   fairyBehavior: 0
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 1540894843}
-  fairyStatsBase: {fileID: 11400000, guid: 74902ab83dbd41d4296225aeef07b2e5, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
   currentWeaponVisual: {fileID: 521407100}
   weaponMeshFilter: {fileID: 521407101}
-  stunEndTime: 0
+  fairyStatsBase: {fileID: 11400000, guid: 74902ab83dbd41d4296225aeef07b2e5, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
 --- !u!54 &1752634438
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9716,7 +9711,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752634433}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -11141,7 +11136,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088067542}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -11177,11 +11172,10 @@ MonoBehaviour:
   fairyBehavior: 0
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 2110388805}
-  fairyStatsBase: {fileID: 11400000, guid: 337b6168a11528d4388f4e9de8ed2035, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
   currentWeaponVisual: {fileID: 1081106638}
   weaponMeshFilter: {fileID: 955027502}
-  stunEndTime: 0
+  fairyStatsBase: {fileID: 11400000, guid: 337b6168a11528d4388f4e9de8ed2035, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
 --- !u!114 &2088067558
 MonoBehaviour:
   m_ObjectHideFlags: 0

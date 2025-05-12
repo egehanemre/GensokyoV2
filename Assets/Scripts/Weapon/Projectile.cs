@@ -6,9 +6,9 @@ public class Projectile : MonoBehaviour
     private Transform target;
     private float speed;
 
-    private int shooterTeam;
+    private Team shooterTeam;
 
-    public void Initialize(Transform target, float speed, float damage, int team)
+    public void Initialize(Transform target, float speed, float damage, Team team)
     {
         this.target = target;
         this.speed = speed;

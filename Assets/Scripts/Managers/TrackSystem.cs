@@ -1,10 +1,13 @@
 using System.Linq;
 using UnityEngine;
+
 public class TrackSystem : MonoBehaviour
 {
     public GameObject Match;
     public GameObject Target;
+
     private Fairy fairy;
+
     private void Awake()
     {
         fairy = GetComponent<Fairy>();
@@ -53,6 +56,7 @@ public class TrackSystem : MonoBehaviour
     private void NotifyTargetersToFindNewTarget()
     {
         var allFairies = MatchingManager.Instance.playerFairy.Concat(MatchingManager.Instance.enemyFairy).ToList();
+
         foreach (var otherFairy in allFairies)
         {
             var otherTrackSystem = otherFairy.GetComponent<TrackSystem>();
