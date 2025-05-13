@@ -25,7 +25,7 @@ public class WeaponCollider : MonoBehaviour
                 Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
 
                 float damage = ownerFairy.fairyCurrentStats.attackDamage;
-                float knockbackForce = damage * 2f; // Optional: Replace with a configurable multiplier
+                float knockbackForce = damage * 0.2f; // Optional: Replace with a configurable multiplier
 
                 targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection);
             }

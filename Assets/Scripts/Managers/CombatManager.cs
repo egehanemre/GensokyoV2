@@ -30,7 +30,7 @@ public class CombatManager : MonoBehaviour
     }
     private void HandleMovementAndCombat()
     {
-        if (fairy.IsStunned) return;
+        if (fairy.IsStunned || fairy.IsBlocking || fairy.IsDodging) return;
 
         if (trackSystem.Target != null)
             targetFairy = trackSystem.Target.GetComponent<Fairy>();
@@ -95,7 +95,6 @@ public class CombatManager : MonoBehaviour
             {
                 Vector3 dir = (match.transform.position - fairy.transform.position).normalized;
                 match.ReactToAttackStart(dir);
-                Debug.Log("Attack Start");
             }
         }
         if (fairy.weaponDataSO.projectilePrefab == null)

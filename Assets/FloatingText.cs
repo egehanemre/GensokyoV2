@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 public class FloatingText : MonoBehaviour
 {
     public float destroyTime = 1f;
-    public Vector3 randomizedIntensity = new Vector3(0.5f,0,0);
+    public Vector3 randomizedIntensity = new Vector3(1f,0.3f,0);
 
     public TextMeshPro text;
     private void Awake()

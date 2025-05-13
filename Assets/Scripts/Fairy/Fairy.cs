@@ -32,6 +32,7 @@ public class Fairy : MonoBehaviour
     private Coroutine movementRoutine = null;
     private bool isDead = false;
     private bool isBlocking = false;
+    private bool isDodging = false;
     private float stunEndTime = 0f;
 
     // Constants
@@ -43,6 +44,8 @@ public class Fairy : MonoBehaviour
 
     public bool IsMoving => movementRoutine != null;
     public bool IsStunned => Time.time < stunEndTime;
+    public bool IsDodging => isDodging;
+    public bool IsBlocking => isBlocking;
 
     #region Unity Methods
 
@@ -51,6 +54,7 @@ public class Fairy : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         InitializeFairy();
+        fairyHP.text = $"HP: {fairyCurrentStats.currentHealth:F0}/{fairyCurrentStats.maxHealth:F0}";
     }
 
     private void Update()
@@ -152,7 +156,6 @@ public class Fairy : MonoBehaviour
     {
         StopMovementRoutine(); 
         attackDirection.y = 0;
-        //transform.rotation = Quaternion.LookRotation(attackDirection);
         StartCoroutine(HoldBlock());
     }
 
@@ -167,9 +170,10 @@ public class Fairy : MonoBehaviour
 
     private void Dodge(Vector3 attackDirection)
     {
-        if (isBlocking) return; 
+        if (isBlocking) return;
 
         StopMovementRoutine();
+        isDodging = true;
 
         Vector3 dodgeDirection = Quaternion.Euler(0, Random.Range(-90f, 90f), 0) * attackDirection.normalized;
         dodgeDirection.y = 0;
@@ -186,15 +190,15 @@ public class Fairy : MonoBehaviour
 
         while (elapsed < duration)
         {
-            transform.position = Vector3.Lerp(start, target, elapsed / duration);
+            rb.MovePosition(Vector3.Lerp(start, target, elapsed / duration));
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = target;
+        rb.MovePosition(target);
+        isDodging = false;
         movementRoutine = null;
     }
-
     #endregion
 
     #region Death & Knockback
@@ -212,17 +216,31 @@ public class Fairy : MonoBehaviour
         Destroy(gameObject, 1f);
     }
 
-    private void ApplyKnockback(Vector3 direction, float force)
+    public void ApplyKnockback(Vector3 direction, float force)
     {
-        if (isBlocking) return; 
+        if (isBlocking || rb == null) return;
 
-        if (rb == null) return;
-
-        rb.linearVelocity = Vector3.zero; 
-        rb.angularVelocity = Vector3.zero;
-
+        StopMovementRoutine(); 
         direction.y = 0; 
-        rb.AddForce(direction.normalized * force, ForceMode.Impulse);
+        Vector3 knockbackTarget = transform.position + direction.normalized * force * 0.2f;
+        StartMovementRoutine(SmoothKnockback(rb, knockbackTarget, 0.2f));
+    }
+
+    private IEnumerator SmoothKnockback(Rigidbody rb, Vector3 targetPos, float duration)
+    {
+        float elapsed = 0f;
+        Vector3 start = rb.position;
+
+        while (elapsed < duration)
+        {
+            Vector3 newPos = Vector3.Lerp(start, targetPos, elapsed / duration);
+            rb.MovePosition(newPos);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        rb.MovePosition(targetPos);
+        movementRoutine = null;
     }
 
     #endregion
@@ -238,6 +256,7 @@ public class Fairy : MonoBehaviour
     {
         ShowFloatingText("Blocked");
     }
+
     public void ShowFloatingText(string text)
     {
         Vector3 offset = new Vector3(0, 2f, 0);
