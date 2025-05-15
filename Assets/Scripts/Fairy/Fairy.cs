@@ -126,11 +126,11 @@ public class Fairy : MonoBehaviour
         switch (fairyBehavior)
         {
             case FairyBehavior.Evasive when fairyType != FairyType.Ranged:
-                TryDodgeOrBlock(chance, attackDirection, 25f, 40f);
+                TryDodgeOrBlock(chance, attackDirection, 40f, 25f);
                 break;
 
             case FairyBehavior.Turtle:
-                TryDodgeOrBlock(chance, attackDirection, 20f, 80f);
+                TryDodgeOrBlock(chance, attackDirection, 20f, 45f);
                 break;
         }
     }
