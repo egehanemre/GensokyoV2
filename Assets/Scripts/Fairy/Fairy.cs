@@ -15,6 +15,8 @@ public class Fairy : MonoBehaviour
     public GameObject currentWeaponVisual;
     public MeshFilter weaponMeshFilter;
     public GameObject floatingTextPrefab;
+    public GameObject healthBarPrefab;
+    public HealthBar healthBarVisual;
 
     // Scriptable Data
     public FairyStatsSO fairyStatsBase;
@@ -54,7 +56,13 @@ public class Fairy : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         InitializeFairy();
-        fairyHP.text = $"HP: {fairyCurrentStats.currentHealth:F0}/{fairyCurrentStats.maxHealth:F0}";
+        if (healthBarPrefab != null)
+        {
+            GameObject bar = Instantiate(healthBarPrefab, transform);
+            // Adjust the local position to float above the fairy's head
+            bar.transform.localPosition = new Vector3(0, 2f, 0); // Adjust Y as needed
+            healthBarVisual = bar.GetComponent<HealthBar>();
+        }
     }
 
     private void Update()
@@ -249,7 +257,7 @@ public class Fairy : MonoBehaviour
 
     private void UpdateHealthUI(float damage)
     {
-        fairyHP.text = $"HP: {fairyCurrentStats.currentHealth:F0}/{fairyCurrentStats.maxHealth:F0}";
+        healthBarVisual.UpdateHealthBar(fairyCurrentStats.maxHealth, fairyCurrentStats.currentHealth);
         ShowFloatingText("-" + damage.ToString());
     }
     private void UpdateHealthUI()
