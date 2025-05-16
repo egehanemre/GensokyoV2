@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
-  m_Name: Spearman Blackboard
+  m_Name: Evasive Blackboard
   m_EditorClassIdentifier: 
-  VersionTimestamp: 638817238603505212
+  VersionTimestamp: 638830293370902441
   AssetID:
-    m_Value0: 0
-    m_Value1: 0
+    m_Value0: 8370406227354058273
+    m_Value1: 3783550873490904872
   m_Blackboard:
     m_Variables:
     - rid: 4358615860595130490
+    - rid: 4358616203916738639
+    - rid: 4358616203916738640
   m_SharedBlackboardVariableGuids: []
   references:
     version: 2
@@ -31,6 +33,22 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 0}
+    - rid: 4358616203916738639
+      type: {class: 'BlackboardVariable`1[[CombatManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11255618638764638818
+          m_Value1: 14877468754936851943
+        Name: CombatManager
+        m_Value: {fileID: 0}
+    - rid: 4358616203916738640
+      type: {class: 'BlackboardVariable`1[[Fairy, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 17155524760167349374
+          m_Value1: 7382492250805445566
+        Name: Fairy
+        m_Value: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,13 +59,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bad8f2220607dac4db5082ff333fafb8, type: 3}
-  m_Name: Spearman
+  m_Name: Evasive
   m_EditorClassIdentifier: 
   Blackboard: {fileID: 4677174534173599246}
   m_Description: 
   m_Nodes:
   - rid: 4358615860595130487
-  m_VersionTimestamp: 638817238669794391
+  m_VersionTimestamp: 638830293404147250
   m_DebugInfo: {fileID: 7525790707295175874}
   m_RuntimeGraph: {fileID: 7318692840228950913}
   AssetID:
@@ -76,7 +94,7 @@ MonoBehaviour:
     - rid: 4358615860595130487
       type: {class: StartNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: 0, y: 0}
+        Position: {x: -61.60003, y: -76.00004}
         ID:
           m_Value0: 8794759540552846932
           m_Value1: 2069894847532000705
@@ -111,14 +129,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
-  m_Name: Spearman Blackboard
+  m_Name: Evasive Blackboard
   m_EditorClassIdentifier: 
   AssetID:
-    m_Value0: 0
-    m_Value1: 0
+    m_Value0: 8370406227354058273
+    m_Value1: 3783550873490904872
   m_Variables:
   - rid: 4358615860595130489
-  m_VersionTimestamp: 638817238603505212
+  - rid: 4358616203916738637
+  - rid: 4358616203916738638
+  m_VersionTimestamp: 638830293370902441
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: -5803137077193646560}
@@ -135,6 +155,26 @@ MonoBehaviour:
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}
+    - rid: 4358616203916738637
+      type: {class: 'TypedVariableModel`1[[CombatManager, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 11255618638764638818
+          m_Value1: 14877468754936851943
+        Name: CombatManager
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: {fileID: 0}
+    - rid: 4358616203916738638
+      type: {class: 'TypedVariableModel`1[[Fairy, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 17155524760167349374
+          m_Value1: 7382492250805445566
+        Name: Fairy
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: {fileID: 0}
 --- !u!114 &7318692840228950913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,19 +185,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db920e62f70f420bb33c771449926fa4, type: 3}
-  m_Name: Spearman
+  m_Name: Evasive
   m_EditorClassIdentifier: 
   Graphs:
-  - rid: 4358615860595130491
+  - rid: 4358616203916738641
   RootGraph:
-    rid: 4358615860595130491
+    rid: 4358616203916738641
   m_DebugInfo: {fileID: 7525790707295175874}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4358615860595130491
+    - rid: 4358616203916738641
       type: {class: BehaviorGraphModule, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         AuthoringAssetID:
@@ -165,55 +205,73 @@ MonoBehaviour:
           m_Value1: 3783550873490904872
         m_DebugInfo: {fileID: 0}
         Root:
-          rid: 4358615860595130492
+          rid: 4358616203916738642
         BlackboardReference:
-          rid: 4358615860595130493
+          rid: 4358616203916738643
         BlackboardGroupReferences: []
         m_ActiveNodes: []
         m_NodesToTick: []
         m_NodesToEnd:
-          rid: 4358615860595130494
+          rid: 4358616203916738644
         m_EndedNodes:
-          rid: 4358615860595130495
-        m_VersionTimestamp: 638817238669794391
-    - rid: 4358615860595130492
+          rid: 4358616203916738645
+        m_VersionTimestamp: 638830293404147250
+    - rid: 4358616203916738642
       type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
           m_Value0: 8794759540552846932
           m_Value1: 2069894847532000705
         Graph:
-          rid: 4358615860595130491
+          rid: 4358616203916738641
         m_Parent:
           rid: -2
         m_Child:
           rid: -2
         Repeat: 1
         AllowMultipleRepeatsPerTick: 0
-    - rid: 4358615860595130493
+    - rid: 4358616203916738643
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Blackboard:
-          rid: 4358615860595130496
+          rid: 4358616203916738646
         m_Source: {fileID: -5803137077193646560}
-    - rid: 4358615860595130494
+    - rid: 4358616203916738644
       type: {class: 'Stack`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: mscorlib}
       data: 
-    - rid: 4358615860595130495
+    - rid: 4358616203916738645
       type: {class: 'HashSet`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: System.Core}
       data: 
-    - rid: 4358615860595130496
+    - rid: 4358616203916738646
       type: {class: Blackboard, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Variables:
-        - rid: 4358615860595130497
-    - rid: 4358615860595130497
+        - rid: 4358616203916738647
+        - rid: 4358616203916738648
+        - rid: 4358616203916738649
+    - rid: 4358616203916738647
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
           m_Value0: 1
           m_Value1: 0
         Name: Self
+        m_Value: {fileID: 0}
+    - rid: 4358616203916738648
+      type: {class: 'BlackboardVariable`1[[CombatManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11255618638764638818
+          m_Value1: 14877468754936851943
+        Name: CombatManager
+        m_Value: {fileID: 0}
+    - rid: 4358616203916738649
+      type: {class: 'BlackboardVariable`1[[Fairy, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 17155524760167349374
+          m_Value1: 7382492250805445566
+        Name: Fairy
         m_Value: {fileID: 0}
 --- !u!114 &7525790707295175874
 MonoBehaviour:
@@ -225,6 +283,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b27bb6d9a2c8d540a10dff10acc543e, type: 3}
-  m_Name: Spearman Debug Info
+  m_Name: Evasive Debug Info
   m_EditorClassIdentifier: 
   m_CodeBreakPointsList: []
