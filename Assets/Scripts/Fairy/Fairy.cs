@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Fairy : MonoBehaviour
 {
+    private FairyState currentState;
+    [SerializeField]public string displayState = "Idle";
     // Public Info
     public Team Team;
     public FairyType fairyType;
@@ -17,6 +19,7 @@ public class Fairy : MonoBehaviour
     public GameObject floatingTextPrefab;
     public GameObject healthBarPrefab;
     public HealthBar healthBarVisual;
+    public Collider weaponCollider;
 
     // Scriptable Data
     public FairyStatsSO fairyStatsBase;
@@ -29,6 +32,12 @@ public class Fairy : MonoBehaviour
     // Components
     private Animator animator;
     private Rigidbody rb;
+    private TrackSystem trackSystem;
+
+    // Read-only Properties
+    public Animator Animator => animator;
+    public Rigidbody Rigidbody => rb;
+    public TrackSystem TrackSystem => trackSystem;
 
     // State
     private Coroutine movementRoutine = null;
@@ -44,10 +53,18 @@ public class Fairy : MonoBehaviour
     private const float DODGE_DISTANCE = 3f;
     private const float DODGE_DURATION = 0.2f;
 
+
+    private float nextAllowedAttackTime;
+
+
     public bool IsMoving => movementRoutine != null;
     public bool IsStunned => Time.time < stunEndTime;
     public bool IsDodging => isDodging;
     public bool IsBlocking => isBlocking;
+    public bool CanAttack => Time.time >= nextAllowedAttackTime;
+
+
+
 
     #region Unity Methods
 
@@ -55,17 +72,28 @@ public class Fairy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        trackSystem = GetComponent<TrackSystem>();
+        weaponCollider = currentWeaponVisual.GetComponent<Collider>();
+
         InitializeFairy();
-        if (healthBarPrefab != null)
-        {
-            GameObject bar = Instantiate(healthBarPrefab, transform);
-            // Adjust the local position to float above the fairy's head
-            bar.transform.localPosition = new Vector3(0, 2f, 0); // Adjust Y as needed
-            healthBarVisual = bar.GetComponent<HealthBar>();
-        }
+        InitializeHealthBar();
+        ChangeState(new IdleState(this));
     }
 
     private void Update()
+    {
+        CheckIsDead();
+        DisplayState();
+        currentState?.Update();
+    }
+    #endregion
+
+    public void RegisterAttackCooldown()
+    {
+        nextAllowedAttackTime = Time.time + weaponDataSO.attackCooldown;
+    }
+
+    private void CheckIsDead()
     {
         if (isDead) return;
 
@@ -75,17 +103,25 @@ public class Fairy : MonoBehaviour
             return;
         }
     }
-    #endregion
 
     #region Initialization
-
     private void InitializeFairy()
     {
         weaponData = new WeaponData(weaponDataSO);
         fairyCurrentStats = new FairyStats(fairyStatsBase, weaponData);
         SetWeaponMesh();
+        RegisterAttackCooldown();
     }
 
+    private void InitializeHealthBar()
+    {
+        if (healthBarPrefab != null)
+        {
+            GameObject bar = Instantiate(healthBarPrefab, transform);
+            bar.transform.localPosition = new Vector3(0, 2f, 0); 
+            healthBarVisual = bar.GetComponent<HealthBar>();
+        }
+    }
     private void SetWeaponMesh()
     {
         if (weaponMeshFilter != null && weaponData.weaponMesh != null)
@@ -93,11 +129,9 @@ public class Fairy : MonoBehaviour
             weaponMeshFilter.mesh = weaponData.weaponMesh;
         }
     }
-
     #endregion
 
     #region Combat Reactions
-
     public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection)
     {
         if (isDead) return;
@@ -116,7 +150,6 @@ public class Fairy : MonoBehaviour
         ApplyKnockback(knockbackDirection, knockbackForce);
         stunEndTime = Time.time + STUN_DURATION;
     }
-
     public void ReactToAttackStart(Vector3 attackDirection)
     {
         if (isDead || isBlocking) return;
@@ -134,7 +167,6 @@ public class Fairy : MonoBehaviour
                 break;
         }
     }
-
     private void TryDodgeOrBlock(float chance, Vector3 attackDirection, float dodgeChance, float blockChance)
     {
         if (chance <= dodgeChance)
@@ -147,11 +179,9 @@ public class Fairy : MonoBehaviour
             Block(attackDirection);
         }
     }
-
     #endregion
 
     #region Blocking & Dodging
-
     private bool IsAttackBlocked(Vector3 attackDirection)
     {
         if (!isBlocking) return false;
@@ -159,14 +189,12 @@ public class Fairy : MonoBehaviour
         float angle = Vector3.Angle(transform.forward, -attackDirection.normalized);
         return angle <= BLOCK_ANGLE;
     }
-
     private void Block(Vector3 attackDirection)
     {
         StopMovementRoutine(); 
         attackDirection.y = 0;
         StartCoroutine(HoldBlock());
     }
-
     private IEnumerator HoldBlock()
     {
         isBlocking = true;
@@ -175,7 +203,6 @@ public class Fairy : MonoBehaviour
         isBlocking = false;
 
     }
-
     private void Dodge(Vector3 attackDirection)
     {
         if (isBlocking) return;
@@ -189,7 +216,6 @@ public class Fairy : MonoBehaviour
         TriggerAnim("Dodge");
         StartMovementRoutine(SmoothDodge(dodgeDirection, DODGE_DURATION, DODGE_DISTANCE));
     }
-
     private IEnumerator SmoothDodge(Vector3 direction, float duration, float distance)
     {
         float elapsed = 0f;
@@ -210,7 +236,6 @@ public class Fairy : MonoBehaviour
     #endregion
 
     #region Death & Knockback
-
     private void Die()
     {
         isDead = true;
@@ -223,7 +248,6 @@ public class Fairy : MonoBehaviour
 
         Destroy(gameObject, 1f);
     }
-
     public void ApplyKnockback(Vector3 direction, float force)
     {
         if (isBlocking || rb == null) return;
@@ -233,7 +257,6 @@ public class Fairy : MonoBehaviour
         Vector3 knockbackTarget = transform.position + direction.normalized * force * 0.2f;
         StartMovementRoutine(SmoothKnockback(rb, knockbackTarget, 0.2f));
     }
-
     private IEnumerator SmoothKnockback(Rigidbody rb, Vector3 targetPos, float duration)
     {
         float elapsed = 0f;
@@ -250,11 +273,9 @@ public class Fairy : MonoBehaviour
         rb.MovePosition(targetPos);
         movementRoutine = null;
     }
-
     #endregion
 
     #region Health UI
-
     private void UpdateHealthUI(float damage)
     {
         healthBarVisual.UpdateHealthBar(fairyCurrentStats.maxHealth, fairyCurrentStats.currentHealth);
@@ -264,26 +285,21 @@ public class Fairy : MonoBehaviour
     {
         ShowFloatingText("Blocked");
     }
-
     public void ShowFloatingText(string text)
     {
         Vector3 offset = new Vector3(0, 2f, 0);
         var go = Instantiate(floatingTextPrefab, transform.position + offset, Quaternion.identity);
         go.GetComponent<FloatingText>().text.text = text;
     }
-
-
     #endregion
 
     #region Movement Helpers
-
     public void StartMovementRoutine(IEnumerator routine)
     {
         if (isBlocking) return; 
         StopMovementRoutine();
         movementRoutine = StartCoroutine(routine);
     }
-
     public void StopMovementRoutine()
     {
         if (movementRoutine != null)
@@ -292,20 +308,36 @@ public class Fairy : MonoBehaviour
             movementRoutine = null;
         }
     }
-
-    #endregion
-
-    #region Debug
-
     #endregion
 
     #region Utility
-
-    private void TriggerAnim(string triggerName)
+    public void TriggerAnim(string triggerName)
     {
         if (animator != null)
             animator.SetTrigger(triggerName);
     }
-
     #endregion
+    public void ChangeState(FairyState newState)
+    {
+        currentState?.Exit();
+        currentState = newState;
+        currentState.Enter();
+    }
+    public void DisplayState()
+    {
+        if (currentState == null)
+            return;
+        displayState = currentState.ToString();
+    }
+    public void EnableWeaponCollider()
+    {
+    if (weaponCollider != null)
+        weaponCollider.enabled = true;
+    }
+
+    public void DisableWeaponCollider()
+    {
+    if (weaponCollider != null)
+        weaponCollider.enabled = false;
+    }
 }

@@ -4707,6 +4707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 0
   fairyBehavior: 2
@@ -4717,6 +4718,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 213aafe1fd996a943bcb4eabc634288f, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
 --- !u!136 &472481641
@@ -6864,6 +6866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 0
   fairyBehavior: 0
@@ -6874,6 +6877,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 74902ab83dbd41d4296225aeef07b2e5, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
 --- !u!54 &879641780
@@ -8201,6 +8205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 1
   fairyBehavior: 0
@@ -8211,6 +8216,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 4c72bc00940894b4e9cd73969c49f9cf, type: 2}
 --- !u!54 &1185727435
@@ -10351,6 +10357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 1
   fairyBehavior: 0
@@ -10361,6 +10368,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 0d6a01692399a3345a438ff227623a16, type: 2}
 --- !u!54 &1527497526
@@ -10552,6 +10560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 0
   fairyBehavior: 2
@@ -10562,6 +10571,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 99487949eb87803418398341fcc0cf3d, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
 --- !u!54 &1740496827
@@ -10676,6 +10686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 0
   fairyBehavior: 0
@@ -10686,6 +10697,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 74902ab83dbd41d4296225aeef07b2e5, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
 --- !u!54 &1752634438
@@ -12017,6 +12029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayState: Idle
   Team: 0
   fairyType: 0
   fairyBehavior: 0
@@ -12027,6 +12040,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   healthBarVisual: {fileID: 0}
+  weaponCollider: {fileID: 0}
   fairyStatsBase: {fileID: 11400000, guid: 337b6168a11528d4388f4e9de8ed2035, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
 --- !u!114 &2088067558
@@ -12041,13 +12055,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 0}
-  m_BlackboardVariableOverridesList: []
+  m_Graph: {fileID: 7318692840228950913, guid: 21fe278f1da8297428570b2c79df8134, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 4358616203916738632
+  - rid: 4358616203916738650
+  - rid: 4358616203916738651
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4358616203916738632
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 2088067542}
+    - rid: 4358616203916738650
+      type: {class: 'BlackboardVariable`1[[CombatManager, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11255618638764638818
+          m_Value1: 14877468754936851943
+        Name: CombatManager
+        m_Value: {fileID: 2088067562}
+    - rid: 4358616203916738651
+      type: {class: 'BlackboardVariable`1[[Fairy, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 17155524760167349374
+          m_Value1: 7382492250805445566
+        Name: Fairy
+        m_Value: {fileID: 2088067554}
 --- !u!114 &2088067562
 MonoBehaviour:
   m_ObjectHideFlags: 0

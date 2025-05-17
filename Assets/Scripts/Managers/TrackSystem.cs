@@ -5,7 +5,6 @@ public class TrackSystem : MonoBehaviour
 {
     public GameObject Match;
     public GameObject Target;
-
     private Fairy fairy;
 
     private void Awake()

@@ -16,11 +16,7 @@ public class WeaponCollider : MonoBehaviour
             Fairy targetFairy = other.GetComponent<Fairy>();
             if (targetFairy != null && targetFairy != ownerFairy)
             {
-                CombatManager combatManager = targetFairy.GetComponent<CombatManager>();
-                if (combatManager != null)
-                {
-                    combatManager.DisableWeaponCollider();
-                }
+               ownerFairy.DisableWeaponCollider();
 
                 Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
 
