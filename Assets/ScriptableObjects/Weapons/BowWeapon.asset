@@ -18,3 +18,4 @@ MonoBehaviour:
   weaponMesh: {fileID: 4300000, guid: e3270f62143ddae42b1d21ab68b16aa6, type: 3}
   projectilePrefab: {fileID: 8211539421422320215, guid: 34b79d5593a626546bfa1f2de606430b, type: 3}
   projectileSpeed: 15
+  attackDuration: 1

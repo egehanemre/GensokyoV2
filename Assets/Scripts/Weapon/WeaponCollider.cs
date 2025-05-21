@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class WeaponCollider : MonoBehaviour
 {
     private Fairy ownerFairy;
+    private HashSet<Fairy> hitFairies = new HashSet<Fairy>();
 
     private void Awake()
     {
@@ -14,17 +16,34 @@ public class WeaponCollider : MonoBehaviour
         if (other.CompareTag("Fairy"))
         {
             Fairy targetFairy = other.GetComponent<Fairy>();
-            if (targetFairy != null && targetFairy != ownerFairy)
-            {
-               ownerFairy.DisableWeaponCollider();
 
-                Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
+            if (targetFairy == null || targetFairy == ownerFairy || hitFairies.Contains(targetFairy))
+                return;
 
-                float damage = ownerFairy.fairyCurrentStats.attackDamage;
-                float knockbackForce = damage * 0.2f; // Optional: Replace with a configurable multiplier
+            hitFairies.Add(targetFairy);
 
-                targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection);
-            }
+            Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
+            float damage = ownerFairy.fairyCurrentStats.attackDamage;
+            float knockbackForce = damage * 0.2f;
+
+            targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (ownerFairy == null)
+            return;
+
+        Gizmos.color = Color.red;
+        Vector3 origin = transform.position;
+        Vector3 direction = ownerFairy.transform.forward; 
+
+        Gizmos.DrawLine(origin, origin + direction * 2f);
+    }
+
+    public void ResetHitFairies()
+    {
+        hitFairies.Clear();
     }
 }

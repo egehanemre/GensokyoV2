@@ -1,21 +1,43 @@
 using UnityEngine;
-using System.Collections;
 
 public class AttackState : FairyState
 {
     private Fairy targetFairy;
+    private bool isAttacking = false;
+    private float attackTimer = 0f;
+
     public AttackState(Fairy fairy) : base(fairy) { }
+
     public override void Enter()
     {
         targetFairy = fairy.TrackSystem.Target?.GetComponent<Fairy>();
-        if (targetFairy == null)
-        {
-            fairy.ChangeState(new IdleState(fairy));
-            return;
-        }
+        fairy.CurrentMoveSpeed = 0f;
+        isAttacking = false;
     }
 
     public override void Update()
+    {
+        if (isAttacking)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0f)
+            {
+                isAttacking = false;
+                // Check again after attack finished
+                CheckTransitions();
+            }
+            return;
+        }
+
+        CheckTransitions();
+
+        if (fairy.IsAttackReady())
+        {
+            PerformAttack();
+        }
+    }
+
+    private void CheckTransitions()
     {
         if (targetFairy == null)
         {
@@ -24,36 +46,26 @@ public class AttackState : FairyState
         }
 
         float distance = Vector3.Distance(fairy.transform.position, targetFairy.transform.position);
-
         if (distance > fairy.fairyCurrentStats.attackRange)
         {
             fairy.ChangeState(new MoveState(fairy));
-            return;
-        }
-
-        RotateTowardsTarget();
-
-        if (fairy.CanAttack)
-        {
-            PerformAttack();
         }
     }
 
     private void PerformAttack()
     {
+        isAttacking = true;
+        attackTimer = fairy.weaponDataSO.attackDuration; 
         fairy.RegisterAttackCooldown();
         fairy.TriggerAnim("Attack");
 
-        if (targetFairy != null)
+        if (targetFairy != null && (fairy.TrackSystem.Match != null ))
         {
             Vector3 dir = (targetFairy.transform.position - fairy.transform.position).normalized;
             targetFairy.ReactToAttackStart(dir);
         }
 
-        if (fairy.weaponDataSO.projectilePrefab == null)
-        {
-        }
-        else
+        if (fairy.weaponDataSO.projectilePrefab != null)
         {
             ShootProjectile();
         }
@@ -79,34 +91,6 @@ public class AttackState : FairyState
                 fairy.Team
             );
         }
-
-        fairy.StartMovementRoutine(StrafeAfterShooting());
-    }
-
-    private IEnumerator StrafeAfterShooting()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        Vector3 randDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-3f, 3f)).normalized;
-        Vector3 targetPos = fairy.transform.position + randDir * Random.Range(0.5f, 2f);
-        Rigidbody rb = fairy.Rigidbody;
-        float speed = fairy.fairyCurrentStats.moveSpeed * 2f;
-
-        fairy.Animator.SetFloat("moveSpeed", speed);
-
-        while (Vector3.Distance(rb.position, targetPos) > 0.5f)
-        {
-            Vector3 dir = (targetPos - rb.position).normalized;
-            Vector3 movePos = rb.position + dir * speed * Time.deltaTime;
-
-            rb.MovePosition(movePos);
-            RotateTowardsTarget();
-
-            yield return null;
-        }
-
-        fairy.Animator.SetFloat("moveSpeed", 0f);
-        fairy.StopMovementRoutine();
     }
 
     private void RotateTowardsTarget()
@@ -118,8 +102,9 @@ public class AttackState : FairyState
         Quaternion targetRot = Quaternion.LookRotation(dir);
         fairy.transform.rotation = Quaternion.Slerp(fairy.transform.rotation, targetRot, Time.deltaTime * 5f);
     }
+
     public override void Exit()
     {
+        isAttacking = false;
     }
-    
 }

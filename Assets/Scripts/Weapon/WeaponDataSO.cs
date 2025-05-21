@@ -11,4 +11,5 @@ public class WeaponDataSO : ScriptableObject
 
     public GameObject projectilePrefab;
     public float projectileSpeed;
+    public float attackDuration;
 }
