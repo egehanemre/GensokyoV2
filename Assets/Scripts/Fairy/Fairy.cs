@@ -6,6 +6,7 @@ using UnityEditor;
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(TrackSystem))]
 public class Fairy : MonoBehaviour
 {
+    public GameObject fairyImageForShop;
     // Identifiers
     public Team Team;
     public FairyType fairyType;
@@ -22,7 +23,6 @@ public class Fairy : MonoBehaviour
 
     public float healthDisplay;
     public AttackCooldownBar AttackCooldownBar { get; private set; }
-
 
     // Scriptable Object Data 
     public FairyStatsSO fairyStatsBase;
