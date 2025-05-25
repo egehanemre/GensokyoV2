@@ -13,7 +13,18 @@ public class CombatPrepManager : MonoBehaviour
     [SerializeField] private Button prepButton;
 
     public static int requiredFairyCount = 4;
+    private void OnEnable()
+    {
+        RefreshPrepScreen();
+    }
     private void Start()
+    {
+        if (prepButton != null)
+        {
+            prepButton.onClick.AddListener(OnPrepButtonClicked);
+        }
+    }
+    public void RefreshPrepScreen()
     {
         requiredFairyCount = EnemyUnits.Instance.currentStageIndex switch
         {
@@ -24,21 +35,16 @@ public class CombatPrepManager : MonoBehaviour
             _ => 4
         };
         playerUnits = PlayerUnits.Instance;
-        FairyShop.SelectedShops.Clear(); 
+        FairyShop.SelectedShops.Clear();
         UpdatePrepUnits();
         UpdatePrepEnemies();
-
-        if (prepButton != null)
-        {
-            prepButton.onClick.AddListener(OnPrepButtonClicked);
-        }
+        UpdateButtonText();
     }
     private void Update()
     {
         if (prepButton != null)
         {
             UpdateButtonText();
-
             var selectedCount = FairyShop.SelectedShops.Count;
             prepButton.interactable = selectedCount >= requiredFairyCount;
         }
