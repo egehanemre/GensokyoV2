@@ -16,15 +16,13 @@ public class ClickableNPC : MonoBehaviour
         UIPanel.SetActive(false);
         CombatPanel.SetActive(false);
     }
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) && UIPanel.activeSelf)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             ClosePanel();
         }
     }
-
     private void OnMouseEnter()
     {
         outline.enabled = true;
@@ -35,9 +33,12 @@ public class ClickableNPC : MonoBehaviour
         outline.enabled = false;
         NPCText.SetActive(false);
     }
-
     private void OnMouseDown()
     {
+        if(UIPanel.activeSelf || CombatPanel.activeSelf)
+        {
+            return;
+        }
         OpenPanel();
     }
     private void OpenPanel()
@@ -54,8 +55,8 @@ public class ClickableNPC : MonoBehaviour
     private void ClosePanel()
     {
         UIPanel.SetActive(false);
+        CombatPanel.SetActive(false);
     }
-
     public enum NPCType
     {
         Shop,

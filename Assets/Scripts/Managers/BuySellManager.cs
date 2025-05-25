@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class BuySellManager : MonoBehaviour
 {
+    private List<GameObject> shopBuyEntries = new();
+    private List<GameObject> shopSellEntries = new();
+    public static BuySellManager Instance { get; private set; }
+
     [SerializeField] private PlayerUnits playerUnits;
     [SerializeField] private UnitsForSale unitsForSale;
     [SerializeField] private GameObject shopPrefab;
@@ -12,9 +16,19 @@ public class BuySellManager : MonoBehaviour
     [SerializeField] private GameObject shopBuy;
     [SerializeField] private GameObject shopSell;
 
-    [SerializeField] public float Gold = 50f;
-    [SerializeField] private TextMeshProUGUI gold;
+    private float Gold;
 
+    private void Awake()
+    {
+        playerUnits = PlayerUnits.Instance;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -22,9 +36,8 @@ public class BuySellManager : MonoBehaviour
     }
     private void Update()
     {
-        gold.text = "Gold: " + Gold.ToString();
     }
-    private void UpdateShop()
+    public void UpdateShop()
     {
         foreach (Transform child in shopSell.transform)
         {

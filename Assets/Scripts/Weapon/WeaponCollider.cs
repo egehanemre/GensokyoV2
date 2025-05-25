@@ -20,6 +20,9 @@ public class WeaponCollider : MonoBehaviour
             if (targetFairy == null || targetFairy == ownerFairy || hitFairies.Contains(targetFairy))
                 return;
 
+            if (targetFairy.Team == ownerFairy.Team)
+                return;
+
             hitFairies.Add(targetFairy);
 
             Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;

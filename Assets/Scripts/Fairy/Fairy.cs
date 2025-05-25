@@ -6,6 +6,8 @@ using UnityEditor;
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(TrackSystem))]
 public class Fairy : MonoBehaviour
 {
+    public float price = 0f; 
+
     public GameObject fairyImageForShop;
     // Identifiers
     public Team Team;
@@ -21,7 +23,7 @@ public class Fairy : MonoBehaviour
     public GameObject healthBarPrefab;
     public GameObject attackCooldownBarPrefab;
 
-    public float healthDisplay;
+    public float healthDisplay; 
     public AttackCooldownBar AttackCooldownBar { get; private set; }
 
     // Scriptable Object Data 
@@ -88,6 +90,16 @@ public class Fairy : MonoBehaviour
 
         AttackCooldownBar = bar.GetComponentInChildren<AttackCooldownBar>();
         AttackCooldownBar?.UpdateCooldownBar(0f);
+
+        if(Team == Team.Ally)
+        {
+            HealthBar.healthBarSprite.color = new Color(0,0.3f,1);
+
+        }
+        else if (Team == Team.Enemy)
+        {
+            HealthBar.healthBarSprite.color = Color.red;
+        }
     }
 
     private void UpdateAttackCooldownBar()

@@ -34,5 +34,6 @@ public class DyingState : FairyState
 
     public override void Exit()
     {
+        GoldManager.Instance?.AddGold(fairy.price * 0.75f);
     }
 }

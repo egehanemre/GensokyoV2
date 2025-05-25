@@ -15,16 +15,6 @@ public class MatchingManager : MonoBehaviour
     {
         Instance = this;
     }
-    private void Start()
-    {
-        foreach (var fairy in playerFairy)
-            fairy.Team = Team.Ally;
-
-        foreach (var fairy in enemyFairy)
-            fairy.Team = Team.Enemy;
-
-        MatchFairies();
-    }
     public void MatchFairies()
     {
         var playerMelee = playerFairy.Where(f => f.fairyType == FairyType.Melee).ToList();

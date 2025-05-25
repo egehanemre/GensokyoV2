@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,21 +10,18 @@ public class FairyShop : MonoBehaviour
     public GameObject objectParent;
 
     public ShopType shopType;
-    private FairyStatsSO fairyStatsBase; 
+    private FairyStatsSO fairyStatsBase;
     private WeaponDataSO weaponDataSO;
-    public float price;
-
+    private float buyPrice;
+    private float sellPrice;
 
     [SerializeField] private TextMeshProUGUI Attack;
     [SerializeField] private TextMeshProUGUI Health;
     [SerializeField] private TextMeshProUGUI Speed;
     [SerializeField] private Button Button;
+    private bool isSelected = false;
 
-    private void Awake() {
-
-    }
-
-    
+    public static List<FairyShop> SelectedShops = new List<FairyShop>();
     void SetLayerRecursively(GameObject obj, int layer)
     {
         obj.layer = layer;
@@ -39,6 +37,10 @@ public class FairyShop : MonoBehaviour
         Fairy fairy = fairyPrefab.GetComponent<Fairy>();
         fairyStatsBase = fairy.fairyStatsBase;
         weaponDataSO = fairy.weaponDataSO;
+
+        buyPrice = fairy.price;
+        sellPrice = buyPrice / 2f;
+
 
         if (fairyDisplay != null)
             Destroy(fairyDisplay);
@@ -60,38 +62,94 @@ public class FairyShop : MonoBehaviour
         Speed.text = "Speed: " + fairyStatsBase.moveSpeed.ToString();
 
         var buttonText = Button.GetComponentInChildren<TextMeshProUGUI>();
-        
+
         Button.onClick.RemoveAllListeners();
 
         if (shopType == ShopType.Buy)
         {
-            buttonText.text = "Buy " + price.ToString();
+            buttonText.text = "Buy " + buyPrice.ToString();
             Button.onClick.AddListener(() => BuyFairy(fairyPrefab));
         }
         else if (shopType == ShopType.Sell)
         {
-            buttonText.text = "Sell " + (price / 2f).ToString();
+            buttonText.text = "Sell " + sellPrice.ToString();
             Button.onClick.AddListener(() => SellFairy(fairyPrefab));
         }
         else if (shopType == ShopType.Prep)
         {
             buttonText.text = "Select";
+            Button.onClick.AddListener(() => ToggleSelect());
+            UpdateButtonColor();
+        }
+        else if (shopType == ShopType.Enemy)
+        {
+            Button.gameObject.SetActive(false);
         }
     }
+    private void ToggleSelect()
+    {
+        if (isSelected)
+        {
+            isSelected = false;
+            SelectedShops.Remove(this);
+        }
+        else
+        {
+            if (SelectedShops.Count >= CombatPrepManager.requiredFairyCount)
+            {
+                return;
+            }
+            isSelected = true;
+            if (!SelectedShops.Contains(this))
+                SelectedShops.Add(this);
+        }
+        UpdateButtonColor();
+    }
+
+    private void UpdateButtonColor()
+    {
+        var colors = Button.colors;
+        if (isSelected)
+        {
+            colors.normalColor = Color.green;
+            colors.selectedColor = Color.green;
+        }
+        else
+        {
+            colors.normalColor = Color.white;
+            colors.selectedColor = Color.white;
+        }
+        Button.colors = colors;
+    }
+
     public enum ShopType
     {
         Buy,
         Sell,
-        Prep
+        Prep,
+        Enemy
     }
     public void BuyFairy(GameObject fairy)
     {
-        PlayerUnits.Instance.AddFairy(fairy);
-        Init();
+        if (GoldManager.Instance.Gold < buyPrice)
+        {
+            return;
+        }
+        else
+        {
+            PlayerUnits.Instance.AddFairy(fairy);
+            GoldManager.Instance.SpendGold(buyPrice);
+            UnitsForSale.Instance.ForSaleFairies.Remove(fairy);
+            BuySellManager.Instance.UpdateShop();
+        }
     }
     public void SellFairy(GameObject fairy)
     {
+        if (PlayerUnits.Instance.OwnedFairies.Count == 1) return;
+
+        GoldManager.Instance.AddGold(sellPrice);
         PlayerUnits.Instance.RemoveFairy(fairy);
-        Init();
+        Destroy(gameObject);
+        BuySellManager.Instance.UpdateShop();
     }
 }

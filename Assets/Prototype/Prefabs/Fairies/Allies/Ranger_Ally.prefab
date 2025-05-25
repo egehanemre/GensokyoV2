@@ -4366,7 +4366,7 @@ GameObject:
   - component: {fileID: 1837944884512938504}
   - component: {fileID: 273275606508137736}
   m_Layer: 6
-  m_Name: Ranger_1
+  m_Name: Ranger_Ally
   m_TagString: Fairy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4511,8 +4511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 24
   fairyImageForShop: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
-  Team: 1
+  Team: 0
   fairyType: 1
   fairyBehavior: 0
   bowPosition: {fileID: 2909041113750537244}
@@ -13236,7 +13237,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f3da1af7dc3247049b59586e06e27917, type: 2}
+  - {fileID: 2100000, guid: dccf8e44ede71db42b49378af93c5fb7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

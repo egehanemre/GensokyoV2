@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerUnits : MonoBehaviour
 {
@@ -7,7 +8,6 @@ public class PlayerUnits : MonoBehaviour
 
     [SerializeField] private List<GameObject> ownedFairies = new List<GameObject>();
     public List<GameObject> OwnedFairies => ownedFairies;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -16,8 +16,9 @@ public class PlayerUnits : MonoBehaviour
             return;
         }
         Instance = this;
-    }
+        DontDestroyOnLoad(this.gameObject);
 
+    }
     public void AddFairy(GameObject fairy)
     {
         ownedFairies.Add(fairy);

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Image healthBarSprite;
+    [SerializeField] public Image healthBarSprite;
     [SerializeField] private float smoothSpeed = 5f;
 
     private float targetFill = 1f;
