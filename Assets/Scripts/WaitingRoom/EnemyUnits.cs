@@ -10,7 +10,7 @@ public class EnemyUnits : MonoBehaviour
 
     [Header("Stage System")]
     [SerializeField] private StageDatabase stageDatabase;
-    public Stages currentStageIndex = Stages.Stage1;
+    public Stages currentStageIndex;
 
     private void Awake()
     {
@@ -22,8 +22,12 @@ public class EnemyUnits : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(this.gameObject);
-
         LoadStage(currentStageIndex);
+    }
+    private void Start()
+    {
+        if (StageManager.Instance != null)
+            StageManager.Instance.UpdateStageUI();
     }
 
     public void LoadStage(Stages stageIndex)
@@ -47,6 +51,11 @@ public class EnemyUnits : MonoBehaviour
 
         foreach (var entry in enemyEntries)
         {
+            if (entry == null || entry.enemyPrefab == null)
+            {
+                Debug.LogWarning("Enemy entry or prefab is null.");
+                continue;
+            }
             for (int i = 0; i < entry.count; i++)
             {
                 string uniqueId = System.Guid.NewGuid().ToString();
@@ -54,6 +63,5 @@ public class EnemyUnits : MonoBehaviour
             }
         }
         currentStageIndex = stageIndex;
-        StageManager.Instance.UpdateStageUI();
     }
 }

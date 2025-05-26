@@ -17,6 +17,11 @@ public class StageManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Update()
+    {
+        UpdateStageUI();
+    }
+
     public void UpdateStageUI()
     {
         if (stageText != null)

@@ -2898,6 +2898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 50
   goldText: {fileID: 597884728}
+  goldCanvas: {fileID: 0}
 --- !u!1 &1268229090
 GameObject:
   m_ObjectHideFlags: 0

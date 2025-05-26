@@ -86,5 +86,6 @@ public class CombatManager : MonoBehaviour
         Time.timeScale = 1f; // Reset time scale to normal
 
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
+
     }
 }
