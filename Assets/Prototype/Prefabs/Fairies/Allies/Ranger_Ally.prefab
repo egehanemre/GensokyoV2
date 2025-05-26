@@ -4511,6 +4511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UniqueId: 
   price: 24
   fairyImageForShop: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
   Team: 0
@@ -4521,6 +4522,7 @@ MonoBehaviour:
   currentWeaponVisual: {fileID: 3566771390681361876}
   weaponMeshFilter: {fileID: 0}
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
+  floatingGoldPrefab: {fileID: 91090051065434639, guid: c68f7cddad9b6b14d95a9cc2c6c0643b, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   attackCooldownBarPrefab: {fileID: 0}
   healthDisplay: 0

@@ -12,10 +12,12 @@ public class StageData : ScriptableObject
     }
 
     public Stages stage;
-    public StageDifficulty stageDifficulty;
-    public List<EnemyEntry> enemies;
-}
 
+    [Header("Enemy Groups by Difficulty")]
+    public List<EnemyEntry> easyEnemies;
+    public List<EnemyEntry> mediumEnemies;
+    public List<EnemyEntry> hardEnemies;
+}
 public enum Stages
 {
     Stage1,

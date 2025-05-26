@@ -21,6 +21,7 @@ public class Fairy : MonoBehaviour
     public GameObject currentWeaponVisual;
     public MeshFilter weaponMeshFilter;
     public GameObject floatingTextPrefab;
+    public GameObject floatingGoldPrefab;
     public GameObject healthBarPrefab;
     public GameObject attackCooldownBarPrefab;
 
@@ -198,6 +199,11 @@ public class Fairy : MonoBehaviour
         HealthBar?.UpdateHealthBar(fairyCurrentStats.maxHealth, fairyCurrentStats.currentHealth);
         ShowFloatingText(text);
     }
+    public void ShowGoldFeedback(float gold)
+    {
+        ShowFloatingGold(gold);
+    }
+
     private void ShowFloatingText(string text)
     {
         if (floatingTextPrefab == null) return;
@@ -205,6 +211,14 @@ public class Fairy : MonoBehaviour
         Vector3 offset = new Vector3(0, 2f, 0);
         GameObject go = Instantiate(floatingTextPrefab, transform.position + offset, Quaternion.identity);
         go.GetComponent<FloatingText>().text.text = text;
+    }
+    private void ShowFloatingGold(float gold)
+    {
+        if (floatingTextPrefab == null) return;
+
+        Vector3 offset = new Vector3(0, 1f, 0);
+        GameObject go = Instantiate(floatingGoldPrefab, transform.position + offset, Quaternion.identity);
+        go.GetComponent<FloatingGold>().text.text = "+" + gold.ToString() + "c";
     }
     #endregion
 

@@ -1,5 +1,5 @@
-using System.Xml;
 using UnityEngine;
+using TMPro;
 
 public class DyingState : FairyState
 {
@@ -8,14 +8,19 @@ public class DyingState : FairyState
     public DyingState(Fairy fairy) : base(fairy) { }
     public override void Enter()
     {
+        float goldEarned = 0f;
         if (fairy.Team == Team.Ally)
         {
-            GoldManager.Instance?.AddGold(fairy.price * 0.35f);
+            goldEarned = fairy.price * 0.35f;
+            GoldManager.Instance?.AddGold(goldEarned);
+            fairy.ShowGoldFeedback(goldEarned);
             PlayerUnits.Instance.RemoveFairy(fairy.UniqueId);
         }
         else if (fairy.Team == Team.Enemy)
         {
-            GoldManager.Instance?.AddGold(fairy.price * 0.75f);
+            goldEarned = fairy.price * 0.75f;
+            GoldManager.Instance?.AddGold(goldEarned);
+            fairy.ShowGoldFeedback(goldEarned);
         }
 
         fairy.TriggerAnim("Die");

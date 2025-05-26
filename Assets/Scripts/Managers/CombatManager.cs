@@ -84,6 +84,7 @@ public class CombatManager : MonoBehaviour
         }
         SceneManager.LoadScene("WaitingRoom");
         Time.timeScale = 1f; // Reset time scale to normal
+
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
     }
 }

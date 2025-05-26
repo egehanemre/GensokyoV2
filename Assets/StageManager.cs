@@ -15,14 +15,13 @@ public class StageManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
-        UpdateStageUI();
     }
 
     public void UpdateStageUI()
     {
         if (stageText != null)
         {
-            stageText.text = "Stage: " + EnemyUnits.Instance.currentStageIndex ;
+            stageText.text = "Stage: " + EnemyUnits.Instance.currentStageIndex.ToString();
         }
     }
 }

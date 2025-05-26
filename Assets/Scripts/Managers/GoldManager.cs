@@ -5,8 +5,9 @@ public class GoldManager : MonoBehaviour
 {
     public static GoldManager Instance { get; private set; }
 
-    [SerializeField] private float gold = 50f;
-    [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] public float gold = 50f;
+    [SerializeField] public TextMeshProUGUI goldText;
+    public Canvas goldCanvas;
     public float Gold => gold;
     private void Awake()
     {

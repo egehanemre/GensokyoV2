@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa1c426c9e16d004aa951995ef278aa3, type: 3}
-  m_Name: StageData
+  m_Name: StageData3
   m_EditorClassIdentifier: 
-  stage: 0
-  stagePart: 0
-  enemies:
-  - enemyPrefab: {fileID: 8473615729581583075, guid: bc72fdf2fc8d37c48a0201f790a17878, type: 3}
-    count: 2
+  stage: 2
+  easyEnemies:
   - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
     count: 1
+  mediumEnemies:
+  - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
+    count: 2
+  hardEnemies:
+  - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
+    count: 3

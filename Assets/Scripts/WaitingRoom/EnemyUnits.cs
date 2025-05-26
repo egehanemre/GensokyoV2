@@ -5,8 +5,8 @@ public class EnemyUnits : MonoBehaviour
 {
     public static EnemyUnits Instance { get; private set; }
 
-    [SerializeField] private List<GameObject> enemyFairies = new List<GameObject>();
-    public List<GameObject> EnemyFairies => enemyFairies;
+    [SerializeField] private List<FairyData> enemyFairies = new List<FairyData>();
+    public List<FairyData> EnemyFairies => enemyFairies;
 
     [Header("Stage System")]
     [SerializeField] private StageDatabase stageDatabase;
@@ -23,23 +23,37 @@ public class EnemyUnits : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        LoadStage(Stages.Stage1);
+        LoadStage(currentStageIndex);
     }
+
     public void LoadStage(Stages stageIndex)
     {
         enemyFairies.Clear();
 
-        var stage = stageDatabase.stages.Find(s => s.stage == stageIndex);
+        if (stageDatabase == null)
+        {
+            Debug.LogError("StageDatabase is not assigned in EnemyUnits.");
+            return;
+        }
 
-        foreach (var entry in stage.enemies)
+        StageDifficulty difficulty = stageDatabase.GetDifficultyForGold();
+        var enemyEntries = stageDatabase.GetEnemiesForStage(stageIndex, difficulty);
+
+        if (enemyEntries == null)
+        {
+            Debug.LogError($"No enemy entries found for stage: {stageIndex} with difficulty: {difficulty}");
+            return;
+        }
+
+        foreach (var entry in enemyEntries)
         {
             for (int i = 0; i < entry.count; i++)
             {
-                enemyFairies.Add(entry.enemyPrefab);
+                string uniqueId = System.Guid.NewGuid().ToString();
+                enemyFairies.Add(new FairyData(uniqueId, entry.enemyPrefab));
             }
         }
         currentStageIndex = stageIndex;
         StageManager.Instance.UpdateStageUI();
     }
 }
-

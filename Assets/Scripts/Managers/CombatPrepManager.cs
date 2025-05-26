@@ -75,13 +75,13 @@ public class CombatPrepManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        foreach (GameObject enemyGO in EnemyUnits.Instance.EnemyFairies)
+        foreach (FairyData enemyData in EnemyUnits.Instance.EnemyFairies)
         {
             GameObject prepEntry = Instantiate(prepUnitPrefab, prepEnemiesParent.transform);
             FairyShop fairyShop = prepEntry.GetComponent<FairyShop>();
             if (fairyShop != null)
             {
-                fairyShop.fairyData = new FairyData("Enemy_" + enemyGO.GetInstanceID(), enemyGO);
+                fairyShop.fairyData = enemyData;
                 fairyShop.shopType = FairyShop.ShopType.Enemy;
                 fairyShop.Init();
             }
@@ -103,7 +103,6 @@ public class CombatPrepManager : MonoBehaviour
                 .ToList();
 
             CombatPrepData.SelectedEnemies = EnemyUnits.Instance.EnemyFairies
-                .Select(enemyGO => new FairyData("Enemy_" + enemyGO.GetInstanceID(), enemyGO))
                 .ToList();
 
             SceneManager.LoadScene("CombatScene");
