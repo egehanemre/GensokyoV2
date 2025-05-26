@@ -44,14 +44,14 @@ public class BuySellManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (GameObject fairyGO in playerUnits.OwnedFairies)
+        foreach (FairyData fairyData in playerUnits.OwnedFairies)
         {
             GameObject shopEntry = Instantiate(shopPrefab, shopSell.transform);
             FairyShop fairyShop = shopEntry.GetComponent<FairyShop>();
 
             if (fairyShop != null)
             {
-                fairyShop.fairyPrefab = fairyGO;
+                fairyShop.fairyData = fairyData;
                 fairyShop.shopType = FairyShop.ShopType.Sell;
                 fairyShop.Init();
             }
@@ -68,7 +68,7 @@ public class BuySellManager : MonoBehaviour
 
             if (fairyShop != null)
             {
-                fairyShop.fairyPrefab = fairyGO;
+                fairyShop.fairyData.FairyPrefab = fairyGO;
                 fairyShop.shopType = FairyShop.ShopType.Buy;
                 fairyShop.Init();
             }

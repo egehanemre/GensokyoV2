@@ -23,9 +23,8 @@ public class EnemyUnits : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        LoadStage(currentStageIndex);
+        LoadStage(Stages.Stage1);
     }
-
     public void LoadStage(Stages stageIndex)
     {
         enemyFairies.Clear();
@@ -40,6 +39,7 @@ public class EnemyUnits : MonoBehaviour
             }
         }
         currentStageIndex = stageIndex;
+        StageManager.Instance.UpdateStageUI();
     }
 }
 

@@ -294,11 +294,10 @@ MonoBehaviour:
   fairyDisplay: {fileID: 2408087895517976174}
   objectParent: {fileID: 7451251737870400081}
   shopType: 1
-  price: 24
-  Attack: {fileID: 1846087310426083864}
-  Health: {fileID: 5526262823187828245}
-  Speed: {fileID: 3790946458636089231}
-  Button: {fileID: 7684603277974251531}
+  attack: {fileID: 1846087310426083864}
+  health: {fileID: 5526262823187828245}
+  speed: {fileID: 3790946458636089231}
+  button: {fileID: 7684603277974251531}
 --- !u!1 &4316830666851137449
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class CombatManager : MonoBehaviour
     public Transform allySpawnParent;
     public Transform enemySpawnParent;
     public float spawnRadius = 5f;
+    public SpeedManager speedManager;
 
     private bool combatEnded = false;
 
@@ -15,31 +16,39 @@ public class CombatManager : MonoBehaviour
         MatchingManager.Instance.playerFairy.Clear();
         MatchingManager.Instance.enemyFairy.Clear();
 
-        foreach (var allyPrefab in CombatPrepData.SelectedAllies)
+        foreach (var fairyData in CombatPrepData.SelectedAllies)
         {
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPos = allySpawnParent.position + new Vector3(randomOffset.x, 0, randomOffset.y);
-            var allyGO = Instantiate(allyPrefab, spawnPos, Quaternion.identity, allySpawnParent);
+            var allyGO = Instantiate(fairyData.FairyPrefab, spawnPos, Quaternion.identity, allySpawnParent);
             var fairy = allyGO.GetComponent<Fairy>();
             if (fairy != null)
             {
+                fairy.UniqueId = fairyData.UniqueId;
                 MatchingManager.Instance.playerFairy.Add(fairy);
             }
         }
 
-        foreach (var enemyPrefab in CombatPrepData.SelectedEnemies)
+        foreach (var enemyData in CombatPrepData.SelectedEnemies)
         {
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPos = enemySpawnParent.position + new Vector3(randomOffset.x, 0, randomOffset.y);
-            var enemyGO = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, enemySpawnParent);
+            var enemyGO = Instantiate(enemyData.FairyPrefab, spawnPos, Quaternion.identity, enemySpawnParent);
             var fairy = enemyGO.GetComponent<Fairy>();
             if (fairy != null)
             {
+                fairy.UniqueId = enemyData.UniqueId;
                 MatchingManager.Instance.enemyFairy.Add(fairy);
             }
         }
-        MatchingManager.Instance.MatchFairies();
-        StartCoroutine(CheckCombatEnd());
+    }
+
+    private void Update()
+    {
+        if (!combatEnded)
+        {
+            StartCoroutine(CheckCombatEnd());
+        }
     }
 
     private System.Collections.IEnumerator CheckCombatEnd()
@@ -74,6 +83,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Enemies Win!");
         }
         SceneManager.LoadScene("WaitingRoom");
+        Time.timeScale = 1f; // Reset time scale to normal
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
     }
 }

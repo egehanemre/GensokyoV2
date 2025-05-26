@@ -17,6 +17,8 @@ public class AttackState : FairyState
 
     public override void Update()
     {
+        RotateTowardsTarget();
+
         if (isAttacking)
         {
             attackTimer -= Time.deltaTime;

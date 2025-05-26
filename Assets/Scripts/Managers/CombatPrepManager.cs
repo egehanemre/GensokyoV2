@@ -56,14 +56,14 @@ public class CombatPrepManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (GameObject fairyGO in playerUnits.OwnedFairies)
+        foreach (FairyData fairyData in playerUnits.OwnedFairies)
         {
             GameObject prepEntry = Instantiate(prepUnitPrefab, prepUnitsParent.transform);
             FairyShop fairyShop = prepEntry.GetComponent<FairyShop>();
 
             if (fairyShop != null)
             {
-                fairyShop.fairyPrefab = fairyGO;
+                fairyShop.fairyData = fairyData; // Pass the data, not just the prefab
                 fairyShop.shopType = FairyShop.ShopType.Prep;
                 fairyShop.Init();
             }
@@ -81,7 +81,7 @@ public class CombatPrepManager : MonoBehaviour
             FairyShop fairyShop = prepEntry.GetComponent<FairyShop>();
             if (fairyShop != null)
             {
-                fairyShop.fairyPrefab = enemyGO;
+                fairyShop.fairyData = new FairyData("Enemy_" + enemyGO.GetInstanceID(), enemyGO);
                 fairyShop.shopType = FairyShop.ShopType.Enemy;
                 fairyShop.Init();
             }
@@ -89,19 +89,21 @@ public class CombatPrepManager : MonoBehaviour
     }
     public void UpdateButtonText()
     {
-        var selectedFairyPrefabs = FairyShop.SelectedShops.Select(shop => shop.fairyPrefab).ToList();
+        var selectedFairies = FairyShop.SelectedShops.Select(shop => shop.fairyData).Where(fd => fd != null).ToList();
 
-        prepButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start Combat (" +selectedFairyPrefabs.Count + "/"+ requiredFairyCount +")" ;
+        prepButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start Combat (" + selectedFairies.Count + "/" + requiredFairyCount + ")";
     }
     private void OnPrepButtonClicked()
     {
         if (FairyShop.SelectedShops.Count >= requiredFairyCount)
         {
             CombatPrepData.SelectedAllies = FairyShop.SelectedShops
-                .Select(shop => shop.fairyPrefab)
+                .Select(shop => shop.fairyData)
+                .Where(fd => fd != null)
                 .ToList();
 
             CombatPrepData.SelectedEnemies = EnemyUnits.Instance.EnemyFairies
+                .Select(enemyGO => new FairyData("Enemy_" + enemyGO.GetInstanceID(), enemyGO))
                 .ToList();
 
             SceneManager.LoadScene("CombatScene");

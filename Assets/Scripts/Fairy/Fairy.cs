@@ -6,8 +6,9 @@ using UnityEditor;
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(TrackSystem))]
 public class Fairy : MonoBehaviour
 {
-    public float price = 0f; 
+    public string UniqueId;
 
+    public float price = 0f;
     public GameObject fairyImageForShop;
     // Identifiers
     public Team Team;
