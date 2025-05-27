@@ -86,7 +86,6 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Enemies Win!");
         }
-        //SceneManager.LoadScene("WaitingRoom");
         Time.timeScale = 1f; // Reset time scale to normal
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
 
@@ -94,5 +93,10 @@ public class CombatManager : MonoBehaviour
     private void StartCombatEndSequence()
     {
         combatCanvasUI.enabled = true;
+    }
+
+    public void ContinueToNextScene()
+    {
+        SceneManager.LoadScene("WaitingRoom");
     }
 }
