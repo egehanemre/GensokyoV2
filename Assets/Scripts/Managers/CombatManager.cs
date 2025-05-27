@@ -85,6 +85,7 @@ public class CombatManager : MonoBehaviour
         else
         {
             Debug.Log("Enemies Win!");
+            StartCombatEndSequence();
         }
         Time.timeScale = 1f; // Reset time scale to normal
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
