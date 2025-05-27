@@ -34,3 +34,4 @@ MonoBehaviour:
     count: 2
   - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
     count: 1
+  requiredFairyCount: 2

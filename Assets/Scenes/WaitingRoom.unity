@@ -4227,6 +4227,7 @@ MonoBehaviour:
   prepUnitsParent: {fileID: 255841673}
   prepEnemiesParent: {fileID: 198403590}
   prepButton: {fileID: 1331304956}
+  stageDatabase: {fileID: 11400000, guid: 3abaeb1bde1f1264ca481657e86dda39, type: 2}
 --- !u!1 &1966510484
 GameObject:
   m_ObjectHideFlags: 0

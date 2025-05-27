@@ -11,6 +11,7 @@ public class CombatPrepManager : MonoBehaviour
     [SerializeField] private GameObject prepUnitsParent;
     [SerializeField] private GameObject prepEnemiesParent;
     [SerializeField] private Button prepButton;
+    [SerializeField] private StageDatabase stageDatabase;
 
     public static int requiredFairyCount = 4;
     private void OnEnable()
@@ -26,14 +27,8 @@ public class CombatPrepManager : MonoBehaviour
     }
     public void RefreshPrepScreen()
     {
-        requiredFairyCount = EnemyUnits.Instance.currentStageIndex switch
-        {
-            Stages.Stage1 => 4,
-            Stages.Stage2 => 5,
-            Stages.Stage3 => 6,
-            Stages.Stage4 => 7,
-            _ => 4
-        };
+        requiredFairyCount = stageDatabase.GetRequiredFairyCount(EnemyUnits.Instance.currentStageIndex);
+
         playerUnits = PlayerUnits.Instance;
         FairyShop.SelectedShops.Clear();
         UpdatePrepUnits();
@@ -46,7 +41,7 @@ public class CombatPrepManager : MonoBehaviour
         {
             UpdateButtonText();
             var selectedCount = FairyShop.SelectedShops.Count;
-            prepButton.interactable = selectedCount >= requiredFairyCount;
+            prepButton.interactable = selectedCount >= 1 && selectedCount <= requiredFairyCount;
         }
     }
     private void UpdatePrepUnits()
@@ -90,20 +85,20 @@ public class CombatPrepManager : MonoBehaviour
     public void UpdateButtonText()
     {
         var selectedFairies = FairyShop.SelectedShops.Select(shop => shop.fairyData).Where(fd => fd != null).ToList();
-
-        prepButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start Combat (" + selectedFairies.Count + "/" + requiredFairyCount + ")";
+        prepButton.GetComponentInChildren<TextMeshProUGUI>().text =
+            $"Start Combat ({selectedFairies.Count}/{requiredFairyCount})";
     }
     private void OnPrepButtonClicked()
     {
-        if (FairyShop.SelectedShops.Count >= requiredFairyCount)
+        var selectedCount = FairyShop.SelectedShops.Count;
+        if (selectedCount >= 1 && selectedCount <= requiredFairyCount)
         {
             CombatPrepData.SelectedAllies = FairyShop.SelectedShops
                 .Select(shop => shop.fairyData)
                 .Where(fd => fd != null)
                 .ToList();
 
-            CombatPrepData.SelectedEnemies = EnemyUnits.Instance.EnemyFairies
-                .ToList();
+            CombatPrepData.SelectedEnemies = EnemyUnits.Instance.EnemyFairies.ToList();
 
             SceneManager.LoadScene("CombatScene");
         }

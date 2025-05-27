@@ -8,11 +8,14 @@ public class CombatManager : MonoBehaviour
     public Transform enemySpawnParent;
     public float spawnRadius = 5f;
     public SpeedManager speedManager;
+    public Canvas combatCanvasUI;
 
     private bool combatEnded = false;
 
     void Start()
     {
+        combatCanvasUI.enabled = false;
+
         MatchingManager.Instance.playerFairy.Clear();
         MatchingManager.Instance.enemyFairy.Clear();
 
@@ -76,16 +79,20 @@ public class CombatManager : MonoBehaviour
         if (alliesWin)
         {
             Debug.Log("Allies Win!");
+            StartCombatEndSequence();
             EnemyUnits.Instance.currentStageIndex++;
         }
         else
         {
             Debug.Log("Enemies Win!");
         }
-        SceneManager.LoadScene("WaitingRoom");
+        //SceneManager.LoadScene("WaitingRoom");
         Time.timeScale = 1f; // Reset time scale to normal
-
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
 
+    }
+    private void StartCombatEndSequence()
+    {
+        combatCanvasUI.enabled = true;
     }
 }

@@ -16,3 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: efa2431e3d7e86340a1d8f6434e9c29e, type: 2}
   - {fileID: 11400000, guid: 67eac45cde192674f9cfe9c07109201a, type: 2}
   - {fileID: 11400000, guid: b24b9627c20020d41aed76eeba78407b, type: 2}
+  easyGoldRequirement: 300
+  mediumGoldRequirement: 600

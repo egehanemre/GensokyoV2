@@ -17,6 +17,9 @@ public class StageData : ScriptableObject
     public List<EnemyEntry> easyEnemies;
     public List<EnemyEntry> mediumEnemies;
     public List<EnemyEntry> hardEnemies;
+
+    [Header("Stage Requirements")]
+    public int requiredFairyCount; 
 }
 public enum Stages
 {

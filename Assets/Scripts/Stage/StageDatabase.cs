@@ -5,6 +5,8 @@ using UnityEngine;
 public class StageDatabase : ScriptableObject
 {
     public List<StageData> stages;
+    public float easyGoldRequirement;
+    public float mediumGoldRequirement;
     public List<StageData.EnemyEntry> GetEnemiesForStage(Stages stage, StageDifficulty difficulty)
     {
         var stageData = stages.Find(s => s.stage == stage);
@@ -18,12 +20,21 @@ public class StageDatabase : ScriptableObject
             _ => stageData.easyEnemies
         };
     }
+
+    public int GetRequiredFairyCount(Stages stage)
+    {
+        var stageData = stages.Find(s => s.stage == stage);
+        return stageData != null ? stageData.requiredFairyCount : 4; 
+    }
+
     public StageDifficulty GetDifficultyForGold()
     {
-        if (GoldManager.Instance.gold < 300)
+        if (GoldManager.Instance.gold < easyGoldRequirement)
             return StageDifficulty.Easy;
-        if (GoldManager.Instance.gold < 600)
+        if (GoldManager.Instance.gold < mediumGoldRequirement)
             return StageDifficulty.Medium;
+
         return StageDifficulty.Hard;
     }
+
 }

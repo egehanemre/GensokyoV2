@@ -1,5 +1,6 @@
-using UnityEngine;
+using System.Linq;
 using TMPro;
+using UnityEngine;
 
 public class DyingState : FairyState
 {
@@ -14,6 +15,14 @@ public class DyingState : FairyState
             goldEarned = fairy.price * 0.35f;
             GoldManager.Instance?.AddGold(goldEarned);
             fairy.ShowGoldFeedback(goldEarned);
+
+            FairyData deadData = PlayerUnits.Instance.OwnedFairies
+            .FirstOrDefault(fd => fd.UniqueId == fairy.UniqueId);
+            if (deadData != null)
+            {
+                DeadFairyDisplayManager.Instance?.ShowDeadFairy(deadData);
+            }
+
             PlayerUnits.Instance.RemoveFairy(fairy.UniqueId);
         }
         else if (fairy.Team == Team.Enemy)
