@@ -2854,7 +2854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2610707377469975205
 Transform:
   m_ObjectHideFlags: 0
@@ -5856,7 +5856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4598962993941203911
 Transform:
   m_ObjectHideFlags: 0
@@ -8985,7 +8985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3174124601215814861
 Transform:
   m_ObjectHideFlags: 0
@@ -9088,7 +9088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2089367135236233590
 Transform:
   m_ObjectHideFlags: 0
@@ -9119,7 +9119,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4628994365289351513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -11628,7 +11628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6684987191270571031
 Transform:
   m_ObjectHideFlags: 0
@@ -12278,7 +12278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6522517723411653136
 Transform:
   m_ObjectHideFlags: 0
@@ -15454,7 +15454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4031244833693893537
 Transform:
   m_ObjectHideFlags: 0
@@ -16327,7 +16327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5721406305457650742
 Transform:
   m_ObjectHideFlags: 0
@@ -17680,7 +17680,7 @@ GameObject:
   - component: {fileID: 1690018293142281225}
   - component: {fileID: 8151111621709190555}
   m_Layer: 6
-  m_Name: Sword_Enemy
+  m_Name: TheBeast
   m_TagString: Fairy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17694,7 +17694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8473615729581583075}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -3.94, y: 0.12, z: 1.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17829,7 +17829,7 @@ MonoBehaviour:
   fairyImageForShop: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
   Team: 1
   fairyType: 0
-  fairyBehavior: 2
+  fairyBehavior: 1
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
   currentWeaponVisual: {fileID: 3473593789873249914}

@@ -14,24 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stage: 1
   easyEnemies:
-  - enemyPrefab: {fileID: 8473615729581583075, guid: bc72fdf2fc8d37c48a0201f790a17878, type: 3}
-    count: 1
-  - enemyPrefab: {fileID: 2748362041638276215, guid: 3a49ebbd28082c84f8e2910067738b18, type: 3}
-    count: 1
   - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
-    count: 1
+    count: 13
   mediumEnemies:
-  - enemyPrefab: {fileID: 2748362041638276215, guid: 3a49ebbd28082c84f8e2910067738b18, type: 3}
-    count: 2
-  - enemyPrefab: {fileID: 8473615729581583075, guid: bc72fdf2fc8d37c48a0201f790a17878, type: 3}
-    count: 1
   - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
-    count: 1
+    count: 15
   hardEnemies:
-  - enemyPrefab: {fileID: 8473615729581583075, guid: bc72fdf2fc8d37c48a0201f790a17878, type: 3}
-    count: 3
-  - enemyPrefab: {fileID: 2748362041638276215, guid: 3a49ebbd28082c84f8e2910067738b18, type: 3}
-    count: 2
   - enemyPrefab: {fileID: 2038799906264281389, guid: c223b6da6a593264fb617a90735ae69d, type: 3}
-    count: 1
+    count: 19
   requiredFairyCount: 5
