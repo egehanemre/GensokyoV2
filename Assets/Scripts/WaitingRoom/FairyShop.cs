@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class FairyShop : MonoBehaviour
 {
-
     public enum ShopType
     {
         Buy,
