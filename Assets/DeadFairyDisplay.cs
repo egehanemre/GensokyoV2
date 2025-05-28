@@ -17,6 +17,17 @@ public class DeadFairyDisplay : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(CombatManager.Instance.combatEnded)
+        {
+            if (objectParent != null)
+            {
+                objectParent.SetActive(true);
+            }
+        }
+    }
+
     public void Init()
     {
         objectParent.SetActive(false);

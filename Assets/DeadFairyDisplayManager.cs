@@ -5,7 +5,6 @@ public class DeadFairyDisplayManager : MonoBehaviour
     public static DeadFairyDisplayManager Instance { get; private set; }
     public GameObject deadFairyDisplayPrefab;
     public Transform displayParent; 
-
     private void Awake()
     {
         Instance = this;
@@ -17,5 +16,6 @@ public class DeadFairyDisplayManager : MonoBehaviour
         var display = displayGO.GetComponent<DeadFairyDisplay>();
         display.fairyData = fairyData;
         display.Init();
+        display.fairyDisplay.SetActive(true);
     }
 }

@@ -4,14 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
+    public static CombatManager Instance { get; private set; }
+
     public Transform allySpawnParent;
     public Transform enemySpawnParent;
     public float spawnRadius = 5f;
     public SpeedManager speedManager;
     public Canvas combatCanvasUI;
 
-    private bool combatEnded = false;
+    public bool combatEnded = false;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+    }
     void Start()
     {
         combatCanvasUI.enabled = false;
@@ -94,9 +105,7 @@ public class CombatManager : MonoBehaviour
     private void StartCombatEndSequence()
     {
         combatCanvasUI.enabled = true;
-
     }
-
     public void ContinueToNextScene()
     {
         SceneManager.LoadScene("WaitingRoom");
