@@ -19,6 +19,8 @@ public class DeadFairyDisplay : MonoBehaviour
 
     public void Init()
     {
+        objectParent.SetActive(false);
+
         if (fairyData == null || fairyData.FairyPrefab == null || objectParent == null) return;
 
         if (!fairyData.FairyPrefab.TryGetComponent<Fairy>(out var fairy)) return;

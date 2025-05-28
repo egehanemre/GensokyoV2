@@ -94,6 +94,7 @@ public class CombatManager : MonoBehaviour
     private void StartCombatEndSequence()
     {
         combatCanvasUI.enabled = true;
+
     }
 
     public void ContinueToNextScene()
