@@ -43,6 +43,7 @@ public class CombatManager : MonoBehaviour
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPos = allySpawnParent.position + new Vector3(randomOffset.x, 0, randomOffset.y);
             var allyGO = Instantiate(fairyData.FairyPrefab, spawnPos, Quaternion.identity, allySpawnParent);
+            Debug.Log($"Spawning ally: {fairyData.FairyPrefab.name} at {spawnPos}");
             var fairy = allyGO.GetComponent<Fairy>();
             if (fairy != null)
             {
@@ -63,6 +64,7 @@ public class CombatManager : MonoBehaviour
                 MatchingManager.Instance.enemyFairy.Add(fairy);
             }
         }
+        MatchingManager.Instance.MatchFairies();
     }
 
     private void Update()

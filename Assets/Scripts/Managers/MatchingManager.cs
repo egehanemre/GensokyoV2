@@ -49,6 +49,7 @@ public class MatchingManager : MonoBehaviour
                 opposingList.Remove(closest);
                 RemoveFromUnmatchedList(fairy);
             }
+            Debug.Log($"Instant match found for {fairy.name} with {closest.name}");
         }
         else
         {
