@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -61,10 +62,17 @@ public class CombatManager : MonoBehaviour
             if (fairy != null)
             {
                 fairy.UniqueId = enemyData.UniqueId;
-                MatchingManager.Instance.enemyFairy.Add(fairy);
+                MatchingManager.Instance.enemyFairy.Add(fairy); 
             }
         }
         MatchingManager.Instance.MatchFairies();
+
+        foreach (var fairy in MatchingManager.Instance.playerFairy.Concat(MatchingManager.Instance.enemyFairy))
+        {
+            var trackSystem = fairy.GetComponent<TrackSystem>();
+            if (trackSystem != null)
+                trackSystem.TryMatch();
+        }
     }
 
     private void Update()

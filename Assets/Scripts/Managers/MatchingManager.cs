@@ -34,28 +34,70 @@ public class MatchingManager : MonoBehaviour
         unmatchedEnemyFairies.AddRange(remainingEnemies);
     }
     public void AttemptInstantMatch(Fairy fairy)
+{
+    if (fairy == null)
+        return;
+
+    var opposingList = playerFairy.Contains(fairy) ? unmatchedEnemyFairies : unmatchedPlayerFairies;
+
+    // Clean up nulls and dead units from the opposing list
+    opposingList.RemoveAll(e => e == null || e.gameObject == null || e == fairy || e.Team == fairy.Team);
+
+    Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) attempting instant match. Opposing unmatched list:");
+    foreach (var opp in opposingList)
     {
-        var opposingList = playerFairy.Contains(fairy) ? unmatchedEnemyFairies : unmatchedPlayerFairies;
+        if (opp != null)
+            Debug.Log($"    - {opp.name} ({opp.fairyType}) [{opp.Team}]");
+    }
 
-        if (opposingList.Count > 0)
+    if (opposingList.Count > 0)
+    {
+        // Exclude self and same team from matching
+        var sameTypeMatches = opposingList
+            .Where(e => e != null && e.fairyType == fairy.fairyType && e != fairy && e.Team != fairy.Team)
+            .ToList();
+
+        Fairy closest = null;
+
+        if (sameTypeMatches.Count > 0)
         {
-            var closest = opposingList.OrderBy(e => Vector3.Distance(fairy.transform.position, e.transform.position)).FirstOrDefault();
+            closest = sameTypeMatches
+                .OrderBy(e => Vector3.Distance(fairy.transform.position, e.transform.position))
+                .FirstOrDefault();
+        }
+        else
+        {
+            closest = opposingList
+                .Where(e => e != null && e != fairy && e.Team != fairy.Team)
+                .OrderBy(e => Vector3.Distance(fairy.transform.position, e.transform.position))
+                .FirstOrDefault();
+        }
 
-            if (closest != null)
+        if (closest != null && fairy != null)
+        {
+            var fairyTrack = fairy.GetComponent<TrackSystem>();
+            var closestTrack = closest.GetComponent<TrackSystem>();
+            if (fairyTrack != null && closestTrack != null)
             {
-                fairy.GetComponent<TrackSystem>().Match = closest.gameObject;
-                closest.GetComponent<TrackSystem>().Match = fairy.gameObject;
+                Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) [{fairy.Team}] matched with {closest.name} ({closest.fairyType}) [{closest.Team}]");
+                fairyTrack.Match = closest.gameObject;
+                closestTrack.Match = fairy.gameObject;
 
                 opposingList.Remove(closest);
                 RemoveFromUnmatchedList(fairy);
             }
-            Debug.Log($"Instant match found for {fairy.name} with {closest.name}");
         }
         else
         {
-            AddToUnmatchedList(fairy);
+            Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) found no available match.");
         }
     }
+    else
+    {
+        Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) - opposing list empty, adding to unmatched.");
+        AddToUnmatchedList(fairy);
+    }
+}
     private void AddToUnmatchedList(Fairy fairy)
     {
         if (playerFairy.Contains(fairy) && !unmatchedPlayerFairies.Contains(fairy))
@@ -63,7 +105,7 @@ public class MatchingManager : MonoBehaviour
         else if (enemyFairy.Contains(fairy) && !unmatchedEnemyFairies.Contains(fairy))
             unmatchedEnemyFairies.Add(fairy);
     }
-    private void RemoveFromUnmatchedList(Fairy fairy)
+    public void RemoveFromUnmatchedList(Fairy fairy)
     {
         unmatchedPlayerFairies.Remove(fairy);
         unmatchedEnemyFairies.Remove(fairy);
@@ -99,4 +141,5 @@ public class MatchingManager : MonoBehaviour
             }
         }
     }
+    
 }
