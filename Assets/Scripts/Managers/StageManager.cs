@@ -29,4 +29,9 @@ public class StageManager : MonoBehaviour
             stageText.text = "Stage: " + EnemyUnits.Instance.currentStageIndex.ToString();
         }
     }
+
+    public void ToggleStageTextVisibility()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+    }
 }

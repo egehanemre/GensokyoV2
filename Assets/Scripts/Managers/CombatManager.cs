@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +12,17 @@ public class CombatManager : MonoBehaviour
     public float spawnRadius = 5f;
     public SpeedManager speedManager;
     public Canvas combatCanvasUI;
+    public Canvas speedCanvasButtonUI;
+    public TextMeshProUGUI winLoseText;
 
     public bool combatEnded = false;
 
+    public float goldRewardHolder = 0f;
+
     private void Awake()
     {
+        goldRewardHolder = GoldManager.Instance.gold;
+
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -25,6 +32,7 @@ public class CombatManager : MonoBehaviour
     }
     void Start()
     {
+        speedCanvasButtonUI.enabled = true;
         combatCanvasUI.enabled = false;
 
         MatchingManager.Instance.playerFairy.Clear();
@@ -90,11 +98,13 @@ public class CombatManager : MonoBehaviour
         if (alliesWin)
         {
             Debug.Log("Allies Win!");
+            UpdateWinLoseText(alliesWin);
             StartCombatEndSequence();
             EnemyUnits.Instance.currentStageIndex++;
         }
         else
         {
+            UpdateWinLoseText(alliesWin);
             Debug.Log("Enemies Win!");
             StartCombatEndSequence();
         }
@@ -105,9 +115,29 @@ public class CombatManager : MonoBehaviour
     private void StartCombatEndSequence()
     {
         combatCanvasUI.enabled = true;
+        RewardsManager.Instance.goldReward = GoldManager.Instance.gold - goldRewardHolder;
+        goldRewardHolder = 0f;
+        RewardsManager.Instance.DisplayRewards();
+        StageManager.Instance.ToggleStageTextVisibility();
+        speedCanvasButtonUI.enabled = false;
     }
     public void ContinueToNextScene()
     {
         SceneManager.LoadScene("WaitingRoom");
+        StageManager.Instance.ToggleStageTextVisibility();
+    }
+
+    public void UpdateWinLoseText(bool alliesWin)
+    {
+        if(alliesWin)
+        {
+            winLoseText.text = "Victory!";
+            winLoseText.color = Color.green;
+        }
+        else
+        {
+            winLoseText.text = "Defeat!";
+            winLoseText.color = Color.red;
+        }
     }
 }
