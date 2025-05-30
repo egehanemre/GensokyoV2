@@ -25,11 +25,14 @@ public class WeaponCollider : MonoBehaviour
 
             hitFairies.Add(targetFairy);
 
+            // Get the closest point on the collider to this weapon's position
+            Vector3 contactPoint = other.ClosestPoint(transform.position);
+
             Vector3 attackDirection = (targetFairy.transform.position - ownerFairy.transform.position).normalized;
             float damage = ownerFairy.fairyCurrentStats.attackDamage;
             float knockbackForce = damage * 0.2f;
 
-            targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection);
+            targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection, contactPoint);
         }
     }
 

@@ -43,13 +43,6 @@ public class MatchingManager : MonoBehaviour
     // Clean up nulls and dead units from the opposing list
     opposingList.RemoveAll(e => e == null || e.gameObject == null || e == fairy || e.Team == fairy.Team);
 
-    Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) attempting instant match. Opposing unmatched list:");
-    foreach (var opp in opposingList)
-    {
-        if (opp != null)
-            Debug.Log($"    - {opp.name} ({opp.fairyType}) [{opp.Team}]");
-    }
-
     if (opposingList.Count > 0)
     {
         // Exclude self and same team from matching
@@ -79,7 +72,6 @@ public class MatchingManager : MonoBehaviour
             var closestTrack = closest.GetComponent<TrackSystem>();
             if (fairyTrack != null && closestTrack != null)
             {
-                Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) [{fairy.Team}] matched with {closest.name} ({closest.fairyType}) [{closest.Team}]");
                 fairyTrack.Match = closest.gameObject;
                 closestTrack.Match = fairy.gameObject;
 
@@ -87,14 +79,9 @@ public class MatchingManager : MonoBehaviour
                 RemoveFromUnmatchedList(fairy);
             }
         }
-        else
-        {
-            Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) found no available match.");
-        }
     }
     else
     {
-        Debug.Log($"[MatchingManager] {fairy.name} ({fairy.fairyType}) - opposing list empty, adding to unmatched.");
         AddToUnmatchedList(fairy);
     }
 }

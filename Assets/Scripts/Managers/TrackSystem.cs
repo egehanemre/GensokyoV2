@@ -15,7 +15,6 @@ public class TrackSystem : MonoBehaviour
     {
         if (Match == null)
         {
-            Debug.Log($"[TrackSystem] {fairy.name} ({fairy.fairyType}) is attempting to match.");
             MatchingManager.Instance?.AttemptInstantMatch(fairy);
         }
         if (Match != null)
@@ -51,7 +50,6 @@ public class TrackSystem : MonoBehaviour
             MatchingManager.Instance.playerFairy.Remove(fairy);
             MatchingManager.Instance.enemyFairy.Remove(fairy);
 
-            // Remove from unmatched lists as well
             MatchingManager.Instance.RemoveFromUnmatchedList(fairy);
         }
 
@@ -68,7 +66,7 @@ public class TrackSystem : MonoBehaviour
             if (otherTrackSystem != null && otherTrackSystem.Target == this.gameObject)
             {
                 otherTrackSystem.FindNewTarget();
-                otherTrackSystem.TryMatch(); // Only try to match when notified
+                otherTrackSystem.TryMatch();
             }
         }
     }

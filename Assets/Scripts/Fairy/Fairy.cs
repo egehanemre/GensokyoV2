@@ -7,6 +7,9 @@ using UnityEditor;
 public class Fairy : MonoBehaviour
 {
     public string UniqueId;
+    public ParticleSystem damageParticles;
+    public ParticleSystem blockParticles;
+    public ParticleSystem projectileParticles;
 
     public float price = 0f;
     public GameObject fairyImageForShop;
@@ -147,15 +150,21 @@ public class Fairy : MonoBehaviour
     #endregion
 
     #region === Combat Reactions ===
-    public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection)
+    public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection, Vector3 hitPoint, bool isProjectile = false)
     {
         if (currentState is BlockState blockState)
         {
             if (blockState.IsBlockingAttackFrom(attackDirection))
             {
                 ShowDamageFeedback("Blocked!");
+                Instantiate(blockParticles, hitPoint, Quaternion.identity);
                 return;
             }
+        }
+        else
+        {
+            var particles = isProjectile ? projectileParticles : damageParticles;
+            Instantiate(particles, hitPoint, Quaternion.identity);
         }
 
         ChangeState(new OnHitState(this, damage, knockbackDirection, knockbackForce));

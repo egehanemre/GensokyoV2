@@ -39,9 +39,9 @@ public class Projectile : MonoBehaviour
             if (targetFairy.Team == shooterTeam) return;
 
             Vector3 attackDirection = (targetFairy.transform.position - transform.position).normalized;
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
 
-            targetFairy.ReactToHit(damage, Vector3.zero, 0, attackDirection);
-
+            targetFairy.ReactToHit(damage, Vector3.zero, 0, attackDirection, hitPoint, true);
             Destroy(gameObject);
         }
     }
