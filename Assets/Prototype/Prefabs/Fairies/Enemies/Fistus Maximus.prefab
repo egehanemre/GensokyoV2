@@ -6107,7 +6107,7 @@ MonoBehaviour:
   fairyImageForShop: {fileID: 123088, guid: 0755a95e2e1b5f44e8226989fb76f2cf, type: 3}
   Team: 1
   fairyType: 0
-  fairyBehavior: 2
+  fairyBehavior: 0
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
   currentWeaponVisual: {fileID: 5445832097561175148}
@@ -6118,7 +6118,7 @@ MonoBehaviour:
   attackCooldownBarPrefab: {fileID: 0}
   healthDisplay: 0
   fairyStatsBase: {fileID: 11400000, guid: dff4bcb8ed359d648b3b9cb09cd41942, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: a7a48f01635ffc64785ebb9b034a72bb, type: 2}
   displayState: Idle
 --- !u!114 &4346724920497585388
 MonoBehaviour:

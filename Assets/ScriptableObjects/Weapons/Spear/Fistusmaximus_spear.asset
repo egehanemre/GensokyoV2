@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fistusmaximus_spear
   m_EditorClassIdentifier: 
   attackDamage: 30
-  attackCooldown: 1
+  attackCooldown: 1.2
   attackRange: 2
   weaponMesh: {fileID: 4300120, guid: cf2f4f48c57855a4faee32e736b71983, type: 3}
   projectilePrefab: {fileID: 0}

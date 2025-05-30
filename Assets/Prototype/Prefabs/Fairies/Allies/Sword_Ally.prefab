@@ -17824,12 +17824,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: 
-  price: 12
+  UniqueId: ce7bc10d-3875-4dd1-a2a5-3f07971b0fa2
+  price: 24
   fairyImageForShop: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
   Team: 0
   fairyType: 0
-  fairyBehavior: 2
+  fairyBehavior: 1
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
   currentWeaponVisual: {fileID: 3473593789873249914}

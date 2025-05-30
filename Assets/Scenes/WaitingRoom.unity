@@ -2896,7 +2896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a055e1293765774f8e4c640f04f6896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 50
+  gold: 30
   goldText: {fileID: 597884728}
   goldCanvas: {fileID: 0}
 --- !u!1 &1268229090
@@ -3230,9 +3230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingFairies:
-  - {fileID: 2748362041638276215, guid: c51dc9195fdff7042bd5f65645c8ded0, type: 3}
-  - {fileID: 8473615729581583075, guid: 947ea12f2e1d5f44a949dce75b937935, type: 3}
-  - {fileID: 2038799906264281389, guid: 5482bccfc91f7db4197e3ae3aa25cf61, type: 3}
   - {fileID: 2748362041638276215, guid: c51dc9195fdff7042bd5f65645c8ded0, type: 3}
   ownedFairies: []
 --- !u!1 &1438024685
@@ -4363,6 +4360,8 @@ MonoBehaviour:
   - {fileID: 8473615729581583075, guid: 947ea12f2e1d5f44a949dce75b937935, type: 3}
   - {fileID: 2038799906264281389, guid: 5482bccfc91f7db4197e3ae3aa25cf61, type: 3}
   - {fileID: 2748362041638276215, guid: c51dc9195fdff7042bd5f65645c8ded0, type: 3}
+  - {fileID: 8473615729581583075, guid: 02d579b45dd1b1b46a66b3cab38a24ef, type: 3}
+  - {fileID: 8473615729581583075, guid: 3190068aadf7f064ca828506feccc428, type: 3}
 --- !u!4 &1993843865
 Transform:
   m_ObjectHideFlags: 0

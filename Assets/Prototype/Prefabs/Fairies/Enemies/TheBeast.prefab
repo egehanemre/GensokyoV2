@@ -17829,7 +17829,7 @@ MonoBehaviour:
   fairyImageForShop: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
   Team: 1
   fairyType: 0
-  fairyBehavior: 1
+  fairyBehavior: 0
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
   currentWeaponVisual: {fileID: 3473593789873249914}

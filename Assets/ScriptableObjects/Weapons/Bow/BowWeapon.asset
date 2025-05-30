@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933f89d285a1e064184ae0a67c27176e, type: 3}
   m_Name: BowWeapon
   m_EditorClassIdentifier: 
-  attackDamage: 4
+  attackDamage: 15
   attackCooldown: 4
   attackRange: 12
   weaponMesh: {fileID: 4300000, guid: e3270f62143ddae42b1d21ab68b16aa6, type: 3}

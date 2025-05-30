@@ -4511,8 +4511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: 
-  price: 24
+  UniqueId: 85843deb-e8f1-4a1e-b903-8d65ec104dcf
+  price: 20
   fairyImageForShop: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
   Team: 0
   fairyType: 1

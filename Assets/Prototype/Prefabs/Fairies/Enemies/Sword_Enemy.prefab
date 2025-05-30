@@ -17839,8 +17839,8 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   attackCooldownBarPrefab: {fileID: 0}
   healthDisplay: 0
-  fairyStatsBase: {fileID: 11400000, guid: c2fa098988d0c73429575f7ea786f9f5, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 2fc9e3f0cb438c0448ce7f6aebd2c2f6, type: 2}
+  fairyStatsBase: {fileID: 11400000, guid: 213aafe1fd996a943bcb4eabc634288f, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 3ad41c604f201a4479a128a7762239bc, type: 2}
   displayState: Idle
 --- !u!136 &1690018293142281225
 CapsuleCollider:

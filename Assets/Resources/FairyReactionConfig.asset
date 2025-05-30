@@ -15,17 +15,17 @@ MonoBehaviour:
   reactions:
   - behavior: 0
     type: 0
-    dodgeChance: 20
-    blockChance: 10
+    dodgeChance: 40
+    blockChance: 20
   - behavior: 1
     type: 0
-    dodgeChance: 15
-    blockChance: 15
+    dodgeChance: 30
+    blockChance: 40
   - behavior: 2
     type: 0
-    dodgeChance: 10
-    blockChance: 25
+    dodgeChance: 20
+    blockChance: 40
   - behavior: 0
     type: 1
-    dodgeChance: 35
+    dodgeChance: 60
     blockChance: 0
