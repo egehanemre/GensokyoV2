@@ -29,12 +29,18 @@ public class StageDatabase : ScriptableObject
 
     public StageDifficulty GetDifficultyForGold()
     {
-        if (GoldManager.Instance.gold < easyGoldRequirement)
+        if (GetDifficulty() < easyGoldRequirement)
             return StageDifficulty.Easy;
-        if (GoldManager.Instance.gold < mediumGoldRequirement)
+        if (GetDifficulty() < mediumGoldRequirement)
             return StageDifficulty.Medium;
-
+        
         return StageDifficulty.Hard;
+    }
+
+    public float GetDifficulty()
+    {
+        float goldReq = GoldManager.Instance.gold + PlayerUnits.Instance.GetTotalOwnedFairiesPrice();
+        return goldReq;
     }
 
 }

@@ -46,4 +46,20 @@ public class PlayerUnits : MonoBehaviour
     {
         ownedFairies.RemoveAll(f => f.UniqueId == uniqueId);
     }
+    public float GetTotalOwnedFairiesPrice()
+    {
+        float total = 0f;
+        foreach (var fairyData in ownedFairies)
+        {
+            if (fairyData.FairyPrefab != null)
+            {
+                var fairy = fairyData.FairyPrefab.GetComponent<Fairy>();
+                if (fairy != null)
+                {
+                    total += fairy.price;
+                }
+            }
+        }
+        return total;
+    }
 }
