@@ -1,17 +1,69 @@
+using TMPro;
 using UnityEngine;
 
 public class CombatSkillManager : MonoBehaviour
 {
-    public CombatSkill currentSkill;
+    public CombatSkill[] allSkills; // Assign all skills in the Inspector, order matches visuals
+    public CombatSkillVisual[] allSkillVisuals; // Assign all visuals in the Inspector, order matches skills
 
     public Texture2D defaultCursor;
     public Texture2D shieldCursor;
     public Texture2D dmgBoostCursor;
 
+    // Mana system
+    public int mana = 0;
+    public int maxMana = 30;
+    public float manaGainPerSec = 1f;
+    private float manaGainTimer = 0f;
+    public TextMeshProUGUI manaText; // Assign in Inspector
+
+    // Per-skill cooldowns
+    private float[] skillCooldowns;
+
     private Fairy selectedFairy; // The currently selected target
+    public CombatSkill currentSkill;
+
+    private void Awake()
+    {
+        // Initialize cooldowns for all skills
+        skillCooldowns = new float[allSkills.Length];
+    }
 
     private void Update()
     {
+        // Mana gain
+        manaGainTimer += Time.deltaTime;
+        if (manaGainTimer >= manaGainPerSec)
+        {
+            manaGainTimer -= manaGainPerSec;
+            if (mana < maxMana)
+                mana++;
+        }
+
+        if (manaText != null)
+        {
+            manaText.text = $"Mana: {mana}/{maxMana}";
+        }
+
+        // Update all skill cooldowns
+        for (int i = 0; i < skillCooldowns.Length; i++)
+        {
+            if (skillCooldowns[i] > 0f)
+                skillCooldowns[i] -= Time.deltaTime;
+        }
+
+        // --- Always update all skill visuals ---
+        for (int i = 0; i < allSkills.Length; i++)
+        {
+            if (allSkillVisuals[i] != null && allSkills[i] != null)
+            {
+                allSkillVisuals[i].UpdateSkillVisual(
+                    allSkills[i].cost,
+                    Mathf.Max(skillCooldowns[i], 0f)
+                );
+            }
+        }
+
         // Exit skill mode on right mouse button
         if (currentSkill != null && Input.GetMouseButtonDown(1))
         {
@@ -23,18 +75,53 @@ public class CombatSkillManager : MonoBehaviour
         {
             HandleTargetSelection();
 
-            // Apply skill on left mouse button click
+            // Try to use skill on left mouse button click
             if (selectedFairy != null && Input.GetMouseButtonDown(0))
             {
-                ApplySkillToSelectedFairy();
-                ExitSkillMode();
+                TryUseSkill();
             }
+        }
+    }
+
+    private void TryUseSkill()
+    {
+        if (currentSkill == null) return;
+
+        int skillIndex = System.Array.IndexOf(allSkills, currentSkill);
+        if (skillIndex < 0) return;
+
+        int requiredMana = currentSkill.cost;
+        float requiredCooldown = GetSkillCooldown(currentSkill);
+
+        if (mana >= requiredMana && skillCooldowns[skillIndex] <= 0f)
+        {
+            mana -= requiredMana;
+            ApplySkillToSelectedFairy();
+            skillCooldowns[skillIndex] = requiredCooldown;
+            ExitSkillMode();
+        }
+        else
+        {
+            UpdateCursorForSkill(null); // Reset cursor if skill cannot be used
+        }
+    }
+
+    private float GetSkillCooldown(CombatSkill skill)
+    {
+        // You can expand this for per-skill cooldowns
+        switch (skill.skill)
+        {
+            case CombatSkill.Skills.Shield:
+                return skill.shieldDuration;
+            case CombatSkill.Skills.DmgBoost:
+                return skill.dmgBoostDuration;
+            default:
+                return 5f;
         }
     }
 
     private void HandleTargetSelection()
     {
-        // Raycast from mouse position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Fairy hoveredFairy = null;
@@ -44,14 +131,12 @@ public class CombatSkillManager : MonoBehaviour
             hoveredFairy = hit.collider.GetComponentInParent<Fairy>();
         }
 
-        // Only select if it's a valid target (e.g., Team.Ally)
         if (hoveredFairy != null && hoveredFairy.Team == Team.Ally)
         {
             if (selectedFairy != hoveredFairy)
             {
                 DeselectCurrentFairy();
                 selectedFairy = hoveredFairy;
-                // Optional: Add visual feedback, e.g., outline
                 SetFairySelected(selectedFairy, true);
             }
         }
@@ -70,7 +155,6 @@ public class CombatSkillManager : MonoBehaviour
         }
     }
 
-    // Example: Visual feedback for selection (requires Outline or similar)
     private void SetFairySelected(Fairy fairy, bool selected)
     {
         var outline = fairy.GetComponent<Outline>();
@@ -84,13 +168,18 @@ public class CombatSkillManager : MonoBehaviour
     {
         // Optionally, logic to enter skill mode
     }
-
     public void SetCombatSkill(CombatSkill combatSkill)
     {
+        int skillIndex = System.Array.IndexOf(allSkills, combatSkill);
+        if (skillIndex < 0) return;
+
+        // If the skill is still in cooldown, do not allow selection
+        if (skillCooldowns[skillIndex] > 0f)
+            return;
+
         currentSkill = combatSkill;
         UpdateCursorForSkill(combatSkill);
     }
-
     private void UpdateCursorForSkill(CombatSkill skill)
     {
         if (skill == null)
@@ -125,13 +214,10 @@ public class CombatSkillManager : MonoBehaviour
         ResetCursor();
     }
 
-    // Apply the skill to the selected fairy
     public void ApplySkillToSelectedFairy()
     {
         if (currentSkill != null && selectedFairy != null)
         {
-            // You may need to pass the fairy as a parameter if your skill system supports it
-            // Example: currentSkill.ApplyCurrentSkillEffect(selectedFairy);
             currentSkill.ApplyCurrentSkillEffect(selectedFairy);
         }
     }

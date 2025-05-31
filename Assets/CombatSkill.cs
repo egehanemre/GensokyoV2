@@ -4,6 +4,7 @@ using UnityEngine;
 public class CombatSkill : MonoBehaviour
 {
     public Skills skill;
+    public int cost;
 
     // Duration and values can be set as needed
     public float shieldDuration = 8f;
