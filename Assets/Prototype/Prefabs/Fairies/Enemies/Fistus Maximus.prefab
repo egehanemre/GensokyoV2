@@ -6106,6 +6106,8 @@ MonoBehaviour:
   damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
   blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
   projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+  invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+  damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   price: 15
   fairyImageForShop: {fileID: 123088, guid: 0755a95e2e1b5f44e8226989fb76f2cf, type: 3}
   Team: 1

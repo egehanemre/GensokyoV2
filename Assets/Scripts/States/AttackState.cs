@@ -90,7 +90,8 @@ public class AttackState : FairyState
                 targetFairy.transform,
                 fairy.weaponDataSO.projectileSpeed,
                 fairy.weaponDataSO.attackDamage,
-                fairy.Team
+                fairy.Team,
+                fairy
             );
         }
     }

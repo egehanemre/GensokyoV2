@@ -1,15 +1,20 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
+using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(TrackSystem))]
 public class Fairy : MonoBehaviour
 {
+    private List<Buff> activeBuffs = new List<Buff>();
+
     public string UniqueId;
     public ParticleSystem damageParticles;
     public ParticleSystem blockParticles;
     public ParticleSystem projectileParticles;
+    public ParticleSystem invulnerableBuffParticles;
+    public ParticleSystem damageBoostBuffParticles;
 
     public float price = 0f;
     public GameObject fairyImageForShop;
@@ -52,6 +57,7 @@ public class Fairy : MonoBehaviour
     #region === Unity Methods ===
     private void Awake()
     {
+        Outline outline = GetComponent<Outline>();
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();
         TrackSystem = GetComponent<TrackSystem>();
@@ -61,6 +67,41 @@ public class Fairy : MonoBehaviour
         SetupHealthBar();
         ChangeState(new IdleState(this));
         DisableWeaponCollider();
+
+        if(outline != null)
+            outline.enabled = false;
+    }
+    public ParticleSystem PlayBuffVisual(BuffType buffType, Vector3 position)
+    {
+        ParticleSystem particles = null;
+        switch (buffType)
+        {
+            case BuffType.Invulnerable:
+                particles = invulnerableBuffParticles;
+                break;
+            case BuffType.DamageMultiplier:
+                particles = damageBoostBuffParticles;
+                break;
+                // Add more cases for other buff types
+        }
+
+        if (particles != null)
+        {
+            ParticleSystem instance = Instantiate(particles, position, Quaternion.identity, this.transform);
+            instance.transform.localPosition = this.transform.InverseTransformPoint(position);
+            return instance;
+        }
+        return null;
+    }
+
+    public bool IsInvulnerable()
+    {
+        foreach (var buff in activeBuffs)
+        {
+            if (buff.Type == BuffType.Invulnerable)
+                return true;
+        }
+        return false;
     }
 
     private void Update()
@@ -72,6 +113,38 @@ public class Fairy : MonoBehaviour
 
         Animator.SetFloat("moveSpeed", CurrentMoveSpeed);
         UpdateAttackCooldownBar();
+        UpdateBuffs(Time.deltaTime);
+    }
+    private void UpdateBuffs(float deltaTime)
+    {
+        for (int i = activeBuffs.Count - 1; i >= 0; i--)
+        {
+            activeBuffs[i].TimeRemaining -= deltaTime;
+            if (activeBuffs[i].TimeRemaining <= 0)
+            {
+                if (activeBuffs[i].VisualInstance != null)
+                {
+                    Destroy(activeBuffs[i].VisualInstance.gameObject);
+                }
+                activeBuffs.RemoveAt(i);
+            }
+        }
+    }
+    public void AddBuff(Buff buff)
+    {
+        activeBuffs.Add(buff);
+        buff.VisualInstance = PlayBuffVisual(buff.Type, transform.position);
+    }
+
+    public float GetDamageMultiplier()
+    {
+        float multiplier = 1f;
+        foreach (var buff in activeBuffs)
+        {
+            if (buff.Type == BuffType.DamageMultiplier)
+                multiplier *= buff.Value;
+        }
+        return multiplier;
     }
     #endregion
 
@@ -152,6 +225,12 @@ public class Fairy : MonoBehaviour
     #region === Combat Reactions ===
     public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection, Vector3 hitPoint, bool isProjectile = false)
     {
+        if (IsInvulnerable())
+        {
+            ShowDamageFeedback("Invulnerable!");
+            return;
+        }
+
         if (currentState is BlockState blockState)
         {
             if (blockState.IsBlockingAttackFrom(attackDirection))

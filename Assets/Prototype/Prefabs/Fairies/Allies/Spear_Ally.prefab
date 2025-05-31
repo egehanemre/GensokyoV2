@@ -5957,6 +5957,7 @@ GameObject:
   - component: {fileID: 396614114610829110}
   - component: {fileID: 4346724920497585388}
   - component: {fileID: 821687196557160219}
+  - component: {fileID: 2701752828519440750}
   m_Layer: 6
   m_Name: Spear_Ally
   m_TagString: Fairy
@@ -6102,10 +6103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: d90478c5-4f53-4e1f-9301-7b5b72dfcb6e
+  UniqueId: e6186781-ca41-45fb-bff1-cfd38a5e632a
   damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
   blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
   projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+  invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+  damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   price: 30
   fairyImageForShop: {fileID: 123088, guid: 0755a95e2e1b5f44e8226989fb76f2cf, type: 3}
   Team: 0
@@ -6158,6 +6161,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5232513, z: 0.5898731}
   m_Center: {x: -5.0279293e-17, y: 0.8770772, z: 0.019163087}
+--- !u!114 &2701752828519440750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748362041638276215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2843165342966668588
 GameObject:
   m_ObjectHideFlags: 0

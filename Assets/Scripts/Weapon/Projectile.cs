@@ -5,15 +5,17 @@ public class Projectile : MonoBehaviour
     private float damage;
     private Transform target;
     private float speed;
+    private Fairy shooterFairy;
 
     private Team shooterTeam;
 
-    public void Initialize(Transform target, float speed, float damage, Team team)
+    public void Initialize(Transform target, float speed, float damage, Team team, Fairy shooter)
     {
         this.target = target;
         this.speed = speed;
         this.damage = damage;
         this.shooterTeam = team;
+        this.shooterFairy = shooter;
     }
 
     private void Update()
@@ -41,7 +43,13 @@ public class Projectile : MonoBehaviour
             Vector3 attackDirection = (targetFairy.transform.position - transform.position).normalized;
             Vector3 hitPoint = other.ClosestPoint(transform.position);
 
-            targetFairy.ReactToHit(damage, Vector3.zero, 0, attackDirection, hitPoint, true);
+            float finalDamage = damage;
+            if (shooterFairy != null)
+            {
+                finalDamage *= shooterFairy.GetDamageMultiplier();
+            }
+
+            targetFairy.ReactToHit(finalDamage, Vector3.zero, 0, attackDirection, hitPoint, true);
             Destroy(gameObject);
         }
     }

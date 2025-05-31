@@ -22,7 +22,7 @@ public class CombatManager : MonoBehaviour
 
     private void Awake()
     {
-        goldRewardHolder = GoldManager.Instance.gold;
+        goldRewardHolder = GoldManager.Instance.gold;   
 
         if (Instance != null && Instance != this)
         {

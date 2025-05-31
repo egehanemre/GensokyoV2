@@ -32,7 +32,7 @@ public class WeaponCollider : MonoBehaviour
             float damage = ownerFairy.fairyCurrentStats.attackDamage;
             float knockbackForce = damage * 0.2f;
 
-            targetFairy.ReactToHit(damage, attackDirection, knockbackForce, attackDirection, contactPoint);
+            targetFairy.ReactToHit(damage * ownerFairy.GetDamageMultiplier(), attackDirection, knockbackForce, attackDirection, contactPoint);
         }
     }
 
