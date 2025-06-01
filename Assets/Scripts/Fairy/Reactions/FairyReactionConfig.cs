@@ -23,4 +23,21 @@ public class FairyReactionConfig : ScriptableObject
         }
         return null;
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        for (int i = 0; i < reactions.Length; i++)
+        {
+            for (int j = i + 1; j < reactions.Length; j++)
+            {
+                if (reactions[i].behavior == reactions[j].behavior &&
+                    reactions[i].type == reactions[j].type)
+                {
+                    Debug.LogWarning($"Duplicate reaction entry found: {reactions[i].behavior}/{reactions[i].type} at indices {i} and {j} in {name}", this);
+                }
+            }
+        }
+    }
+#endif
 }

@@ -1,29 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(TrackSystem))]
 public class Fairy : MonoBehaviour
 {
-    private List<Buff> activeBuffs = new List<Buff>();
-
+    // === Identity & Classification ===
     public string UniqueId;
-    public ParticleSystem damageParticles;
-    public ParticleSystem blockParticles;
-    public ParticleSystem projectileParticles;
-    public ParticleSystem invulnerableBuffParticles;
-    public ParticleSystem damageBoostBuffParticles;
-
-    public float price = 0f;
-    public GameObject fairyImageForShop;
-    // Identifiers
     public Team Team;
     public FairyType fairyType;
     public FairyBehavior fairyBehavior;
+    public float price = 0f;
+    public GameObject fairyImageForShop;
 
-    // Visuals & UI
+    // === Scriptable Object Data ===
+    public FairyStatsSO fairyStatsBase;
+    public WeaponDataSO weaponDataSO;
+
+    // === Visuals & UI ===
     public Transform bowPosition;
     public TextMeshProUGUI fairyHP;
     public GameObject currentWeaponVisual;
@@ -32,29 +26,31 @@ public class Fairy : MonoBehaviour
     public GameObject floatingGoldPrefab;
     public GameObject healthBarPrefab;
     public GameObject attackCooldownBarPrefab;
-
-    public float healthDisplay; 
+    public float healthDisplay;
     public AttackCooldownBar AttackCooldownBar { get; private set; }
 
-    // Scriptable Object Data 
-    public FairyStatsSO fairyStatsBase;
-    public WeaponDataSO weaponDataSO;
+    // === Particle Effects ===
+    public ParticleSystem damageParticles;
+    public ParticleSystem blockParticles;
+    public ParticleSystem projectileParticles;
+    public ParticleSystem invulnerableBuffParticles;
+    public ParticleSystem damageBoostBuffParticles;
 
-    // Components & Runtime Data
+    // === Components & Runtime Data ===
     public HealthBar HealthBar { get; private set; }
     public Animator Animator { get; private set; }
     public Rigidbody Rigidbody { get; private set; }
     public TrackSystem TrackSystem { get; private set; }
     public Collider WeaponCollider { get; private set; }
     public float CurrentMoveSpeed { get; set; }
-
     public FairyStats fairyCurrentStats;
+
+    private List<Buff> activeBuffs = new List<Buff>();
     private WeaponData weaponData;
     private FairyState currentState;
     private float nextAttackTime = 0f;
 
-    // Constants
-    #region === Unity Methods ===
+    [SerializeField] public string displayState = "Idle"; // for debugging purposes
     private void Awake()
     {
         Outline outline = GetComponent<Outline>();
@@ -68,7 +64,7 @@ public class Fairy : MonoBehaviour
         ChangeState(new IdleState(this));
         DisableWeaponCollider();
 
-        if(outline != null)
+        if (outline != null)
             outline.enabled = false;
     }
     public ParticleSystem PlayBuffVisual(BuffType buffType, Vector3 position)
@@ -82,7 +78,10 @@ public class Fairy : MonoBehaviour
             case BuffType.DamageMultiplier:
                 particles = damageBoostBuffParticles;
                 break;
-                // Add more cases for other buff types
+            case BuffType.DamageReduction:
+                particles = invulnerableBuffParticles;
+                break;
+
         }
 
         if (particles != null)
@@ -93,7 +92,6 @@ public class Fairy : MonoBehaviour
         }
         return null;
     }
-
     public bool IsInvulnerable()
     {
         foreach (var buff in activeBuffs)
@@ -103,14 +101,11 @@ public class Fairy : MonoBehaviour
         }
         return false;
     }
-
     private void Update()
     {
         displayState = currentState?.ToString() ?? "None";
         currentState?.Update();
-
         healthDisplay = fairyCurrentStats.currentHealth;
-
         Animator.SetFloat("moveSpeed", CurrentMoveSpeed);
         UpdateAttackCooldownBar();
         UpdateBuffs(Time.deltaTime);
@@ -123,9 +118,7 @@ public class Fairy : MonoBehaviour
             if (activeBuffs[i].TimeRemaining <= 0)
             {
                 if (activeBuffs[i].VisualInstance != null)
-                {
                     Destroy(activeBuffs[i].VisualInstance.gameObject);
-                }
                 activeBuffs.RemoveAt(i);
             }
         }
@@ -135,7 +128,6 @@ public class Fairy : MonoBehaviour
         activeBuffs.Add(buff);
         buff.VisualInstance = PlayBuffVisual(buff.Type, transform.position);
     }
-
     public float GetDamageMultiplier()
     {
         float multiplier = 1f;
@@ -146,9 +138,16 @@ public class Fairy : MonoBehaviour
         }
         return multiplier;
     }
-    #endregion
-
-    #region === Initialization ===
+    public float GetDamageReductionMultiplier()
+    {
+        float multiplier = 1f;
+        foreach (var buff in activeBuffs)
+        {
+            if (buff.Type == BuffType.DamageReduction)
+                multiplier *= buff.Value; 
+        }
+        return multiplier;
+    }
     private void InitializeStats()
     {
         weaponData = new WeaponData(weaponDataSO);
@@ -156,7 +155,6 @@ public class Fairy : MonoBehaviour
         SetWeaponMesh();
         RegisterAttackCooldown();
     }
-
     private void SetupHealthBar()
     {
         if (healthBarPrefab == null) return;
@@ -169,17 +167,11 @@ public class Fairy : MonoBehaviour
         AttackCooldownBar = bar.GetComponentInChildren<AttackCooldownBar>();
         AttackCooldownBar?.UpdateCooldownBar(0f);
 
-        if(Team == Team.Ally)
-        {
-            HealthBar.healthBarSprite.color = new Color(0,0.3f,1);
-
-        }
+        if (Team == Team.Ally)
+            HealthBar.healthBarSprite.color = new Color(0, 0.3f, 1);
         else if (Team == Team.Enemy)
-        {
             HealthBar.healthBarSprite.color = Color.red;
-        }
     }
-
     private void UpdateAttackCooldownBar()
     {
         if (AttackCooldownBar != null)
@@ -190,28 +182,18 @@ public class Fairy : MonoBehaviour
             AttackCooldownBar.UpdateCooldownBar(fraction);
         }
     }
-
     private void SetWeaponMesh()
     {
         if (weaponMeshFilter != null && weaponData.weaponMesh != null)
-        {
             weaponMeshFilter.mesh = weaponData.weaponMesh;
-        }
     }
-    #endregion
-
-    #region === State Management ===
     public void ChangeState(FairyState newState)
     {
         if (currentState is DyingState) return;
-
         currentState?.Exit();
         currentState = newState;
         currentState.Enter();
     }
-    #endregion
-
-    #region === Attack Timing ===
     public bool IsAttackReady()
     {
         return Time.time >= nextAttackTime;
@@ -220,9 +202,6 @@ public class Fairy : MonoBehaviour
     {
         nextAttackTime = Time.time + weaponDataSO.attackCooldown;
     }
-    #endregion
-
-    #region === Combat Reactions ===
     public void ReactToHit(float damage, Vector3 knockbackDirection, float knockbackForce, Vector3 attackDirection, Vector3 hitPoint, bool isProjectile = false)
     {
         if (IsInvulnerable())
@@ -245,43 +224,30 @@ public class Fairy : MonoBehaviour
             var particles = isProjectile ? projectileParticles : damageParticles;
             Instantiate(particles, hitPoint, Quaternion.identity);
         }
+        float finalDamage = damage * GetDamageReductionMultiplier();
 
         ChangeState(new OnHitState(this, damage, knockbackDirection, knockbackForce));
     }
-
     public void ReactToAttackStart(Vector3 attackDirection)
     {
         ChangeState(new ReactionState(this, attackDirection));
     }
-    #endregion
-
-    #region === Animation & Weapon ===
     public void TriggerAnim(string triggerName)
     {
         Animator?.SetTrigger(triggerName);
     }
-
     public void EnableWeaponCollider()
     {
         WeaponCollider.enabled = true;
-
         WeaponCollider weaponScript = WeaponCollider.GetComponent<WeaponCollider>();
         if (weaponScript != null)
-        {
             weaponScript.ResetHitFairies();
-        }
     }
     public void DisableWeaponCollider()
     {
         if (WeaponCollider != null)
             WeaponCollider.enabled = false;
     }
-    #endregion
-
-    #region === Movement Helpers ===
-    #endregion
-
-    #region === UI Feedback ===
     public void ShowDamageFeedback(string text)
     {
         HealthBar?.UpdateHealthBar(fairyCurrentStats.maxHealth, fairyCurrentStats.currentHealth);
@@ -291,11 +257,9 @@ public class Fairy : MonoBehaviour
     {
         ShowFloatingGold(gold);
     }
-
     private void ShowFloatingText(string text)
     {
         if (floatingTextPrefab == null) return;
-
         Vector3 offset = new Vector3(0, 2f, 0);
         GameObject go = Instantiate(floatingTextPrefab, transform.position + offset, Quaternion.identity);
         go.GetComponent<FloatingText>().text.text = text;
@@ -303,15 +267,8 @@ public class Fairy : MonoBehaviour
     private void ShowFloatingGold(float gold)
     {
         if (floatingTextPrefab == null) return;
-
         Vector3 offset = new Vector3(0, 1f, 0);
         GameObject go = Instantiate(floatingGoldPrefab, transform.position + offset, Quaternion.identity);
         go.GetComponent<FloatingGold>().text.text = "+" + gold.ToString() + "c";
     }
-    #endregion
-
-    #region === Debug ===
-    [SerializeField] public string displayState = "Idle";
-
-    #endregion
 }

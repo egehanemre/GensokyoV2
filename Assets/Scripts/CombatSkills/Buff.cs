@@ -5,15 +5,15 @@ public enum BuffType
 {
     DamageMultiplier,
     Invulnerable,
+    DamageReduction,
 }
-
 public class Buff
 {
     public BuffType Type;
     public float Value;
     public float Duration;
     public float TimeRemaining;
-    public ParticleSystem VisualInstance; // Add this
+    public ParticleSystem VisualInstance; 
 
     public Buff(BuffType type, float value, float duration)
     {

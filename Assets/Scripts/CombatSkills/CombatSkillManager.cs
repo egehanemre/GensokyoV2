@@ -3,95 +3,106 @@ using UnityEngine;
 
 public class CombatSkillManager : MonoBehaviour
 {
-    public CombatSkill[] allSkills; // Assign all skills in the Inspector, order matches visuals
-    public CombatSkillVisual[] allSkillVisuals; // Assign all visuals in the Inspector, order matches skills
+    public static CombatSkillManager Instance { get; private set; }
+
+    [HideInInspector] public CombatSkill[] allSkills;
+    [HideInInspector] public CombatSkillVisual[] allSkillVisuals;
 
     public Texture2D defaultCursor;
     public Texture2D shieldCursor;
     public Texture2D dmgBoostCursor;
 
-    // Mana system
     public int mana = 0;
     public int maxMana = 30;
     public float manaGainPerSec = 1f;
-    private float manaGainTimer = 0f;
-    public TextMeshProUGUI manaText; // Assign in Inspector
+    private float manaFloat = 0f;
+    public TextMeshProUGUI manaText;
 
-    // Per-skill cooldowns
     private float[] skillCooldowns;
-
-    private Fairy selectedFairy; // The currently selected target
+    private Fairy selectedFairy;
     public CombatSkill currentSkill;
-
     private void Awake()
     {
-        // Initialize cooldowns for all skills
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+
+        allSkills = GetComponentsInChildren<CombatSkill>(includeInactive: true);
+        allSkillVisuals = GetComponentsInChildren<CombatSkillVisual>(includeInactive: true);
+
         skillCooldowns = new float[allSkills.Length];
     }
-
     private void Update()
     {
-        // Mana gain
-        manaGainTimer += Time.deltaTime;
-        if (manaGainTimer >= manaGainPerSec)
+        UpdateMana();
+        UpdateManaText();
+        UpdateSkillCooldowns();
+        UpdateSkillVisuals();
+        HandleSkillModeInput();
+    }
+    private void UpdateMana()
+    {
+        if (mana < maxMana)
         {
-            manaGainTimer -= manaGainPerSec;
-            if (mana < maxMana)
-                mana++;
+            manaFloat += Time.deltaTime * manaGainPerSec;
+            int manaToAdd = Mathf.FloorToInt(manaFloat);
+            if (manaToAdd > 0)
+            {
+                mana = Mathf.Min(mana + manaToAdd, maxMana);
+                manaFloat -= manaToAdd;
+            }
         }
-
+    }
+    private void UpdateManaText()
+    {
         if (manaText != null)
-        {
             manaText.text = $"Mana: {mana}/{maxMana}";
-        }
-
-        // Update all skill cooldowns
+    }
+    private void UpdateSkillCooldowns()
+    {
         for (int i = 0; i < skillCooldowns.Length; i++)
         {
             if (skillCooldowns[i] > 0f)
                 skillCooldowns[i] -= Time.deltaTime;
         }
-
-        // --- Always update all skill visuals ---
+    }
+    private void UpdateSkillVisuals()
+    {
         for (int i = 0; i < allSkills.Length; i++)
         {
-            if (allSkillVisuals[i] != null && allSkills[i] != null)
+            if (allSkillVisuals[i] != null && allSkills[i] != null && allSkills[i].skillData != null)
             {
                 allSkillVisuals[i].UpdateSkillVisual(
-                    allSkills[i].cost,
+                    allSkills[i].skillData.cost,
                     Mathf.Max(skillCooldowns[i], 0f)
                 );
             }
         }
-
-        // Exit skill mode on right mouse button
+    }
+    private void HandleSkillModeInput()
+    {
         if (currentSkill != null && Input.GetMouseButtonDown(1))
-        {
             ExitSkillMode();
-        }
 
-        // Only allow selection in skill mode
         if (currentSkill != null)
         {
             HandleTargetSelection();
-
-            // Try to use skill on left mouse button click
             if (selectedFairy != null && Input.GetMouseButtonDown(0))
-            {
                 TryUseSkill();
-            }
         }
     }
-
     private void TryUseSkill()
     {
-        if (currentSkill == null) return;
+        if (currentSkill == null || currentSkill.skillData == null) return;
 
         int skillIndex = System.Array.IndexOf(allSkills, currentSkill);
         if (skillIndex < 0) return;
 
-        int requiredMana = currentSkill.cost;
-        float requiredCooldown = GetSkillCooldown(currentSkill);
+        int requiredMana = currentSkill.skillData.cost;
+        float requiredCooldown = GetSkillCooldown(currentSkill.skillData);
 
         if (mana >= requiredMana && skillCooldowns[skillIndex] <= 0f)
         {
@@ -102,24 +113,25 @@ public class CombatSkillManager : MonoBehaviour
         }
         else
         {
-            UpdateCursorForSkill(null); // Reset cursor if skill cannot be used
+            UpdateCursorForSkill(null);
         }
     }
-
-    private float GetSkillCooldown(CombatSkill skill)
+    private float GetSkillCooldown(CombatSkillData skillData)
     {
-        // You can expand this for per-skill cooldowns
-        switch (skill.skill)
+        if (skillData == null) return 5f;
+
+        switch (skillData.skill)
         {
-            case CombatSkill.Skills.Shield:
-                return skill.shieldDuration;
-            case CombatSkill.Skills.DmgBoost:
-                return skill.dmgBoostDuration;
+            case CombatSkillData.SkillType.InvulShield:
+                var shieldData = skillData as ShieldSkillData;
+                return shieldData != null ? shieldData.duration : 5f;
+            case CombatSkillData.SkillType.DmgBoost:
+                var dmgData = skillData as DmgBoostSkillData;
+                return dmgData != null ? dmgData.duration : 5f;
             default:
                 return 5f;
         }
     }
-
     private void HandleTargetSelection()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -127,9 +139,7 @@ public class CombatSkillManager : MonoBehaviour
         Fairy hoveredFairy = null;
 
         if (Physics.Raycast(ray, out hit))
-        {
             hoveredFairy = hit.collider.GetComponentInParent<Fairy>();
-        }
 
         if (hoveredFairy != null && hoveredFairy.Team == Team.Ally)
         {
@@ -145,7 +155,6 @@ public class CombatSkillManager : MonoBehaviour
             DeselectCurrentFairy();
         }
     }
-
     private void DeselectCurrentFairy()
     {
         if (selectedFairy != null)
@@ -154,71 +163,57 @@ public class CombatSkillManager : MonoBehaviour
             selectedFairy = null;
         }
     }
-
     private void SetFairySelected(Fairy fairy, bool selected)
     {
         var outline = fairy.GetComponent<Outline>();
         if (outline != null)
-        {
             outline.enabled = selected;
-        }
-    }
-
-    public void GetIntoSkillMode()
-    {
-        // Optionally, logic to enter skill mode
     }
     public void SetCombatSkill(CombatSkill combatSkill)
     {
         int skillIndex = System.Array.IndexOf(allSkills, combatSkill);
         if (skillIndex < 0) return;
-
-        // If the skill is still in cooldown, do not allow selection
-        if (skillCooldowns[skillIndex] > 0f)
-            return;
-
+        if (skillCooldowns[skillIndex] > 0f) return;
         currentSkill = combatSkill;
-        UpdateCursorForSkill(combatSkill);
+        UpdateCursorForSkill(combatSkill.skillData);
     }
-    private void UpdateCursorForSkill(CombatSkill skill)
+    private void UpdateCursorForSkill(CombatSkillData skillData)
     {
-        if (skill == null)
+        if (skillData == null)
         {
             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
             return;
         }
 
-        switch (skill.skill)
+        switch (skillData.skill)
         {
-            case CombatSkill.Skills.Shield:
+            case CombatSkillData.SkillType.InvulShield:
                 Cursor.SetCursor(shieldCursor, Vector2.zero, CursorMode.Auto);
                 break;
-            case CombatSkill.Skills.DmgBoost:
+            case CombatSkillData.SkillType.DmgBoost:
                 Cursor.SetCursor(dmgBoostCursor, Vector2.zero, CursorMode.Auto);
+                break;
+            case CombatSkillData.SkillType.DmgReduction:
+                Cursor.SetCursor(shieldCursor, Vector2.zero, CursorMode.Auto);
                 break;
             default:
                 Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
                 break;
         }
     }
-
     public void ResetCursor()
     {
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
     }
-
     public void ExitSkillMode()
     {
         currentSkill = null;
         DeselectCurrentFairy();
         ResetCursor();
     }
-
     public void ApplySkillToSelectedFairy()
     {
         if (currentSkill != null && selectedFairy != null)
-        {
             currentSkill.ApplyCurrentSkillEffect(selectedFairy);
-        }
     }
 }
