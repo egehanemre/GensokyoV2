@@ -6347,6 +6347,7 @@ MonoBehaviour:
   speedManager: {fileID: 0}
   combatCanvasUI: {fileID: 1392361744}
   speedCanvasButtonUI: {fileID: 21621613}
+  skillCanvas: {fileID: 683861032}
   winLoseText: {fileID: 739320702}
   combatEnded: 0
   goldRewardHolder: 0

@@ -14,6 +14,7 @@ public class CombatManager : MonoBehaviour
     public SpeedManager speedManager;
     public Canvas combatCanvasUI;
     public Canvas speedCanvasButtonUI;
+    public Canvas skillCanvas;
     public TextMeshProUGUI winLoseText;
 
     public bool combatEnded = false;
@@ -34,6 +35,7 @@ public class CombatManager : MonoBehaviour
     void Start()
     {
         speedCanvasButtonUI.enabled = true;
+        skillCanvas.enabled = true;
         combatCanvasUI.enabled = false;
 
         MatchingManager.Instance.playerFairy.Clear();
@@ -118,22 +120,51 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Enemies Win!");
             StartCombatEndSequence();
         }
-        Time.timeScale = 1f; // Reset time scale to normal
+        Time.timeScale = 1f; 
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
 
     }
     private void StartCombatEndSequence()
     {
+        StartCoroutine(SlowDownAndFreezeEffect());
+
         combatCanvasUI.enabled = true;
         RewardsManager.Instance.goldReward = GoldManager.Instance.gold - goldRewardHolder;
         goldRewardHolder = 0f;
         RewardsManager.Instance.DisplayRewards();
         StageManager.Instance.ToggleStageTextVisibility();
         speedCanvasButtonUI.enabled = false;
+        skillCanvas.enabled = false;
     }
+    private System.Collections.IEnumerator SlowDownAndFreezeEffect()
+    {
+        float targetTimeScale = 0.1f;
+        float slowDuration = 0.5f;
+        float freezeDuration = 4f;
+
+        float startScale = Time.timeScale;
+        float t = 0f;
+
+        while (t < slowDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(startScale, targetTimeScale, t / slowDuration);
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            yield return null;
+        }
+        Time.timeScale = targetTimeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        yield return new WaitForSecondsRealtime(freezeDuration);
+
+        Time.timeScale = 0f;
+        Time.fixedDeltaTime = 0.02f; 
+    }
+
     public void ContinueToNextScene()
     {
         SceneManager.LoadScene("WaitingRoom");
+        Time.timeScale = 1f;  
         StageManager.Instance.ToggleStageTextVisibility();
     }
 
