@@ -129,7 +129,7 @@ public class MoveState : FairyState
     private void ChooseNewBehavior()
     {
         int nearbyAllies = CountNearbyAllies();
-        float circleChance = Mathf.Clamp01(0.2f + 0.05f * nearbyAllies);
+        float circleChance = Mathf.Clamp01(0.5f + 0.05f * nearbyAllies);
         float retreatChance = 0.1f;
         float directChance = 0.4f;
         float rand = Random.value;
@@ -152,7 +152,6 @@ public class MoveState : FairyState
         }
         else
         {
-            currentBehavior = CombatMoveBehavior.Idle;
             behaviorTimer = Random.Range(0.5f, 1f);
         }
     }
