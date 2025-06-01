@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 3
   attackCooldown: 3
-  attackRange: 10
+  attackRange: 6
   weaponMesh: {fileID: 4300000, guid: e3270f62143ddae42b1d21ab68b16aa6, type: 3}
   projectilePrefab: {fileID: 8211539421422320215, guid: 790d5ea66bd730243bcf567921f6a121, type: 3}
   projectileSpeed: 20

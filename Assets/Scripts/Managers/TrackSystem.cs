@@ -11,6 +11,15 @@ public class TrackSystem : MonoBehaviour
     {
         fairy = GetComponent<Fairy>();
     }
+    public bool IsTargetMatched(Fairy target)
+    {
+        if (Target == null || target == null)
+            return false;
+
+        Fairy theirTarget = target.TrackSystem != null ? target.TrackSystem.Target?.GetComponent<Fairy>() : null;
+        return Target.GetComponent<Fairy>() == target && theirTarget == this.GetComponent<Fairy>();
+    }
+
     public void TryMatch()
     {
         if (Match == null)
