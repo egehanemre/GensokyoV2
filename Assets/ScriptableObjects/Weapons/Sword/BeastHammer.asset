@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 933f89d285a1e064184ae0a67c27176e, type: 3}
-  m_Name: Slave Sword
+  m_Name: BeastHammer
   m_EditorClassIdentifier: 
-  attackDamage: 10
-  attackCooldown: 2
+  attackDamage: 30
+  attackCooldown: 1
   attackRange: 1.5
-  weaponMesh: {fileID: 4300000, guid: 67af3f8b6200770439919bdf2be2b856, type: 3}
+  weaponMesh: {fileID: 4300450, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   attackDuration: 1

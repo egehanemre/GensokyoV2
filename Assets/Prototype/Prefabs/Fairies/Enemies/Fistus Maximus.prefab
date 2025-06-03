@@ -6103,27 +6103,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UniqueId: 
-  damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
-  blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
-  projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
-  invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-  damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
-  price: 15
-  fairyImageForShop: {fileID: 123088, guid: 0755a95e2e1b5f44e8226989fb76f2cf, type: 3}
   Team: 1
   fairyType: 0
   fairyBehavior: 0
+  price: 15
+  fairyImageForShop: {fileID: 123088, guid: 0755a95e2e1b5f44e8226989fb76f2cf, type: 3}
+  fairyStatsBase: {fileID: 11400000, guid: dff4bcb8ed359d648b3b9cb09cd41942, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: a7a48f01635ffc64785ebb9b034a72bb, type: 2}
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
-  currentWeaponVisual: {fileID: 5445832097561175148}
-  weaponMeshFilter: {fileID: 1060109410450700506}
+  currentWeaponVisual: {fileID: 2843165342966668588}
+  weaponMeshFilter: {fileID: 5191730718267984900}
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   floatingGoldPrefab: {fileID: 91090051065434639, guid: c68f7cddad9b6b14d95a9cc2c6c0643b, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   attackCooldownBarPrefab: {fileID: 0}
   healthDisplay: 0
-  fairyStatsBase: {fileID: 11400000, guid: dff4bcb8ed359d648b3b9cb09cd41942, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: a7a48f01635ffc64785ebb9b034a72bb, type: 2}
+  damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
+  blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
+  projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+  invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+  damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   displayState: Idle
 --- !u!114 &4346724920497585388
 MonoBehaviour:
@@ -6171,6 +6171,8 @@ GameObject:
   - component: {fileID: 3512422011771435819}
   - component: {fileID: 5191730718267984900}
   - component: {fileID: 732516376608777934}
+  - component: {fileID: 6823316332094288518}
+  - component: {fileID: 3607460262472374584}
   m_Layer: 6
   m_Name: w_TH_warhammer_B
   m_TagString: Untagged
@@ -6246,6 +6248,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6823316332094288518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843165342966668588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466265302e7549b4d8285358a2483d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3607460262472374584
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843165342966668588}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6095165, y: 0.25515082, z: 0.87852174}
+  m_Center: {x: -0.98816055, y: -0.00062577875, z: -0.003886602}
 --- !u!1 &2899667415396727733
 GameObject:
   m_ObjectHideFlags: 0
@@ -11821,7 +11856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6576781375677852602
 Transform:
   m_ObjectHideFlags: 0

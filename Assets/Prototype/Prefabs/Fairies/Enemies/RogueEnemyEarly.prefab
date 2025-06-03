@@ -2580,7 +2580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5031528519519816794
 Transform:
   m_ObjectHideFlags: 0
@@ -5205,7 +5205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2368207377070176238
 Transform:
   m_ObjectHideFlags: 0
@@ -5850,15 +5850,13 @@ GameObject:
   - component: {fileID: 4598962993941203911}
   - component: {fileID: 2890305789055026844}
   - component: {fileID: 1295326844037946221}
-  - component: {fileID: 4788423119558863252}
-  - component: {fileID: 8146037292899314193}
   m_Layer: 0
   m_Name: w_TH_warhammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4598962993941203911
 Transform:
   m_ObjectHideFlags: 0
@@ -5927,39 +5925,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4788423119558863252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3188618029734124289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 466265302e7549b4d8285358a2483d7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &8146037292899314193
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3188618029734124289}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.6096722, y: 0.2551509, z: 0.76542795}
-  m_Center: {x: -1.0028198, y: -0.0006276513, z: -0.064619005}
 --- !u!1 &3210177298890337323
 GameObject:
   m_ObjectHideFlags: 0
@@ -9020,7 +8985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3174124601215814861
 Transform:
   m_ObjectHideFlags: 0
@@ -9123,7 +9088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2089367135236233590
 Transform:
   m_ObjectHideFlags: 0
@@ -9154,7 +9119,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4628994365289351513}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -11686,7 +11651,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6303047567057567324}
-  m_Mesh: {fileID: 4300426, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
+  m_Mesh: {fileID: 4300404, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
 --- !u!23 &3512149486297852957
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12313,7 +12278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6522517723411653136
 Transform:
   m_ObjectHideFlags: 0
@@ -12673,7 +12638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4847121733887540170
 Transform:
   m_ObjectHideFlags: 0
@@ -16362,7 +16327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5721406305457650742
 Transform:
   m_ObjectHideFlags: 0
@@ -17714,8 +17679,9 @@ GameObject:
   - component: {fileID: 9047404439431988385}
   - component: {fileID: 1690018293142281225}
   - component: {fileID: 8151111621709190555}
+  - component: {fileID: -8389984572899104715}
   m_Layer: 0
-  m_Name: TheBeast
+  m_Name: RogueEnemyEarly
   m_TagString: Fairy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17859,18 +17825,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: 
-  Team: 1
+  UniqueId: 9819c59f-5d1e-40d5-838a-b18565f2fc7e
+  Team: 0
   fairyType: 0
-  fairyBehavior: 0
-  price: 12
+  fairyBehavior: 2
+  price: 14
   fairyImageForShop: {fileID: 155132, guid: bcc60fdbd3a37b44cbc0cb99db483477, type: 3}
-  fairyStatsBase: {fileID: 11400000, guid: c2fa098988d0c73429575f7ea786f9f5, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 2fc9e3f0cb438c0448ce7f6aebd2c2f6, type: 2}
+  fairyStatsBase: {fileID: 11400000, guid: 75d21cdf8592cf244af2714f967d85c9, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 98b5019ae82a3ec4994aab4c2520700d, type: 2}
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
-  currentWeaponVisual: {fileID: 3188618029734124289}
-  weaponMeshFilter: {fileID: 2890305789055026844}
+  currentWeaponVisual: {fileID: 9171648657802947844}
+  weaponMeshFilter: {fileID: 2181595811571874644}
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   floatingGoldPrefab: {fileID: 91090051065434639, guid: c68f7cddad9b6b14d95a9cc2c6c0643b, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
@@ -17919,6 +17885,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Match: {fileID: 0}
   Target: {fileID: 0}
+--- !u!114 &-8389984572899104715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8473615729581583075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8496565585568047993
 GameObject:
   m_ObjectHideFlags: 0
@@ -19815,13 +19799,15 @@ GameObject:
   - component: {fileID: 7127021364478671583}
   - component: {fileID: 2181595811571874644}
   - component: {fileID: 2364792657119469731}
+  - component: {fileID: 1565689640391714092}
+  - component: {fileID: 62649566883796208}
   m_Layer: 0
   m_Name: w_dagger_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7127021364478671583
 Transform:
   m_ObjectHideFlags: 0
@@ -19890,6 +19876,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1565689640391714092
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171648657802947844}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7065882, y: 0.08983598, z: 0.30215105}
+  m_Center: {x: -0.39791086, y: -0.00272926, z: -0.00008188331}
+--- !u!114 &62649566883796208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171648657802947844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466265302e7549b4d8285358a2483d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9193892975197970326
 GameObject:
   m_ObjectHideFlags: 0

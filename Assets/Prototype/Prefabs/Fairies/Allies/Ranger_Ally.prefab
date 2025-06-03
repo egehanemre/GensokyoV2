@@ -1900,7 +1900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1564580710693058551
 Transform:
   m_ObjectHideFlags: 0
@@ -4381,7 +4381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038799906264281389}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7422926, z: -0, w: 0.6700759}
+  m_LocalRotation: {x: 0, y: -0.7422917, z: 0, w: 0.67007697}
   m_LocalPosition: {x: 4.96, y: 0, z: 4.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4513,16 +4513,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UniqueId: 85843deb-e8f1-4a1e-b903-8d65ec104dcf
-  damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
-  blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
-  projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
-  invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-  damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
-  price: 20
-  fairyImageForShop: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
   Team: 0
   fairyType: 1
   fairyBehavior: 0
+  price: 20
+  fairyImageForShop: {fileID: 179124, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
+  fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: 0d6a01692399a3345a438ff227623a16, type: 2}
   bowPosition: {fileID: 2909041113750537244}
   fairyHP: {fileID: 0}
   currentWeaponVisual: {fileID: 3566771390681361876}
@@ -4532,8 +4529,11 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
   attackCooldownBarPrefab: {fileID: 0}
   healthDisplay: 0
-  fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 0d6a01692399a3345a438ff227623a16, type: 2}
+  damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
+  blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
+  projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+  invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+  damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   displayState: Idle
 --- !u!136 &1837944884512938504
 CapsuleCollider:
@@ -8506,7 +8506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7388137285818032932
 Transform:
   m_ObjectHideFlags: 0
@@ -9378,7 +9378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2542030546083008061
 Transform:
   m_ObjectHideFlags: 0
@@ -13216,7 +13216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &66062438914040929
 Transform:
   m_ObjectHideFlags: 0

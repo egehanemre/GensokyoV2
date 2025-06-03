@@ -15,7 +15,7 @@ MonoBehaviour:
   attackDamage: 30
   attackCooldown: 1.2
   attackRange: 2
-  weaponMesh: {fileID: 4300120, guid: cf2f4f48c57855a4faee32e736b71983, type: 3}
+  weaponMesh: {fileID: 4300792, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   attackDuration: 1

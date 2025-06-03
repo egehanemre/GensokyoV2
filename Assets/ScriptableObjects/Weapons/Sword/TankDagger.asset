@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 933f89d285a1e064184ae0a67c27176e, type: 3}
-  m_Name: SpearWeapon
+  m_Name: TankDagger
   m_EditorClassIdentifier: 
-  attackDamage: 20
+  attackDamage: 12.5
   attackCooldown: 2
-  attackRange: 2
-  weaponMesh: {fileID: 4300014, guid: cf2f4f48c57855a4faee32e736b71983, type: 3}
+  attackRange: 1.5
+  weaponMesh: {fileID: 4300442, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   attackDuration: 1
