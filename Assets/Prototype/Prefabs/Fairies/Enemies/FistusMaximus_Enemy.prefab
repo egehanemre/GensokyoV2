@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2014044944004975145
 Transform:
   m_ObjectHideFlags: 0
@@ -745,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1079606493177827894
 Transform:
   m_ObjectHideFlags: 0
@@ -5957,9 +5957,8 @@ GameObject:
   - component: {fileID: 396614114610829110}
   - component: {fileID: 4346724920497585388}
   - component: {fileID: 821687196557160219}
-  - component: {fileID: 2701752828519440750}
   m_Layer: 6
-  m_Name: Spear_Ally
+  m_Name: FistusMaximus_Enemy
   m_TagString: Fairy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6103,18 +6102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: e6186781-ca41-45fb-bff1-cfd38a5e632a
-  Team: 0
+  UniqueId: 
+  Team: 1
   fairyType: 0
-  fairyBehavior: 2
-  price: 30
-  fairyImageForShop: {fileID: 2748362041638276215, guid: 5137db4a22c4e514faf5673e8440e711, type: 3}
-  fairyStatsBase: {fileID: 11400000, guid: 337b6168a11528d4388f4e9de8ed2035, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
+  fairyBehavior: 0
+  price: 15
+  fairyImageForShop: {fileID: 2748362041638276215, guid: e7765e9359b34294ca9663fa439a6f91, type: 3}
+  fairyStatsBase: {fileID: 11400000, guid: dff4bcb8ed359d648b3b9cb09cd41942, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: a7a48f01635ffc64785ebb9b034a72bb, type: 2}
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
-  currentWeaponVisual: {fileID: 5445832097561175148}
-  weaponMeshFilter: {fileID: 1060109410450700506}
+  currentWeaponVisual: {fileID: 2843165342966668588}
+  weaponMeshFilter: {fileID: 5191730718267984900}
   floatingTextPrefab: {fileID: 91090051065434639, guid: b63db4bd3886c2347b1c1edc32caa051, type: 3}
   floatingGoldPrefab: {fileID: 91090051065434639, guid: c68f7cddad9b6b14d95a9cc2c6c0643b, type: 3}
   healthBarPrefab: {fileID: 2531927528163819477, guid: 3c4d7b0631c75be40a145e3a5a7441fc, type: 3}
@@ -6161,24 +6160,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5232513, z: 0.5898731}
   m_Center: {x: -5.0279293e-17, y: 0.8770772, z: 0.019163087}
---- !u!114 &2701752828519440750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2748362041638276215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &2843165342966668588
 GameObject:
   m_ObjectHideFlags: 0
@@ -6190,13 +6171,15 @@ GameObject:
   - component: {fileID: 3512422011771435819}
   - component: {fileID: 5191730718267984900}
   - component: {fileID: 732516376608777934}
+  - component: {fileID: 6823316332094288518}
+  - component: {fileID: 3607460262472374584}
   m_Layer: 6
   m_Name: w_TH_warhammer_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3512422011771435819
 Transform:
   m_ObjectHideFlags: 0
@@ -6265,6 +6248,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6823316332094288518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843165342966668588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466265302e7549b4d8285358a2483d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3607460262472374584
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843165342966668588}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6095165, y: 0.25515082, z: 0.87852174}
+  m_Center: {x: -0.98816055, y: -0.00062577875, z: -0.003886602}
 --- !u!1 &2899667415396727733
 GameObject:
   m_ObjectHideFlags: 0
@@ -8302,7 +8318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4153510856203328915
 Transform:
   m_ObjectHideFlags: 0
@@ -9728,7 +9744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &768052927283916235
 Transform:
   m_ObjectHideFlags: 0
@@ -11840,7 +11856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6576781375677852602
 Transform:
   m_ObjectHideFlags: 0

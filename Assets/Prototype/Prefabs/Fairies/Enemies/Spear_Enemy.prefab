@@ -6107,7 +6107,7 @@ MonoBehaviour:
   fairyType: 0
   fairyBehavior: 2
   price: 15
-  fairyImageForShop: {fileID: 123088, guid: 0755a95e2e1b5f44e8226989fb76f2cf, type: 3}
+  fairyImageForShop: {fileID: 2748362041638276215, guid: 924d96cb0741e88459be87f27e240d0e, type: 3}
   fairyStatsBase: {fileID: 11400000, guid: 337b6168a11528d4388f4e9de8ed2035, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}
   bowPosition: {fileID: 0}
