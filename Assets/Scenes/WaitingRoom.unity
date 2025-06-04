@@ -11662,9 +11662,6 @@ PrefabInstance:
       addedObject: {fileID: 827118348}
     - targetCorrespondingSourceObject: {fileID: 190608, guid: 675bfa49ad0f04c47b900d8546860383, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 827118351}
-    - targetCorrespondingSourceObject: {fileID: 190608, guid: 675bfa49ad0f04c47b900d8546860383, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 827118352}
   m_SourcePrefab: {fileID: 100100000, guid: 675bfa49ad0f04c47b900d8546860383, type: 3}
 --- !u!1 &827118343 stripped
@@ -11706,33 +11703,6 @@ MonoBehaviour:
   UIPanel: {fileID: 2062175214}
   npcType: 1
   CombatPanel: {fileID: 1268229090}
---- !u!54 &827118351
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827118343}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &827118352
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13661,9 +13631,9 @@ RectTransform:
   - {fileID: 979174726}
   m_Father: {fileID: 1581407694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 400, y: -450}
   m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &960677279
@@ -26210,9 +26180,9 @@ RectTransform:
   - {fileID: 323449954}
   m_Father: {fileID: 1581407694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1200, y: -450}
   m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907435845
@@ -29183,7 +29153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2062175215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29908,9 +29878,6 @@ PrefabInstance:
       addedObject: {fileID: 2121749908}
     - targetCorrespondingSourceObject: {fileID: 169256, guid: 7b4e51ccca67b514d883b197e0f59efd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2121749912}
-    - targetCorrespondingSourceObject: {fileID: 169256, guid: 7b4e51ccca67b514d883b197e0f59efd, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2121749913}
   m_SourcePrefab: {fileID: 100100000, guid: 7b4e51ccca67b514d883b197e0f59efd, type: 3}
 --- !u!1 &2121749904 stripped
@@ -29952,33 +29919,6 @@ MonoBehaviour:
   UIPanel: {fileID: 2062175214}
   npcType: 0
   CombatPanel: {fileID: 1268229090}
---- !u!54 &2121749912
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121749904}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &2121749913
 BoxCollider:
   m_ObjectHideFlags: 0

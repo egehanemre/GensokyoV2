@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CombatSkillManager : MonoBehaviour
 {
+    private bool manaGainActive = false;
     public static CombatSkillManager Instance { get; private set; }
 
     [HideInInspector] public CombatSkill[] allSkills;
@@ -37,12 +38,18 @@ public class CombatSkillManager : MonoBehaviour
     }
     private void Update()
     {
-        UpdateMana();
+        if (manaGainActive)
+            UpdateMana();
         UpdateManaText();
         UpdateSkillCooldowns();
         UpdateSkillVisuals();
         HandleSkillModeInput();
     }
+    public void SetManaGainActive(bool active)
+    {
+        manaGainActive = active;
+    }
+
     private void UpdateMana()
     {
         if (mana < maxMana)

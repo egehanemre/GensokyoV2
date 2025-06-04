@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -6,41 +7,84 @@ using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
+    #region Singleton & Inspector Fields
+
     public static CombatManager Instance { get; private set; }
 
-    public Transform allySpawnParent;
-    public Transform enemySpawnParent;
-    public float spawnRadius = 5f;
-    public SpeedManager speedManager;
+    [Header("UI")]
+    public TextMeshProUGUI countdownText;
     public Canvas combatCanvasUI;
     public Canvas speedCanvasButtonUI;
     public Canvas skillCanvas;
     public TextMeshProUGUI winLoseText;
 
-    public bool combatEnded = false;
+    [Header("Spawning")]
+    public Transform allySpawnParent;
+    public Transform enemySpawnParent;
+    public float spawnRadius = 5f;
 
+    [Header("Managers")]
+    public SpeedManager speedManager;
+
+    #endregion
+
+    #region State Fields
+
+    private bool combatActive = false;
+    public bool combatEnded = false;
     public float goldRewardHolder = 0f;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Awake()
     {
-        goldRewardHolder = GoldManager.Instance.gold;   
-
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
             return;
         }
         Instance = this;
+        goldRewardHolder = GoldManager.Instance.gold;
     }
-    void Start()
+
+    private void Start()
+    {
+        SetupUI();
+        ClearFairyLists();
+        SpawnAllies();
+        SpawnEnemies();
+        StartCoroutine(CombatCountdownCoroutine());
+    }
+
+    private void Update()
+    {
+        if (!combatEnded && combatActive)
+        {
+            StartCoroutine(CheckCombatEnd());
+        }
+    }
+
+    #endregion
+
+    #region Setup & Spawning
+
+    private void SetupUI()
     {
         speedCanvasButtonUI.enabled = true;
         skillCanvas.enabled = true;
         combatCanvasUI.enabled = false;
+    }
 
+    private void ClearFairyLists()
+    {
         MatchingManager.Instance.playerFairy.Clear();
         MatchingManager.Instance.enemyFairy.Clear();
+    }
 
+    private void SpawnAllies()
+    {
         foreach (var fairyData in CombatPrepData.SelectedAllies)
         {
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
@@ -54,7 +98,10 @@ public class CombatManager : MonoBehaviour
                 MatchingManager.Instance.playerFairy.Add(fairy);
             }
         }
+    }
 
+    private void SpawnEnemies()
+    {
         foreach (var enemyData in CombatPrepData.SelectedEnemies)
         {
             Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
@@ -64,11 +111,48 @@ public class CombatManager : MonoBehaviour
             if (fairy != null)
             {
                 fairy.UniqueId = enemyData.UniqueId;
-                MatchingManager.Instance.enemyFairy.Add(fairy); 
+                MatchingManager.Instance.enemyFairy.Add(fairy);
             }
         }
-        MatchingManager.Instance.MatchFairies();
+    }
 
+    #endregion
+
+    #region Combat Flow
+
+    private IEnumerator CombatCountdownCoroutine()
+    {
+        combatActive = false;
+        if (countdownText != null)
+            countdownText.gameObject.SetActive(true);
+
+        for (int i = 3; i > 0; i--)
+        {
+            if (countdownText != null)
+                countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        if (countdownText != null)
+        {
+            countdownText.text = "Fight!";
+            yield return new WaitForSeconds(0.7f);
+            countdownText.gameObject.SetActive(false);
+        }
+
+        StartCombat();
+    }
+
+    private void StartCombat()
+    {
+        combatActive = true;
+        StartFairyMatching();
+        CombatSkillManager.Instance.SetManaGainActive(true);
+    }
+
+    private void StartFairyMatching()
+    {
+        MatchingManager.Instance.MatchFairies();
         foreach (var fairy in MatchingManager.Instance.playerFairy.Concat(MatchingManager.Instance.enemyFairy))
         {
             var trackSystem = fairy.GetComponent<TrackSystem>();
@@ -77,15 +161,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!combatEnded)
-        {
-            StartCoroutine(CheckCombatEnd());
-        }
-    }
-
-    private System.Collections.IEnumerator CheckCombatEnd()
+    private IEnumerator CheckCombatEnd()
     {
         while (!combatEnded)
         {
@@ -95,16 +171,17 @@ public class CombatManager : MonoBehaviour
             if (MatchingManager.Instance.playerFairy.Count == 0)
             {
                 combatEnded = true;
-                OnCombatEnd(false); 
+                OnCombatEnd(false);
             }
             else if (MatchingManager.Instance.enemyFairy.Count == 0)
             {
                 combatEnded = true;
-                OnCombatEnd(true); 
+                OnCombatEnd(true);
             }
             yield return null;
         }
     }
+
     private void OnCombatEnd(bool alliesWin)
     {
         if (alliesWin)
@@ -120,14 +197,13 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Enemies Win!");
             StartCombatEndSequence();
         }
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
-
     }
+
     private void StartCombatEndSequence()
     {
         StartCoroutine(SlowDownAndFreezeEffect());
-
         combatCanvasUI.enabled = true;
         RewardsManager.Instance.goldReward = GoldManager.Instance.gold - goldRewardHolder;
         goldRewardHolder = 0f;
@@ -136,7 +212,8 @@ public class CombatManager : MonoBehaviour
         speedCanvasButtonUI.enabled = false;
         skillCanvas.enabled = false;
     }
-    private System.Collections.IEnumerator SlowDownAndFreezeEffect()
+
+    private IEnumerator SlowDownAndFreezeEffect()
     {
         float targetTimeScale = 0.1f;
         float slowDuration = 0.5f;
@@ -158,19 +235,23 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(freezeDuration);
 
         Time.timeScale = 0f;
-        Time.fixedDeltaTime = 0.02f; 
+        Time.fixedDeltaTime = 0.02f;
     }
+
+    #endregion
+
+    #region UI & Utility
 
     public void ContinueToNextScene()
     {
         SceneManager.LoadScene("WaitingRoom");
-        Time.timeScale = 1f;  
+        Time.timeScale = 1f;
         StageManager.Instance.ToggleStageTextVisibility();
     }
 
     public void UpdateWinLoseText(bool alliesWin)
     {
-        if(alliesWin)
+        if (alliesWin)
         {
             winLoseText.text = "Victory!";
             winLoseText.color = Color.green;
@@ -181,4 +262,6 @@ public class CombatManager : MonoBehaviour
             winLoseText.color = Color.red;
         }
     }
+
+    #endregion
 }
