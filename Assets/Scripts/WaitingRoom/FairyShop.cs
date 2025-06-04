@@ -25,7 +25,10 @@ public class FairyShop : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI attack;
     [SerializeField] private TextMeshProUGUI health;
-    [SerializeField] private TextMeshProUGUI speed;
+    [SerializeField] private TextMeshProUGUI moveSpeed;
+    [SerializeField] private TextMeshProUGUI range;
+    [SerializeField] private TextMeshProUGUI attackSpeed;
+    [SerializeField] private TextMeshProUGUI defense;
     [SerializeField] private Button button;
 
     private bool isSelected = false;
@@ -64,9 +67,12 @@ public class FairyShop : MonoBehaviour
                 SetLayerRecursively(fairyDisplay, uiLayer);
         }
 
-        health.text = $"Health: {fairyStatsBase.maxHealth}";
-        attack.text = $"Attack: {weaponDataSO.attackDamage}";
-        speed.text = $"Speed: {fairyStatsBase.moveSpeed}";
+        health.text = fairyStatsBase.maxHealth.ToString();
+        moveSpeed.text = fairyStatsBase.moveSpeed.ToString();
+        range.text = weaponDataSO.attackRange.ToString();
+        attackSpeed.text = (1f / weaponDataSO.attackCooldown).ToString("F2");
+        defense.text = fairyStatsBase.defense.ToString();
+        attack.text = weaponDataSO.attackDamage.ToString();
 
         var buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
         button.onClick.RemoveAllListeners();
