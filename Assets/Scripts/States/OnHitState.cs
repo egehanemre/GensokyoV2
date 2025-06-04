@@ -33,7 +33,6 @@ public class OnHitState : FairyState
         fairy.TriggerAnim("Hit");
         fairy.CurrentMoveSpeed = 0f;
     }
-
     public override void Update()
     {
         if (fairy.fairyCurrentStats.currentHealth <= 0)
@@ -46,7 +45,42 @@ public class OnHitState : FairyState
         {
             knockbackElapsed += Time.deltaTime;
             float t = Mathf.Clamp01(knockbackElapsed / knockbackDuration);
-            fairy.Rigidbody.MovePosition(Vector3.Lerp(start, target, t));
+            Vector3 nextPos = Vector3.Lerp(start, target, t);
+
+            // Check for wall collision between current and next position
+            Vector3 moveDir = (nextPos - fairy.Rigidbody.position).normalized;
+            float moveDist = Vector3.Distance(fairy.Rigidbody.position, nextPos);
+
+            CapsuleCollider capsule = fairy.GetComponent<CapsuleCollider>();
+            if (capsule != null)
+            {
+                Vector3 center = fairy.Rigidbody.position + capsule.center;
+                float halfHeight = Mathf.Max(0, (capsule.height * 0.5f) - capsule.radius);
+                Vector3 point1 = center + Vector3.up * halfHeight;
+                Vector3 point2 = center - Vector3.up * halfHeight;
+
+                if (Physics.CapsuleCast(point1, point2, capsule.radius, moveDir, out RaycastHit hit, moveDist, ~0, QueryTriggerInteraction.Ignore))
+                {
+                    // Hit a wall, stop knockback at the hit point
+                    fairy.Rigidbody.MovePosition(hit.point);
+                    knockbackDone = true;
+                    fairy.ChangeState(new StunnedState(fairy, 1f));
+                    return;
+                }
+            }
+            else
+            {
+                // Fallback: use Raycast if no capsule
+                if (Physics.Raycast(fairy.Rigidbody.position, moveDir, out RaycastHit hit, moveDist, ~0, QueryTriggerInteraction.Ignore))
+                {
+                    fairy.Rigidbody.MovePosition(hit.point);
+                    knockbackDone = true;
+                    fairy.ChangeState(new StunnedState(fairy, 1f));
+                    return;
+                }
+            }
+
+            fairy.Rigidbody.MovePosition(nextPos);
             if (t >= 1f)
             {
                 knockbackDone = true;

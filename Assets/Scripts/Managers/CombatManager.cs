@@ -9,7 +9,16 @@ public class CombatManager : MonoBehaviour
 {
     #region Singleton & Inspector Fields
 
+    [Header("Look Targets")]
+    public Transform allyLookTarget;
+    public Transform enemyLookTarget;
     public static CombatManager Instance { get; private set; }
+
+    [Header("Spawn Areas")]
+    public SpawnArea allyMeleeSpawnArea;
+    public SpawnArea allyRangedSpawnArea;
+    public SpawnArea enemyMeleeSpawnArea;
+    public SpawnArea enemyRangedSpawnArea;
 
     [Header("UI")]
     public TextMeshProUGUI countdownText;
@@ -87,9 +96,17 @@ public class CombatManager : MonoBehaviour
     {
         foreach (var fairyData in CombatPrepData.SelectedAllies)
         {
-            Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPos = allySpawnParent.position + new Vector3(randomOffset.x, 0, randomOffset.y);
-            var allyGO = Instantiate(fairyData.FairyPrefab, spawnPos, Quaternion.identity, allySpawnParent);
+            Fairy prefabFairy = fairyData.FairyPrefab.GetComponent<Fairy>();
+            bool isMelee = prefabFairy != null && prefabFairy.fairyType == FairyType.Melee;
+
+            Vector3 spawnPos = isMelee
+                ? (allyMeleeSpawnArea != null ? allyMeleeSpawnArea.GetRandomPointInArea() : allySpawnParent.position)
+                : (allyRangedSpawnArea != null ? allyRangedSpawnArea.GetRandomPointInArea() : allySpawnParent.position);
+
+            // Example: Allies look right (90°)
+            Quaternion lookRotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+
+            var allyGO = Instantiate(fairyData.FairyPrefab, spawnPos, lookRotation, allySpawnParent);
             Debug.Log($"Spawning ally: {fairyData.FairyPrefab.name} at {spawnPos}");
             var fairy = allyGO.GetComponent<Fairy>();
             if (fairy != null)
@@ -99,14 +116,21 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-
     private void SpawnEnemies()
     {
         foreach (var enemyData in CombatPrepData.SelectedEnemies)
         {
-            Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPos = enemySpawnParent.position + new Vector3(randomOffset.x, 0, randomOffset.y);
-            var enemyGO = Instantiate(enemyData.FairyPrefab, spawnPos, Quaternion.identity, enemySpawnParent);
+            Fairy prefabFairy = enemyData.FairyPrefab.GetComponent<Fairy>();
+            bool isMelee = prefabFairy != null && prefabFairy.fairyType == FairyType.Melee;
+
+            Vector3 spawnPos = isMelee
+                ? (enemyMeleeSpawnArea != null ? enemyMeleeSpawnArea.GetRandomPointInArea() : enemySpawnParent.position)
+                : (enemyRangedSpawnArea != null ? enemyRangedSpawnArea.GetRandomPointInArea() : enemySpawnParent.position);
+
+            // Example: Enemies look left (270°)
+            Quaternion lookRotation = Quaternion.LookRotation(Vector3.left, Vector3.up);
+
+            var enemyGO = Instantiate(enemyData.FairyPrefab, spawnPos, lookRotation, enemySpawnParent);
             var fairy = enemyGO.GetComponent<Fairy>();
             if (fairy != null)
             {

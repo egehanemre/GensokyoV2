@@ -17677,9 +17677,9 @@ GameObject:
   - component: {fileID: 4043183800376343468}
   - component: {fileID: 1594517119087233280}
   - component: {fileID: 9047404439431988385}
-  - component: {fileID: 1690018293142281225}
   - component: {fileID: 8151111621709190555}
   - component: {fileID: -8389984572899104715}
+  - component: {fileID: -2663700954578493555}
   m_Layer: 6
   m_Name: Slave_Ally
   m_TagString: Fairy
@@ -17811,7 +17811,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!114 &9047404439431988385
 MonoBehaviour:
@@ -17848,29 +17848,6 @@ MonoBehaviour:
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   displayState: Idle
---- !u!136 &1690018293142281225
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8473615729581583075}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.47985888
-  m_Height: 1.5127468
-  m_Direction: 1
-  m_Center: {x: -0.0351761, y: 0.79175854, z: 5.579332e-17}
 --- !u!114 &8151111621709190555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17903,6 +17880,29 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!136 &-2663700954578493555
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8473615729581583075}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.6127394
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7310272, z: 0}
 --- !u!1 &8496565585568047993
 GameObject:
   m_ObjectHideFlags: 0

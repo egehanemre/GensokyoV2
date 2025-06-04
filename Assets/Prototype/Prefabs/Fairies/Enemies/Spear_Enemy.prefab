@@ -5956,7 +5956,7 @@ GameObject:
   - component: {fileID: 3910143073387452623}
   - component: {fileID: 396614114610829110}
   - component: {fileID: 4346724920497585388}
-  - component: {fileID: 821687196557160219}
+  - component: {fileID: -6556906558008309336}
   m_Layer: 6
   m_Name: Spear_Enemy
   m_TagString: Fairy
@@ -6088,7 +6088,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!114 &396614114610829110
 MonoBehaviour:
@@ -6139,8 +6139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Match: {fileID: 0}
   Target: {fileID: 0}
---- !u!65 &821687196557160219
-BoxCollider:
+--- !u!136 &-6556906558008309336
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6157,9 +6157,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.5232513, z: 0.5898731}
-  m_Center: {x: -5.0279293e-17, y: 0.8770772, z: 0.019163087}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.6127394
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7310272, z: 0}
 --- !u!1 &2843165342966668588
 GameObject:
   m_ObjectHideFlags: 0

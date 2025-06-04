@@ -4363,9 +4363,9 @@ GameObject:
   - component: {fileID: 2179639366754945671}
   - component: {fileID: 5534800832926604735}
   - component: {fileID: 1076217843285896133}
-  - component: {fileID: 1837944884512938504}
   - component: {fileID: 273275606508137736}
   - component: {fileID: -1321630089170866027}
+  - component: {fileID: -4858050854711603689}
   m_Layer: 6
   m_Name: Ranger_Ally
   m_TagString: Fairy
@@ -4498,7 +4498,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1076217843285896133
 MonoBehaviour:
@@ -4512,7 +4512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: 85843deb-e8f1-4a1e-b903-8d65ec104dcf
+  UniqueId: 5981b9ba-83c6-4fec-b182-aeb92104f7bf
   Team: 0
   fairyType: 1
   fairyBehavior: 0
@@ -4535,29 +4535,6 @@ MonoBehaviour:
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   displayState: Idle
---- !u!136 &1837944884512938504
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038799906264281389}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.5283273
-  m_Direction: 1
-  m_Center: {x: -0, y: 0.77343136, z: 0}
 --- !u!114 &273275606508137736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4590,6 +4567,29 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!136 &-4858050854711603689
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038799906264281389}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.6127394
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7310272, z: 0}
 --- !u!1 &2065152247612406003
 GameObject:
   m_ObjectHideFlags: 0

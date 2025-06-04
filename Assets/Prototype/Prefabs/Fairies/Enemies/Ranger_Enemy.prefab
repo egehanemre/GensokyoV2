@@ -4363,8 +4363,8 @@ GameObject:
   - component: {fileID: 2179639366754945671}
   - component: {fileID: 5534800832926604735}
   - component: {fileID: 1076217843285896133}
-  - component: {fileID: 1837944884512938504}
   - component: {fileID: 273275606508137736}
+  - component: {fileID: -4779136333027844333}
   m_Layer: 6
   m_Name: Ranger_Enemy
   m_TagString: Fairy
@@ -4497,7 +4497,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1076217843285896133
 MonoBehaviour:
@@ -4534,7 +4534,21 @@ MonoBehaviour:
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   displayState: Idle
---- !u!136 &1837944884512938504
+--- !u!114 &273275606508137736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038799906264281389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e21b6bb97ca3f346b6ace2a62e47c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Match: {fileID: 0}
+  Target: {fileID: 0}
+--- !u!136 &-4779136333027844333
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4554,23 +4568,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5283273
+  m_Height: 1.6127394
   m_Direction: 1
-  m_Center: {x: -0, y: 0.77343136, z: 0}
---- !u!114 &273275606508137736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038799906264281389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e21b6bb97ca3f346b6ace2a62e47c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Match: {fileID: 0}
-  Target: {fileID: 0}
+  m_Center: {x: 0, y: 0.7310272, z: 0}
 --- !u!1 &2065152247612406003
 GameObject:
   m_ObjectHideFlags: 0
