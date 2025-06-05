@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
     [SerializeField] private TextMeshProUGUI stageText;
+    [SerializeField] private TextMeshProUGUI stageText2;
 
     private void Awake()
     {
@@ -24,9 +26,19 @@ public class StageManager : MonoBehaviour
 
     public void UpdateStageUI()
     {
-        if (stageText != null)
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "WaitingRoom") 
         {
-            stageText.text = "Stage: " + EnemyUnits.Instance.currentStageIndex.ToString();
+            stageText.text = EnemyUnits.Instance.currentStageIndex.ToString();
+            stageText.gameObject.SetActive(true);
+            stageText2.gameObject.SetActive(false);
+        }
+        if (sceneName == "CombatScene")
+        {
+            stageText.gameObject.SetActive(false);
+            stageText2.text = EnemyUnits.Instance.currentStageIndex.ToString();
+            stageText2.gameObject.SetActive(true);
         }
     }
 

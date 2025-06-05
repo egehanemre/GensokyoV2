@@ -13,6 +13,9 @@ public class FairyShop : MonoBehaviour
         Enemy
     }
 
+    public GameObject cornerImg;
+    public GameObject cornerImg2;
+
     public FairyData fairyData; // For prep mode, holds the data instead of the prefab
     public GameObject fairyDisplay;
     public GameObject objectParent;
@@ -119,15 +122,24 @@ public class FairyShop : MonoBehaviour
     private void UpdateButtonColor()
     {
         var colors = button.colors;
+        var colors2 = cornerImg.GetComponent<Image>();
+        var colors3 = cornerImg2.GetComponent<Image>();
+
         if (isSelected)
         {
             colors.normalColor = Color.green;
             colors.selectedColor = Color.green;
+
+            colors2.color = Color.green;
+            colors3.color = Color.green;
         }
         else
         {
             colors.normalColor = Color.white;
             colors.selectedColor = Color.white;
+
+            colors2.color = Color.white;
+            colors3.color = Color.white;
         }
         button.colors = colors;
     }

@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class CombatPrepManager : MonoBehaviour
 {
     [SerializeField] private PlayerUnits playerUnits;
+
     [SerializeField] private GameObject prepUnitPrefab;
+    [SerializeField] private GameObject prepEnemyPrefab;
+
     [SerializeField] private GameObject prepUnitsParent;
     [SerializeField] private GameObject prepEnemiesParent;
     [SerializeField] private Button prepButton;
@@ -72,7 +75,7 @@ public class CombatPrepManager : MonoBehaviour
         }
         foreach (FairyData enemyData in EnemyUnits.Instance.EnemyFairies)
         {
-            GameObject prepEntry = Instantiate(prepUnitPrefab, prepEnemiesParent.transform);
+            GameObject prepEntry = Instantiate(prepEnemyPrefab, prepEnemiesParent.transform); // Changed here
             FairyShop fairyShop = prepEntry.GetComponent<FairyShop>();
             if (fairyShop != null)
             {

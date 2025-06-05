@@ -25,6 +25,10 @@ public class ClickableNPC : MonoBehaviour
     }
     private void OnMouseEnter()
     {
+        if (UIPanel.activeSelf || CombatPanel.activeSelf)
+        {
+            return;
+        }
         outline.enabled = true;
         NPCText.SetActive(true);
     }
@@ -43,6 +47,8 @@ public class ClickableNPC : MonoBehaviour
     }
     private void OpenPanel()
     {
+        outline.enabled = false;
+        NPCText.SetActive(false); 
         if (npcType == NPCType.Shop)
         {
             UIPanel.SetActive(true);
