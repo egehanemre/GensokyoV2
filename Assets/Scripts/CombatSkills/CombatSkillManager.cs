@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatSkillManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CombatSkillManager : MonoBehaviour
 
     [HideInInspector] public CombatSkill[] allSkills;
     [HideInInspector] public CombatSkillVisual[] allSkillVisuals;
+    [SerializeField] private Image manaBarImage; // Assign in inspector
 
     public Texture2D defaultCursor;
     public Texture2D shieldCursor;
@@ -22,6 +24,7 @@ public class CombatSkillManager : MonoBehaviour
     private float[] skillCooldowns;
     private Fairy selectedFairy;
     public CombatSkill currentSkill;
+    [SerializeField] private Image cooldownBarImage; // Assign in inspector
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -50,6 +53,12 @@ public class CombatSkillManager : MonoBehaviour
         manaGainActive = active;
     }
 
+    private void UpdateManaBar()
+    {
+        if (manaBarImage != null)
+            manaBarImage.fillAmount = Mathf.Clamp01((float)mana / maxMana);
+    }
+
     private void UpdateMana()
     {
         if (mana < maxMana)
@@ -66,7 +75,8 @@ public class CombatSkillManager : MonoBehaviour
     private void UpdateManaText()
     {
         if (manaText != null)
-            manaText.text = $"Mana: {mana}/{maxMana}";
+            manaText.text = mana.ToString() + "/" + maxMana.ToString();
+        UpdateManaBar();
     }
     private void UpdateSkillCooldowns()
     {
@@ -82,6 +92,8 @@ public class CombatSkillManager : MonoBehaviour
         {
             if (allSkillVisuals[i] != null && allSkills[i] != null && allSkills[i].skillData != null)
             {
+                float maxCooldown = GetSkillCooldown(allSkills[i].skillData);
+                allSkillVisuals[i].SetMaxCooldown(maxCooldown);
                 allSkillVisuals[i].UpdateSkillVisual(
                     allSkills[i].skillData.cost,
                     Mathf.Max(skillCooldowns[i], 0f)

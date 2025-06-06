@@ -9,7 +9,6 @@ public class OnHitState : FairyState
     private float knockbackElapsed = 0f;
     private bool knockbackDone = false;
     private float knockbackForce;
-
     public OnHitState(Fairy fairy, float damage, Vector3 knockbackDirection, float knockbackForce) : base(fairy)
     {
         this.damage = damage;
@@ -18,7 +17,7 @@ public class OnHitState : FairyState
         start = fairy.transform.position;
         target = start + knockbackDirection.normalized * knockbackForce * 0.2f;
     }
-
+    
     public override void Enter()
     {
         fairy.fairyCurrentStats.currentHealth -= damage;
@@ -32,6 +31,19 @@ public class OnHitState : FairyState
 
         fairy.TriggerAnim("Hit");
         fairy.CurrentMoveSpeed = 0f;
+
+        // Only apply knockback if cooldown has expired
+        if (fairy.CanReceiveKnockback())
+        {
+            fairy.RegisterKnockback();
+            knockbackDone = false;
+            knockbackElapsed = 0f;
+        }
+        else
+        {
+            knockbackDone = true; // Skip knockback, go straight to stunned
+            fairy.ChangeState(new StunnedState(fairy, 1f));
+        }
     }
     public override void Update()
     {

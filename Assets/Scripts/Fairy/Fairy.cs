@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(TrackSystem))]
 public class Fairy : MonoBehaviour
 {
+    public float KnockbackCooldown = 1.5f; // seconds
+    private float nextKnockbackTime = 0f;
+
     // === Identity & Classification ===
     public string UniqueId;
     public Team Team;
@@ -270,5 +273,15 @@ public class Fairy : MonoBehaviour
         Vector3 offset = new Vector3(0, 1f, 0);
         GameObject go = Instantiate(floatingGoldPrefab, transform.position + offset, Quaternion.identity);
         go.GetComponent<FloatingGold>().text.text = "+" + gold.ToString() + "c";
+    }
+
+    public bool CanReceiveKnockback()
+    {
+        return Time.time >= nextKnockbackTime;
+    }
+
+    public void RegisterKnockback()
+    {
+        nextKnockbackTime = Time.time + KnockbackCooldown;
     }
 }
