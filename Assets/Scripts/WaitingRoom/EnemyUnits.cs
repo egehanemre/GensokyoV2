@@ -64,4 +64,9 @@ public class EnemyUnits : MonoBehaviour
         }
         currentStageIndex = stageIndex;
     }
+    public void ResetGame()
+    {
+        currentStageIndex = Stages.Stage1; // or your starting stage
+        LoadStage(currentStageIndex);
+    }
 }

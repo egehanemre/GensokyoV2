@@ -9,6 +9,8 @@ public class PlayerUnits : MonoBehaviour
     [SerializeField] private List<FairyData> ownedFairies = new List<FairyData>();
     public List<FairyData> OwnedFairies => ownedFairies;
 
+    public const int MaxUnits = 6;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,14 +34,17 @@ public class PlayerUnits : MonoBehaviour
                 ownedFairies.Add(new FairyData(uniqueId, fairyPrefab));
             }
         }
-        startingFairies.Clear();
     }
 
-    public void AddFairy(GameObject fairyPrefab)
+    public bool AddFairy(GameObject fairyPrefab)
     {
+        if (ownedFairies.Count >= MaxUnits)
+            return false; 
+
         string uniqueId = System.Guid.NewGuid().ToString();
         ownedFairies.Add(new FairyData(uniqueId, fairyPrefab));
         fairyPrefab.GetComponent<Fairy>().UniqueId = uniqueId;
+        return true;
     }
 
     public void RemoveFairy(string uniqueId)
@@ -61,5 +66,11 @@ public class PlayerUnits : MonoBehaviour
             }
         }
         return total;
+    }
+
+    public void ResetGame()
+    {
+        ownedFairies.Clear();
+        InitializeStartingFairies();
     }
 }

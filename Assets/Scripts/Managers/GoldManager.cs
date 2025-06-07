@@ -3,9 +3,10 @@ using TMPro;
 
 public class GoldManager : MonoBehaviour
 {
+    public static float startingGold = 50f; // Initial gold amount
     public static GoldManager Instance { get; private set; }
 
-    [SerializeField] public float gold = 50f;
+    [SerializeField] public float gold;
     [SerializeField] public TextMeshProUGUI goldText;
     public Canvas goldCanvas;
     public float Gold => gold;
@@ -18,6 +19,7 @@ public class GoldManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
+        gold = startingGold; 
         UpdateGoldUI();
     }
 
@@ -50,5 +52,9 @@ public class GoldManager : MonoBehaviour
     {
         if (goldText != null)
             goldText.text = gold.ToString();
+    }
+    public void ResetGame()
+    {
+        SetGold(startingGold);
     }
 }

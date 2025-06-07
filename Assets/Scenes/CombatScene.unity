@@ -34867,7 +34867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1120561401
 Transform:
   m_ObjectHideFlags: 0
@@ -53937,6 +53937,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d132f0b6aca6e604aad16d1c3eb69946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenas:
+  - {fileID: 861755028}
+  - {fileID: 1572589569}
+  - {fileID: 769467564}
+  - {fileID: 1120561400}
+  - {fileID: 861755028}
   allyLookTarget: {fileID: 117841215}
   enemyLookTarget: {fileID: 424605502}
   allyMeleeSpawnArea: {fileID: 372937749}

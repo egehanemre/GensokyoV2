@@ -7,7 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
+    public static int consecutiveLosses = 0;
     #region Singleton & Inspector Fields
+
+    [Header("Arenas")]
+    [SerializeField] private GameObject[] arenas; // Assign in Inspector, order should match Stages enum
 
     [Header("Look Targets")]
     public Transform allyLookTarget;
@@ -62,6 +66,7 @@ public class CombatManager : MonoBehaviour
     {
         SetupUI();
         ClearFairyLists();
+        EnableArenaForCurrentStage(); 
         SpawnAllies();
         SpawnEnemies();
         StartCoroutine(CombatCountdownCoroutine());
@@ -210,19 +215,48 @@ public class CombatManager : MonoBehaviour
     {
         if (alliesWin)
         {
+            consecutiveLosses = 0; // Reset on win
             Debug.Log("Allies Win!");
             UpdateWinLoseText(alliesWin);
             StartCombatEndSequence();
-            EnemyUnits.Instance.currentStageIndex++;
+
+            if (EnemyUnits.Instance.currentStageIndex == Stages.Stage5) //hardcoded last stage index.
+            {
+                ShowWinScreen();
+            }
+            else
+            {
+                EnemyUnits.Instance.currentStageIndex++;
+                EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
+            }
         }
         else
         {
+            consecutiveLosses++;
             UpdateWinLoseText(alliesWin);
             Debug.Log("Enemies Win!");
             StartCombatEndSequence();
+
+            if (consecutiveLosses == 2)
+            {
+                ShowGameOverScreen();
+
+            }
+            else
+            {
+                EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
+            }
         }
         Time.timeScale = 1f;
-        EnemyUnits.Instance.LoadStage(EnemyUnits.Instance.currentStageIndex);
+    }
+    private void ShowWinScreen()
+    {
+        SceneManager.LoadScene("WinScene");
+    }
+
+    private void ShowGameOverScreen()
+    {
+        SceneManager.LoadScene("GameOverScene");
     }
 
     private void StartCombatEndSequence()
@@ -286,6 +320,23 @@ public class CombatManager : MonoBehaviour
             winLoseText.color = Color.red;
         }
     }
+    private void EnableArenaForCurrentStage()
+    {
+        // Disable all arenas first
+        foreach (var arena in arenas)
+        {
+            if (arena != null)
+                arena.SetActive(false);
+        }
+
+        // Enable the arena for the current stage
+        int stageIndex = (int)EnemyUnits.Instance.currentStageIndex;
+        if (stageIndex >= 0 && stageIndex < arenas.Length && arenas[stageIndex] != null)
+        {
+            arenas[stageIndex].SetActive(true);
+        }
+    }
+
 
     #endregion
 }
