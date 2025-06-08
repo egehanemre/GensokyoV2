@@ -17825,7 +17825,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueId: c9d681fb-95e8-45dc-abe5-a83a9da1ebdf
+  KnockbackCooldown: 1.5
+  UniqueId: b892905f-071c-460c-a7f8-20457f179f09
   Team: 0
   fairyType: 0
   fairyBehavior: 2
@@ -17844,7 +17845,7 @@ MonoBehaviour:
   healthDisplay: 0
   damageParticles: {fileID: 5991545297567742199, guid: 36a3ddd9e9258474aa29a08939eeda45, type: 3}
   blockParticles: {fileID: 4508117539550737482, guid: da34d66431c8cd04aa98411a543a83bf, type: 3}
-  projectileParticles: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+  projectileParticles: {fileID: 6837061768053742934, guid: c041548ad5f52014d8ae27de23cf2764, type: 3}
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   displayState: Idle

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class CombatPrepManager : MonoBehaviour
 {
+    public Animator transitionAnimator;
+
     [SerializeField] private PlayerUnits playerUnits;
 
     [SerializeField] private GameObject prepUnitPrefab;
@@ -103,7 +106,23 @@ public class CombatPrepManager : MonoBehaviour
 
             CombatPrepData.SelectedEnemies = EnemyUnits.Instance.EnemyFairies.ToList();
 
-            SceneManager.LoadScene("CombatScene");
+            StartCoroutine(PlayTransitionAndLoadScene());
         }
+    }
+
+    private IEnumerator PlayTransitionAndLoadScene()
+    {
+        transitionAnimator.SetTrigger("Start");
+        yield return new WaitForSeconds(1f);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("CombatScene");
+        asyncLoad.allowSceneActivation = false;
+
+        while (asyncLoad.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        asyncLoad.allowSceneActivation = true;
     }
 }

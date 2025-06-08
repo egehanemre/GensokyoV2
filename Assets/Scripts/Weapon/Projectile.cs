@@ -26,8 +26,10 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 targetPos = target.position;
+        targetPos.y = transform.position.y;
 
+        Vector3 direction = (targetPos - transform.position).normalized;
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
         transform.rotation = Quaternion.LookRotation(direction);

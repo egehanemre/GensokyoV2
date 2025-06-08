@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
+    public Animator transitionAnimator;
     public static int consecutiveLosses = 0;
     #region Singleton & Inspector Fields
 
@@ -239,8 +240,7 @@ public class CombatManager : MonoBehaviour
 
             if (consecutiveLosses == 2)
             {
-                ShowGameOverScreen();
-
+                StartCoroutine(PlayTransitionAndShowGameOverScreen());
             }
             else
             {
@@ -253,15 +253,19 @@ public class CombatManager : MonoBehaviour
     {
         SceneManager.LoadScene("WinScene");
     }
-
-    private void ShowGameOverScreen()
+    private IEnumerator PlayTransitionAndShowGameOverScreen()
     {
+        Time.timeScale = 1f;
+        if (transitionAnimator != null)
+        {
+            transitionAnimator.SetTrigger("Start");
+            yield return new WaitForSeconds(1f); // Adjust to your animation's length
+        }
         SceneManager.LoadScene("GameOverScene");
     }
 
     private void StartCombatEndSequence()
     {
-        StartCoroutine(SlowDownAndFreezeEffect());
         combatCanvasUI.enabled = true;
         RewardsManager.Instance.goldReward = GoldManager.Instance.gold - goldRewardHolder;
         goldRewardHolder = 0f;
@@ -270,31 +274,30 @@ public class CombatManager : MonoBehaviour
         speedCanvasButtonUI.enabled = false;
         skillCanvas.enabled = false;
     }
+    //private IEnumerator SlowDownAndFreezeEffect()
+    //{
+    //    float targetTimeScale = 0.1f;
+    //    float slowDuration = 0.5f;
+    //    float freezeDuration = 4f;
 
-    private IEnumerator SlowDownAndFreezeEffect()
-    {
-        float targetTimeScale = 0.1f;
-        float slowDuration = 0.5f;
-        float freezeDuration = 4f;
+    //    float startScale = Time.timeScale;
+    //    float t = 0f;
 
-        float startScale = Time.timeScale;
-        float t = 0f;
+    //    while (t < slowDuration)
+    //    {
+    //        t += Time.unscaledDeltaTime;
+    //        Time.timeScale = Mathf.Lerp(startScale, targetTimeScale, t / slowDuration);
+    //        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+    //        yield return null;
+    //    }
+    //    Time.timeScale = targetTimeScale;
+    //    Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        while (t < slowDuration)
-        {
-            t += Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Lerp(startScale, targetTimeScale, t / slowDuration);
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            yield return null;
-        }
-        Time.timeScale = targetTimeScale;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+    //    yield return new WaitForSecondsRealtime(freezeDuration);
 
-        yield return new WaitForSecondsRealtime(freezeDuration);
-
-        Time.timeScale = 0f;
-        Time.fixedDeltaTime = 0.02f;
-    }
+    //    Time.timeScale = 0f;
+    //    Time.fixedDeltaTime = 0.02f;
+    //}
 
     #endregion
 
@@ -302,8 +305,19 @@ public class CombatManager : MonoBehaviour
 
     public void ContinueToNextScene()
     {
-        SceneManager.LoadScene("WaitingRoom");
+        StartCoroutine(PlayTransitionAndLoadScene());
+    }
+
+    private IEnumerator PlayTransitionAndLoadScene()
+    {
         Time.timeScale = 1f;
+        if (transitionAnimator != null)
+        {
+            transitionAnimator.SetTrigger("Start");
+            // Wait for the transition animation to finish (adjust the time to your animation's length)
+            yield return new WaitForSeconds(1f);
+        }
+        SceneManager.LoadScene("WaitingRoom");
         StageManager.Instance.ToggleStageTextVisibility();
     }
 
