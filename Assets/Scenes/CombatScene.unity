@@ -41172,7 +41172,7 @@ MonoBehaviour:
   dmgBoostCursor: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
   mana: 0
   maxMana: 30
-  manaGainPerSec: 1
+  manaGainPerSec: 2
   manaText: {fileID: 2049224529}
   currentSkill: {fileID: 0}
   cooldownBarImage: {fileID: 0}

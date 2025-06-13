@@ -17830,10 +17830,10 @@ MonoBehaviour:
   Team: 0
   fairyType: 0
   fairyBehavior: 2
-  price: 6
+  price: 9
   fairyImageForShop: {fileID: 8473615729581583075, guid: 6bfda00380a21f345a1c782cc5b8a77f, type: 3}
   fairyStatsBase: {fileID: 11400000, guid: f18ee10806f72084dbf13ba4d081ca74, type: 2}
-  weaponDataSO: {fileID: 11400000, guid: d7ff8da9e6a54e3488a16f6ad9f484f7, type: 2}
+  weaponDataSO: {fileID: 11400000, guid: e4bbbbbc3a1e8a240af6301af2b86b23, type: 2}
   bowPosition: {fileID: 0}
   fairyHP: {fileID: 0}
   currentWeaponVisual: {fileID: 3473593789873249914}

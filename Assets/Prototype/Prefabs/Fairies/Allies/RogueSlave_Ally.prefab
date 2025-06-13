@@ -17826,11 +17826,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackCooldown: 1.5
-  UniqueId: b892905f-071c-460c-a7f8-20457f179f09
+  UniqueId: fb9cc5f6-01c5-44ff-b43c-1fd8f6783870
   Team: 0
   fairyType: 0
   fairyBehavior: 2
-  price: 14
+  price: 21
   fairyImageForShop: {fileID: 8473615729581583075, guid: 03f7217b2f1c34e43b6aeaf12fb4fa4d, type: 3}
   fairyStatsBase: {fileID: 11400000, guid: 75d21cdf8592cf244af2714f967d85c9, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 98b5019ae82a3ec4994aab4c2520700d, type: 2}

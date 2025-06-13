@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1f829adb9095c43bcc0cc311a9f5ca, type: 3}
   m_Name: Invulerability
   m_EditorClassIdentifier: 
+  skill: 0
   cost: 12
-  duration: 5
+  duration: 4

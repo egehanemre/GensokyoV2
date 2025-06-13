@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Damage_Boost
   m_EditorClassIdentifier: 
   skill: 1
-  cost: 5
-  duration: 5
-  multiplier: 2.25
+  cost: 6
+  duration: 3
+  multiplier: 6

@@ -6104,11 +6104,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackCooldown: 1.5
-  UniqueId: 67e94e2c-c1ca-453e-91b8-e26d0b5c7dff
+  UniqueId: 7f135af7-53bc-4af6-b6f8-fb7e59e9dd76
   Team: 0
   fairyType: 0
   fairyBehavior: 2
-  price: 30
+  price: 19
   fairyImageForShop: {fileID: 2748362041638276215, guid: 5137db4a22c4e514faf5673e8440e711, type: 3}
   fairyStatsBase: {fileID: 11400000, guid: 337b6168a11528d4388f4e9de8ed2035, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 3425f37305b6d8042996f4eaf3c69814, type: 2}

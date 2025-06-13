@@ -16,10 +16,18 @@ MonoBehaviour:
   easyEnemies:
   - enemyPrefab: {fileID: 2748362041638276215, guid: 4f19b54ac7a5bb54095c5d59d650fd8f, type: 3}
     count: 1
+  - enemyPrefab: {fileID: 8473615729581583075, guid: efb56e4e6412d0a4a9b69fe78dee04fc, type: 3}
+    count: 1
   mediumEnemies:
   - enemyPrefab: {fileID: 2748362041638276215, guid: 4f19b54ac7a5bb54095c5d59d650fd8f, type: 3}
     count: 1
+  - enemyPrefab: {fileID: 8473615729581583075, guid: efb56e4e6412d0a4a9b69fe78dee04fc, type: 3}
+    count: 2
   hardEnemies:
   - enemyPrefab: {fileID: 2748362041638276215, guid: 4f19b54ac7a5bb54095c5d59d650fd8f, type: 3}
+    count: 1
+  - enemyPrefab: {fileID: 8473615729581583075, guid: 429926e8beff2ea4594b79d8fdcd120b, type: 3}
+    count: 1
+  - enemyPrefab: {fileID: 8473615729581583075, guid: efb56e4e6412d0a4a9b69fe78dee04fc, type: 3}
     count: 1
   requiredFairyCount: 5

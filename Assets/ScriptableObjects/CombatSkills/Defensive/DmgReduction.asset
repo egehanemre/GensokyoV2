@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DmgReduction
   m_EditorClassIdentifier: 
   skill: 2
-  cost: 10
-  duration: 5
-  reductionMultiplier: 0.6
+  cost: 6
+  duration: 10
+  reductionMultiplier: 0.5

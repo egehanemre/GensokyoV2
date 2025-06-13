@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933f89d285a1e064184ae0a67c27176e, type: 3}
+  m_Name: SlaveSword
+  m_EditorClassIdentifier: 
+  attackDamage: 10
+  attackCooldown: 2
+  attackRange: 1.5
+  weaponMesh: {fileID: 4300000, guid: 67af3f8b6200770439919bdf2be2b856, type: 3}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  attackDuration: 1

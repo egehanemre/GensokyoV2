@@ -21123,7 +21123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingFairies:
-  - {fileID: 2748362041638276215, guid: c51dc9195fdff7042bd5f65645c8ded0, type: 3}
+  - {fileID: 8473615729581583075, guid: 3190068aadf7f064ca828506feccc428, type: 3}
   ownedFairies: []
 --- !u!4 &1428447291 stripped
 Transform:
@@ -28787,12 +28787,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allUnitsForSale:
-  - {fileID: 8473615729581583075, guid: 947ea12f2e1d5f44a949dce75b937935, type: 3}
   - {fileID: 2038799906264281389, guid: 5482bccfc91f7db4197e3ae3aa25cf61, type: 3}
   - {fileID: 2748362041638276215, guid: c51dc9195fdff7042bd5f65645c8ded0, type: 3}
   - {fileID: 8473615729581583075, guid: 3d360ce475cccbc459c53ae89ad6b9cc, type: 3}
   - {fileID: 8473615729581583075, guid: 766189a8372f7204f97e2cbdedc830bb, type: 3}
   - {fileID: 8473615729581583075, guid: 02d579b45dd1b1b46a66b3cab38a24ef, type: 3}
+  - {fileID: 8473615729581583075, guid: 3190068aadf7f064ca828506feccc428, type: 3}
+  - {fileID: 8473615729581583075, guid: ace3e21babad7bd449eb2d453d73dfd5, type: 3}
   forSaleFairies: []
 --- !u!4 &1993843865
 Transform:

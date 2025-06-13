@@ -4513,11 +4513,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackCooldown: 1.5
-  UniqueId: 52c5f0f7-08cb-458b-9af6-4eb93a097e80
+  UniqueId: dc41f9c1-6534-476b-9f6f-b2f18ad5331a
   Team: 0
   fairyType: 1
   fairyBehavior: 0
-  price: 20
+  price: 22.5
   fairyImageForShop: {fileID: 2038799906264281389, guid: cb2e9dea4a526344eb8072066fd51201, type: 3}
   fairyStatsBase: {fileID: 11400000, guid: 1b924c8094c192749ab9d334644f6ff1, type: 2}
   weaponDataSO: {fileID: 11400000, guid: 0d6a01692399a3345a438ff227623a16, type: 2}

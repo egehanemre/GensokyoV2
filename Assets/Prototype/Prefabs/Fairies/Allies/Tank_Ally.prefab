@@ -17865,7 +17865,7 @@ MonoBehaviour:
   Team: 0
   fairyType: 0
   fairyBehavior: 2
-  price: 11
+  price: 18
   fairyImageForShop: {fileID: 8473615729581583075, guid: 82f4a7084a233a944ba1ad562e012c6f, type: 3}
   fairyStatsBase: {fileID: 11400000, guid: 736e1801e190d5b4aac14b48f8714eda, type: 2}
   weaponDataSO: {fileID: 11400000, guid: e85f2f136ffa6ec4696ff6d759b40f60, type: 2}
