@@ -68,4 +68,9 @@ public class ClickableNPC : MonoBehaviour
         Shop,
         Combat,
     }
+    public void OnClosePanelButton()
+    {
+        ClosePanel();
+    }
+
 }

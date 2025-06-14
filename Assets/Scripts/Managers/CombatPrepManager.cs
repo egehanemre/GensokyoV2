@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -43,6 +44,7 @@ public class CombatPrepManager : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(CombatPrepData.BackupGold);
         if (prepButton != null)
         {
             UpdateButtonText();
@@ -99,16 +101,23 @@ public class CombatPrepManager : MonoBehaviour
         var selectedCount = FairyShop.SelectedShops.Count;
         if (selectedCount >= 1 && selectedCount <= requiredFairyCount)
         {
-            CombatPrepData.SelectedAllies = FairyShop.SelectedShops
+            CombatPrepData.BackupGold = GoldManager.Instance.GetGold();
+
+            CombatPrepData.BackupSelectedAllies = new List<FairyData>(FairyShop.SelectedShops
                 .Select(shop => shop.fairyData)
                 .Where(fd => fd != null)
-                .ToList();
+                .ToList());
 
+            CombatPrepData.BackupOwnedFairies = new List<FairyData>(PlayerUnits.Instance.OwnedFairies);
+
+            CombatPrepData.SelectedAllies = new List<FairyData>(CombatPrepData.BackupSelectedAllies);
             CombatPrepData.SelectedEnemies = EnemyUnits.Instance.EnemyFairies.ToList();
 
             StartCoroutine(PlayTransitionAndLoadScene());
         }
     }
+
+
 
     private IEnumerator PlayTransitionAndLoadScene()
     {

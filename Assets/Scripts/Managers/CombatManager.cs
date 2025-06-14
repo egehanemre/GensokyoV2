@@ -40,6 +40,7 @@ public class CombatManager : MonoBehaviour
     [Header("Managers")]
     public SpeedManager speedManager;
 
+
     #endregion
 
     #region State Fields
@@ -67,11 +68,12 @@ public class CombatManager : MonoBehaviour
     {
         SetupUI();
         ClearFairyLists();
-        EnableArenaForCurrentStage(); 
+        EnableArenaForCurrentStage();
         SpawnAllies();
         SpawnEnemies();
         StartCoroutine(CombatCountdownCoroutine());
     }
+
 
     private void Update()
     {
@@ -212,6 +214,8 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public static bool ShouldRestoreBackup = false;
+
     private void OnCombatEnd(bool alliesWin)
     {
         if (alliesWin)
@@ -237,6 +241,14 @@ public class CombatManager : MonoBehaviour
             UpdateWinLoseText(alliesWin);
             Debug.Log("Enemies Win!");
             StartCombatEndSequence();
+
+            // Restore gold and units for retry
+            GoldManager.Instance.SetGold(CombatPrepData.BackupGold);
+            PlayerUnits.Instance.OwnedFairies.Clear();
+            PlayerUnits.Instance.OwnedFairies.AddRange(CombatPrepData.BackupOwnedFairies);
+
+            // Restore selected allies for the retry
+            CombatPrepData.SelectedAllies = new List<FairyData>(CombatPrepData.BackupSelectedAllies);
 
             if (consecutiveLosses == 2)
             {

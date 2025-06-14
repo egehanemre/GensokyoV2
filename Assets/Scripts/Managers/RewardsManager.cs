@@ -7,7 +7,12 @@ public class RewardsManager : MonoBehaviour
     public GameObject rewardsPrefab;
     public Transform displayParent;
 
-    public float goldReward;
+    private float _goldReward;
+    public float goldReward
+    {
+        get => _goldReward;
+        set => _goldReward = Mathf.Floor(value * 10f) / 10f;
+    }
 
     private void Awake()
     {

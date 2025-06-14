@@ -23,7 +23,6 @@ public class PlayerUnits : MonoBehaviour
 
         InitializeStartingFairies();
     }
-
     public void InitializeStartingFairies()
     {
         foreach (GameObject fairyPrefab in startingFairies)
@@ -72,5 +71,13 @@ public class PlayerUnits : MonoBehaviour
     {
         ownedFairies.Clear();
         InitializeStartingFairies();
+    }
+    public void RestoreFromBackup()
+    {
+        if (CombatPrepData.BackupOwnedFairies != null && CombatPrepData.BackupOwnedFairies.Count > 0)
+        {
+            ownedFairies.Clear();
+            ownedFairies.AddRange(CombatPrepData.BackupOwnedFairies);
+        }
     }
 }

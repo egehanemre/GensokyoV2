@@ -22,24 +22,34 @@ public class GoldManager : MonoBehaviour
         gold = startingGold; 
         UpdateGoldUI();
     }
-
+    private void ClampGoldToOneDecimal()
+    {
+        gold = Mathf.Floor(gold * 10f) / 10f;
+    }
     public void AddGold(float amount)
     {
         gold += amount;
+        ClampGoldToOneDecimal();
         UpdateGoldUI();
     }
-
     public void SpendGold(float amount)
     {
         gold -= amount;
         if (gold < 0) gold = 0;
+        ClampGoldToOneDecimal();
         UpdateGoldUI();
     }
 
     public void SetGold(float amount)
     {
         gold = amount;
+        ClampGoldToOneDecimal();
         UpdateGoldUI();
+    }
+
+    public float GetGold()
+    {
+        return gold;
     }
 
     public void SetGoldText(TextMeshProUGUI newGoldText)

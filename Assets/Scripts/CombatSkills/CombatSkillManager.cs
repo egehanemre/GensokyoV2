@@ -94,9 +94,15 @@ public class CombatSkillManager : MonoBehaviour
             {
                 float maxCooldown = GetSkillCooldown(allSkills[i].skillData);
                 allSkillVisuals[i].SetMaxCooldown(maxCooldown);
+
+                int skillCost = allSkills[i].skillData.cost;
+                float cooldown = Mathf.Max(skillCooldowns[i], 0f);
+                bool hasEnoughMana = mana >= skillCost;
+
                 allSkillVisuals[i].UpdateSkillVisual(
-                    allSkills[i].skillData.cost,
-                    Mathf.Max(skillCooldowns[i], 0f)
+                    skillCost,
+                    cooldown,
+                    hasEnoughMana
                 );
             }
         }
