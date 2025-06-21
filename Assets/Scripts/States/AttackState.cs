@@ -56,12 +56,12 @@ public class AttackState : FairyState
 
     private void PerformAttack()
     {
-        isAttacking = true;
-        attackTimer = fairy.weaponDataSO.attackDuration; 
+        isAttacking = true; // Set this immediately to prevent re-entry
+        attackTimer = fairy.weaponDataSO.attackDuration;
         fairy.RegisterAttackCooldown();
         fairy.TriggerAnim("Attack");
 
-        if (targetFairy != null && (fairy.TrackSystem.Match != null ))
+        if (targetFairy != null && (fairy.TrackSystem.Match != null))
         {
             Vector3 dir = (targetFairy.transform.position - fairy.transform.position).normalized;
             targetFairy.ReactToAttackStart(dir);

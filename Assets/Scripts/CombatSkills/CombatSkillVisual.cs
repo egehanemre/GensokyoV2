@@ -11,7 +11,6 @@ public class CombatSkillVisual : MonoBehaviour
     [SerializeField] private Image extraIcon; // Assign in inspector
 
     private float maxCooldown = 1f;
-
     public void SetMaxCooldown(float cooldown)
     {
         maxCooldown = Mathf.Max(1f, cooldown);

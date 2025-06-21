@@ -115,7 +115,6 @@ public class CombatManager : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
 
             var allyGO = Instantiate(fairyData.FairyPrefab, spawnPos, lookRotation, allySpawnParent);
-            Debug.Log($"Spawning ally: {fairyData.FairyPrefab.name} at {spawnPos}");
             var fairy = allyGO.GetComponent<Fairy>();
             if (fairy != null)
             {

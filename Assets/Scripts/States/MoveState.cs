@@ -13,6 +13,7 @@ public class MoveState : FairyState
         ChooseNewBehavior();
         fairy.CurrentMoveSpeed = fairy.fairyCurrentStats.moveSpeed;
     }
+    
 
     public override void Update()
     {

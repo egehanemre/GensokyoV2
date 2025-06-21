@@ -38,6 +38,7 @@ public class Fairy : MonoBehaviour
     public ParticleSystem projectileParticles;
     public ParticleSystem invulnerableBuffParticles;
     public ParticleSystem damageBoostBuffParticles;
+    public ParticleSystem damageBoostBuffParticles2;
 
     // === Components & Runtime Data ===
     public HealthBar HealthBar { get; private set; }

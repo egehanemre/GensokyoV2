@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37688c0ba605e7f499014f9637de2374, type: 3}
   m_Name: Damage_Boost 1
   m_EditorClassIdentifier: 
-  skill: 1
+  skill: 2
   cost: 4
   duration: 8
   multiplier: 2

@@ -6,6 +6,7 @@ public abstract class CombatSkillData : ScriptableObject
     {
         InvulShield,
         DmgBoost,
+        DmgBoost2,
         DmgReduction
     }
 

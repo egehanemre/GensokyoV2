@@ -44,7 +44,6 @@ public class CombatPrepManager : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(CombatPrepData.BackupGold);
         if (prepButton != null)
         {
             UpdateButtonText();

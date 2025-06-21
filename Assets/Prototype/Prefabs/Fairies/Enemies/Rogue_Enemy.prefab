@@ -17825,6 +17825,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fairyDamagedSFX: {fileID: 8300000, guid: 519ff479aec640147a83d559ecff1e7b, type: 3}
+  fairyProjectileAttackSFX: {fileID: 8300000, guid: 11d8edf664b5018419784300abe60e74, type: 3}
+  fairyBlockSFX: {fileID: 8300000, guid: f51733f724466824a968ca145070e566, type: 3}
   KnockbackCooldown: 1.5
   UniqueId: 9819c59f-5d1e-40d5-838a-b18565f2fc7e
   Team: 0

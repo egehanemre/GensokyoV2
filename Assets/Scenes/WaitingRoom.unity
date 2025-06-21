@@ -27641,6 +27641,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1552144731372303797, guid: 0418c41d91215d14ba7c90b05c1e874b, type: 3}
   m_PrefabInstance: {fileID: 949383983}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895244712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1895244714}
+  - component: {fileID: 1895244713}
+  m_Layer: 0
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1895244713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895244712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cabf03137e11545800091232080087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxObject: {fileID: 1309462805293029796, guid: 1bae0afc458dd7a479ae048ce7f73623, type: 3}
+  moveSFX: {fileID: 0}
+  attackSFX: {fileID: 0}
+  blockSFX: {fileID: 0}
+  projectileAttackSFX: {fileID: 0}
+  damagedSFX:
+  - {fileID: 8300000, guid: 4652385bb99cfa54da3429a635af3d9b, type: 3}
+  - {fileID: 8300000, guid: fe5e4953b911fc643a85b8506cb5c1fa, type: 3}
+  - {fileID: 8300000, guid: 62e730c224f8c6f4e9d8629d41b03fd8, type: 3}
+--- !u!4 &1895244714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895244712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1044.7191, y: 427.81033, z: -400.17133}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1901083642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4919850464334025162, guid: f73c4dec878c9544ba1fe5ec77aabccc, type: 3}
@@ -32032,3 +32085,4 @@ SceneRoots:
   - {fileID: 2088312815}
   - {fileID: 584233206}
   - {fileID: 291561604}
+  - {fileID: 1895244714}

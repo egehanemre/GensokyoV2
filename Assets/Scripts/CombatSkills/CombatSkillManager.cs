@@ -218,6 +218,9 @@ public class CombatSkillManager : MonoBehaviour
             case CombatSkillData.SkillType.DmgBoost:
                 Cursor.SetCursor(dmgBoostCursor, Vector2.zero, CursorMode.Auto);
                 break;
+            case CombatSkillData.SkillType.DmgBoost2:
+                Cursor.SetCursor(dmgBoostCursor, Vector2.zero, CursorMode.Auto);
+                break;
             case CombatSkillData.SkillType.DmgReduction:
                 Cursor.SetCursor(shieldCursor, Vector2.zero, CursorMode.Auto);
                 break;
