@@ -17714,7 +17714,7 @@ GameObject:
   - component: {fileID: 9047404439431988385}
   - component: {fileID: 8151111621709190555}
   - component: {fileID: -3780605551217299144}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TheBeast_Enemy
   m_TagString: Fairy
   m_Icon: {fileID: 0}
@@ -17859,9 +17859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a66f6dc3e27234db781296b862dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fairyDamagedSFX: {fileID: 8300000, guid: 519ff479aec640147a83d559ecff1e7b, type: 3}
-  fairyProjectileAttackSFX: {fileID: 8300000, guid: 11d8edf664b5018419784300abe60e74, type: 3}
-  fairyBlockSFX: {fileID: 8300000, guid: f51733f724466824a968ca145070e566, type: 3}
   KnockbackCooldown: 1.5
   UniqueId: 
   Team: 1
@@ -17885,6 +17882,7 @@ MonoBehaviour:
   projectileParticles: {fileID: 6837061768053742934, guid: c041548ad5f52014d8ae27de23cf2764, type: 3}
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 4772634663558126228, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
+  damageBoostBuffParticles2: {fileID: 0}
   displayState: Idle
 --- !u!114 &8151111621709190555
 MonoBehaviour:

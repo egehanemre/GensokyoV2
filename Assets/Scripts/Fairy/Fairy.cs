@@ -39,6 +39,7 @@ public class Fairy : MonoBehaviour
     public ParticleSystem invulnerableBuffParticles;
     public ParticleSystem damageBoostBuffParticles;
     public ParticleSystem damageBoostBuffParticles2;
+    public ParticleSystem defenseBoostParticles;
 
     // === Components & Runtime Data ===
     public HealthBar HealthBar { get; private set; }
@@ -71,27 +72,37 @@ public class Fairy : MonoBehaviour
         if (outline != null)
             outline.enabled = false;
     }
-    public ParticleSystem PlayBuffVisual(BuffType buffType, Vector3 position)
+    public ParticleSystem PlayBuffVisual(Buff buff, Vector3 position)
     {
         ParticleSystem particles = null;
-        switch (buffType)
+        Transform parent = this.transform;
+        Vector3 spawnPosition = position;
+
+        switch (buff.Type)
         {
             case BuffType.Invulnerable:
                 particles = invulnerableBuffParticles;
                 break;
             case BuffType.DamageMultiplier:
-                particles = damageBoostBuffParticles;
+                if (buff.SourceSkillType == CombatSkillData.SkillType.DmgBoost2)
+                    particles = damageBoostBuffParticles2;
+                else
+                    particles = damageBoostBuffParticles;
+                if (currentWeaponVisual != null)
+                {
+                    parent = currentWeaponVisual.transform;
+                    spawnPosition = currentWeaponVisual.transform.position;
+                }
                 break;
             case BuffType.DamageReduction:
-                particles = invulnerableBuffParticles;
+                particles = defenseBoostParticles;
                 break;
-
         }
 
         if (particles != null)
         {
-            ParticleSystem instance = Instantiate(particles, position, Quaternion.identity, this.transform);
-            instance.transform.localPosition = this.transform.InverseTransformPoint(position);
+            ParticleSystem instance = Instantiate(particles, spawnPosition, Quaternion.identity, parent);
+            instance.transform.localPosition = Vector3.zero;
             return instance;
         }
         return null;
@@ -130,7 +141,7 @@ public class Fairy : MonoBehaviour
     public void AddBuff(Buff buff)
     {
         activeBuffs.Add(buff);
-        buff.VisualInstance = PlayBuffVisual(buff.Type, transform.position);
+        buff.VisualInstance = PlayBuffVisual(buff, transform.position);
     }
     public float GetDamageMultiplier()
     {
@@ -219,6 +230,7 @@ public class Fairy : MonoBehaviour
             if (blockState.IsBlockingAttackFrom(attackDirection))
             {
                 ShowDamageFeedback("Blocked!");
+                SoundFXManager.Instance.PlaySound(SoundFXManager.Instance.blockSFX, transform, 1f);
                 Instantiate(blockParticles, hitPoint, Quaternion.identity);
                 return;
             }

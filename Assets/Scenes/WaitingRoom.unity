@@ -27671,10 +27671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxObject: {fileID: 1309462805293029796, guid: 1bae0afc458dd7a479ae048ce7f73623, type: 3}
-  moveSFX: {fileID: 0}
-  attackSFX: {fileID: 0}
-  blockSFX: {fileID: 0}
-  projectileAttackSFX: {fileID: 0}
+  blockSFX: {fileID: 8300000, guid: 2c0b2255d125dd84a8ee2bf9514d169b, type: 3}
+  projectileAttackSFX: {fileID: 8300000, guid: 5959c1975f4c95945a0a94642229f636, type: 3}
   damagedSFX:
   - {fileID: 8300000, guid: 4652385bb99cfa54da3429a635af3d9b, type: 3}
   - {fileID: 8300000, guid: fe5e4953b911fc643a85b8506cb5c1fa, type: 3}

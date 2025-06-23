@@ -35,37 +35,11 @@ public class CombatSkill : MonoBehaviour
                 break;
             case CombatSkillData.SkillType.DmgBoost:
                 if (skillData is DmgBoostSkillData dmgData)
-                {
-                    target.AddBuff(new Buff(BuffType.DamageMultiplier, dmgData.multiplier, dmgData.duration));
-                    // --- Visual effect: show damage boost on weapon ---
-                    if (target.currentWeaponVisual != null && target.damageBoostBuffParticles != null)
-                    {
-                        ParticleSystem effect = Object.Instantiate(
-                            target.damageBoostBuffParticles,
-                            target.currentWeaponVisual.transform.position,
-                            Quaternion.identity,
-                            target.currentWeaponVisual.transform
-                        );
-                        effect.Play();
-                    }
-                }
+                    target.AddBuff(new Buff(BuffType.DamageMultiplier, dmgData.multiplier, dmgData.duration, CombatSkillData.SkillType.DmgBoost));
                 break;
             case CombatSkillData.SkillType.DmgBoost2:
                 if (skillData is DmgBoostSkillData dmg2Data)
-                {
-                    target.AddBuff(new Buff(BuffType.DamageMultiplier, dmg2Data.multiplier, dmg2Data.duration));
-                    // --- Visual effect: show damage boost 2 on weapon ---
-                    if (target.currentWeaponVisual != null && target.damageBoostBuffParticles2 != null)
-                    {
-                        ParticleSystem effect = Object.Instantiate(
-                            target.damageBoostBuffParticles2,
-                            target.currentWeaponVisual.transform.position,
-                            Quaternion.identity,
-                            target.currentWeaponVisual.transform
-                        );
-                        effect.Play();
-                    }
-                }
+                    target.AddBuff(new Buff(BuffType.DamageMultiplier, dmg2Data.multiplier, dmg2Data.duration, CombatSkillData.SkillType.DmgBoost2));
                 break;
             case CombatSkillData.SkillType.DmgReduction:
                 if (skillData is DmgReductionSkillData reductionData)

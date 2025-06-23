@@ -30,7 +30,7 @@ public class OnHitState : FairyState
         }
 
         fairy.TriggerAnim("Hit");
-        SoundFXManager.Instance.PlaySound(SoundFXManager.Instance.PlayRandomDamagedSFX(), fairy.transform, 1f);
+        SoundFXManager.Instance.PlaySound(SoundFXManager.Instance.PlayRandomDamagedSFX(), fairy.transform, 0.5f);
         fairy.CurrentMoveSpeed = 0f;
 
         // Only apply knockback if cooldown has expired

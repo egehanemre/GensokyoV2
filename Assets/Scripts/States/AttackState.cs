@@ -75,6 +75,11 @@ public class AttackState : FairyState
 
     private void ShootProjectile()
     {
+        SoundFXManager.Instance.PlaySound(
+            SoundFXManager.Instance.projectileAttackSFX,
+            fairy.transform,
+            0.5f
+        );
         if (fairy.weaponDataSO.projectilePrefab == null || fairy.bowPosition == null) return;
 
         GameObject proj = GameObject.Instantiate(

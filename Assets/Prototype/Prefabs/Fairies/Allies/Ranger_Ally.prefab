@@ -4513,7 +4513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackCooldown: 1.5
-  UniqueId: c3d42554-ee1c-4841-9fd2-aaa25af5e802
+  UniqueId: 14f6a9ca-1573-4348-a39f-2ab3ba73740c
   Team: 0
   fairyType: 1
   fairyBehavior: 0
@@ -4536,6 +4536,7 @@ MonoBehaviour:
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 1954351462540449375, guid: a16727533639b984ab6506b6d533a0f1, type: 3}
   damageBoostBuffParticles2: {fileID: 209167055296931117, guid: 31eb3116216adda4f873aacc564e23a7, type: 3}
+  defenseBoostParticles: {fileID: 5065098290955504498, guid: 0d0a056d71d71144e9f23ac457178334, type: 3}
   displayState: Idle
 --- !u!114 &273275606508137736
 MonoBehaviour:

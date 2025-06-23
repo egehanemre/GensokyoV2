@@ -17715,7 +17715,7 @@ GameObject:
   - component: {fileID: 8151111621709190555}
   - component: {fileID: -6389919905855683751}
   - component: {fileID: 7833329398228563903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tank_Ally
   m_TagString: Fairy
   m_Icon: {fileID: 0}
@@ -17861,7 +17861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackCooldown: 1.5
-  UniqueId: 1d889ce1-9d51-44cc-9ff6-cd836163f41a
+  UniqueId: 56a1ab20-d34c-4f1a-a436-0918faea2746
   Team: 0
   fairyType: 0
   fairyBehavior: 2
@@ -17884,6 +17884,7 @@ MonoBehaviour:
   invulnerableBuffParticles: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
   damageBoostBuffParticles: {fileID: 1954351462540449375, guid: a16727533639b984ab6506b6d533a0f1, type: 3}
   damageBoostBuffParticles2: {fileID: 209167055296931117, guid: 31eb3116216adda4f873aacc564e23a7, type: 3}
+  defenseBoostParticles: {fileID: 5065098290955504498, guid: 0d0a056d71d71144e9f23ac457178334, type: 3}
   displayState: Idle
 --- !u!114 &8151111621709190555
 MonoBehaviour:

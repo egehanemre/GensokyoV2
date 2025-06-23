@@ -7,8 +7,6 @@ public class SoundFXManager : MonoBehaviour
     [SerializeField] private AudioSource sfxObject;
 
     [Header("Fairy SFX")]
-    public AudioClip moveSFX;
-    public AudioClip attackSFX;
     public AudioClip blockSFX;
     public AudioClip projectileAttackSFX;
 

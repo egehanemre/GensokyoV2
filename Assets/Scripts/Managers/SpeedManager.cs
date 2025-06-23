@@ -7,7 +7,7 @@ public class SpeedManager : MonoBehaviour
     [SerializeField] private Button speedButton;
     [SerializeField] private TextMeshProUGUI speedButtonLabel;
 
-    private readonly float[] speedSteps = { 1f, 2f, 4f};
+    private readonly float[] speedSteps = { 1f, 2f};
     private int currentStep = 0;
 
     private void Start()

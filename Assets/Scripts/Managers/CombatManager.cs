@@ -217,6 +217,15 @@ public class CombatManager : MonoBehaviour
 
     private void OnCombatEnd(bool alliesWin)
     {
+        // Play combat end music based on outcome
+        if (MusicManager.Instance != null)
+        {
+            if (alliesWin)
+                MusicManager.Instance.PlayVictoryMusic(1f); // fade in victory music
+            else
+                MusicManager.Instance.PlayDefeatMusic(1f);  // fade in defeat music
+        }
+
         if (alliesWin)
         {
             consecutiveLosses = 0; // Reset on win

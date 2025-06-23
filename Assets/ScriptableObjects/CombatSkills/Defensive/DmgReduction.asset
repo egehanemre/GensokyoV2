@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64734c964dbc6d541818470ad611ba7c, type: 3}
   m_Name: DmgReduction
   m_EditorClassIdentifier: 
-  skill: 2
+  skill: 3
   cost: 6
   duration: 10
   reductionMultiplier: 0.5
