@@ -9,6 +9,7 @@ public class DyingState : FairyState
     public DyingState(Fairy fairy) : base(fairy) { }
     public override void Enter()
     {
+        SoundFXManager.Instance.PlaySound(SoundFXManager.Instance.dieFX, fairy.transform, 0.5f);
         float goldEarned = 0f;
         if (fairy.Team == Team.Ally)
         {

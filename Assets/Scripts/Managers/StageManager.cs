@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
+    public GameObject stageManagerObject;
     public static StageManager Instance { get; private set; }
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private TextMeshProUGUI stageText2;
@@ -55,6 +56,11 @@ public class StageManager : MonoBehaviour
             stageText.gameObject.SetActive(false);
             stageText2.text = EnemyUnits.Instance.currentStageIndex.ToString();
             stageText2.gameObject.SetActive(true);
+        }
+        if (sceneName == "GameOverScene" || sceneName == "VictoryScene")
+        {
+            stageText.gameObject.SetActive(false);
+            stageText2.gameObject.SetActive(false);
         }
     }
 

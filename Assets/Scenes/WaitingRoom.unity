@@ -12335,6 +12335,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9556144, guid: 675bfa49ad0f04c47b900d8546860383, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 39164aad5a45b6e4fb8eec7201d8f0ad, type: 2}
     - target: {fileID: 62990018530516908, guid: 675bfa49ad0f04c47b900d8546860383, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -27677,6 +27681,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4652385bb99cfa54da3429a635af3d9b, type: 3}
   - {fileID: 8300000, guid: fe5e4953b911fc643a85b8506cb5c1fa, type: 3}
   - {fileID: 8300000, guid: 62e730c224f8c6f4e9d8629d41b03fd8, type: 3}
+  dieFX: {fileID: 0}
 --- !u!4 &1895244714
 Transform:
   m_ObjectHideFlags: 0
@@ -31128,6 +31133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717dcc523bebfd543829eb0e0d24aedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManagerObject: {fileID: 2088312813}
   stageText: {fileID: 2078348626}
   stageText2: {fileID: 1483260286}
 --- !u!4 &2088312815
@@ -31428,6 +31434,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9544928, guid: 7b4e51ccca67b514d883b197e0f59efd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 39164aad5a45b6e4fb8eec7201d8f0ad, type: 2}
     - target: {fileID: 3478444184745956418, guid: 7b4e51ccca67b514d883b197e0f59efd, type: 3}
       propertyPath: m_IsActive
       value: 1

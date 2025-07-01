@@ -11,6 +11,7 @@ public class SoundFXManager : MonoBehaviour
     public AudioClip projectileAttackSFX;
 
     public AudioClip[] damagedSFX;
+    public AudioClip dieFX;
 
     private void Awake()
     {

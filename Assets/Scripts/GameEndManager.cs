@@ -7,22 +7,15 @@ public class GameEndManager : MonoBehaviour
     public Animator transitionAnimator;
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
-    }
-    public void GoToWaitingRoom()
-    {
-        StartCoroutine(PlayTransitionAndGoToWaitingRoom());
-    }
-    private IEnumerator PlayTransitionAndGoToWaitingRoom()
-    {
         ResetGameState();
-        Time.timeScale = 1f;
-        if (transitionAnimator != null)
-        {
-            transitionAnimator.SetTrigger("Start");
-            yield return new WaitForSeconds(1f); 
-        }
-        SceneManager.LoadScene("WaitingRoom");
+        StartCoroutine(FadeAndGoToMainMenu());
+    }
+    private IEnumerator FadeAndGoToMainMenu()
+    {
+        if (MusicManager.Instance != null)
+            MusicManager.Instance.FadeOutMusic(1f);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("MainMenu");
     }
     public void RetryStage()
     {
@@ -37,6 +30,7 @@ public class GameEndManager : MonoBehaviour
         EnemyUnits.Instance?.ResetGame();
         GoldManager.Instance?.ResetGame();
         PlayerUnits.Instance?.ResetGame();
+        StageManager.Instance.stageManagerObject.SetActive(true);
         CombatManager.consecutiveLosses = 0;
     }
 }

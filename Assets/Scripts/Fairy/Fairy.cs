@@ -58,6 +58,11 @@ public class Fairy : MonoBehaviour
     [SerializeField] public string displayState = "Idle"; // for debugging purposes
     private void Awake()
     {
+        if (Rigidbody != null)
+        {
+            Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        }
+
         Outline outline = GetComponent<Outline>();
         Animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody>();

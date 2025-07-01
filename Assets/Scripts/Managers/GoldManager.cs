@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GoldManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GoldManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI goldText;
     public Canvas goldCanvas;
     public float Gold => gold;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,9 +21,30 @@ public class GoldManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
-        gold = startingGold; 
+        gold = startingGold;
         UpdateGoldUI();
+        UpdateGoldCanvasVisibility();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateGoldCanvasVisibility();
+    }
+
+    private void UpdateGoldCanvasVisibility()
+    {
+        if (goldCanvas != null)
+        {
+            goldCanvas.enabled = SceneManager.GetActiveScene().name != "MainMenu";
+        }
+    }
+
     private void ClampGoldToOneDecimal()
     {
         gold = Mathf.Floor(gold * 10f) / 10f;

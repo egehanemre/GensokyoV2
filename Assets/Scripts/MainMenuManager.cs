@@ -6,25 +6,15 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private Canvas settingsCanvas;
     [SerializeField] private Animator transitionAnimator; // Assign in Inspector
-
     private void Awake()
     {
         settingsCanvas.enabled = false;
+        MusicManager.Instance?.PlayMusic(MusicManager.Instance.menuMusic, true, 1f);
     }
-
     public void LoadWaitingRoomScene()
     {
         StartCoroutine(PlayTransitionAndLoadScene("WaitingRoom"));
     }
-
-    public void ToggleSettingsCanvas()
-    {
-        if (settingsCanvas != null)
-        {
-            settingsCanvas.enabled = !settingsCanvas.enabled;
-        }
-    }
-
     private IEnumerator PlayTransitionAndLoadScene(string sceneName)
     {
         // Fade out music before transition
